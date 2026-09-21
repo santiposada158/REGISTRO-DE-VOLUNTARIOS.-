@@ -149,6 +149,32 @@
       border: 1px solid var(--border-color);
     }
 
+    .preregistro-banner {
+      grid-column: span 3;
+      background: rgba(200, 75, 0, 0.1);
+      border: 1px dashed var(--dark-orange);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preregistro-banner label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .preregistro-banner input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--dark-orange);
+    }
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -169,6 +195,21 @@
       color: var(--dark-orange-light);
     }
 
+    .checkbox-inline {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .checkbox-inline input {
+      accent-color: var(--dark-orange);
+      cursor: pointer;
+    }
+
     input, select, textarea {
       font-family: inherit;
       font-size: 14px;
@@ -180,6 +221,12 @@
       outline: none;
       transition: all 0.15s ease;
       color-scheme: dark;
+    }
+
+    input:disabled {
+      opacity: 0.55;
+      background-color: #1a1a1a;
+      cursor: not-allowed;
     }
 
     textarea {
@@ -293,7 +340,7 @@
       border-collapse: collapse;
       text-align: left;
       font-size: 13.5px;
-      min-width: 780px;
+      min-width: 820px;
     }
 
     thead th {
@@ -340,6 +387,12 @@
       border: 1px solid #573f1d;
     }
 
+    .badge-preregistro {
+      background-color: #2b2214;
+      color: #ffd082;
+      border: 1px dashed #c84b00;
+    }
+
     .actions-cell {
       display: flex;
       align-items: center;
@@ -377,6 +430,16 @@
 
     .btn-edit:hover {
       background-color: #3b3b3b;
+    }
+
+    .btn-checkin {
+      color: #d9f5c4;
+      background-color: #1c2b14;
+      border-color: #2b441a;
+    }
+
+    .btn-checkin:hover {
+      background-color: #2b441a;
     }
 
     .btn-delete {
@@ -588,9 +651,7 @@
       white-space: pre-wrap;
     }
 
-    /* ==========================================================
-       ESTILOS DEL CALENDARIO (CRONOGRAMA GANTT)
-       ========================================================== */
+    /* CALENDARIO */
     .calendar-container {
       background: var(--surface-bg);
       border: 1px solid var(--border-color);
@@ -765,6 +826,11 @@
       border-bottom: 1px solid #5a3a0e;
     }
 
+    .cal-bar.is-preregistro {
+      opacity: 0.55;
+      border: 1px dashed #ffffff !important;
+    }
+
     .cal-bar.is-start {
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
@@ -812,7 +878,7 @@
       form.notion-form {
         grid-template-columns: 1fr;
       }
-      .form-group.col-span-2, .form-group.col-span-3, .btn-actions-form {
+      .form-group.col-span-2, .form-group.col-span-3, .btn-actions-form, .preregistro-banner {
         grid-column: span 1;
       }
       .page-container {
@@ -865,6 +931,15 @@
         <form class="notion-form" id="voluntarioForm">
           <input type="hidden" id="editingId" value="">
 
+          <!-- BANNER SWITCH PRE-REGISTRO -->
+          <div class="preregistro-banner">
+            <label>
+              <input type="checkbox" id="checkPreRegistro" onchange="alternarModoPreRegistro()">
+              <strong>Pre-registro / Reserva anticipada</strong> (Solo exige datos básicos para reservar cupo)
+            </label>
+            <span id="badgePreRegistroInfo" style="font-size:12px; color:var(--text-muted);">Registro regular</span>
+          </div>
+
           <div class="form-group">
             <label for="fechaLlegada">Fecha de Llegada (DD-MM-AAAA) *</label>
             <div class="date-input-wrapper">
@@ -875,16 +950,20 @@
           </div>
 
           <div class="form-group">
-            <label for="fechaSalida">Fecha de Salida (DD-MM-AAAA) *</label>
+            <label for="fechaSalida">Fecha de Salida (DD-MM-AAAA)</label>
             <div class="date-input-wrapper">
-              <input type="text" id="fechaSalida" placeholder="DD-MM-AAAA" pattern="\d{2}-\d{2}-\d{4}" required>
-              <span class="date-picker-trigger" onclick="abrirPicker('pickerSalida')">📅</span>
+              <input type="text" id="fechaSalida" placeholder="DD-MM-AAAA" pattern="\d{2}-\d{2}-\d{4}">
+              <span class="date-picker-trigger" id="pickerSalidaTrigger" onclick="abrirPicker('pickerSalida')">📅</span>
               <input type="date" id="pickerSalida" class="native-hidden-date" onchange="sincronizarFecha('pickerSalida', 'fechaSalida')">
             </div>
+            <label class="checkbox-inline">
+              <input type="checkbox" id="checkIndefinido" onchange="alternarSalidaIndefinida()">
+              <span>Salida indeterminada (indefinida)</span>
+            </label>
           </div>
 
           <div class="form-group">
-            <label for="habitacion">Habitación *</label>
+            <label for="habitacion" id="lblHabitacion">Habitación *</label>
             <select id="habitacion" required>
               <option value="" disabled selected>Selecciona dormitorio...</option>
               <option value="Dorm Roble (Masculino)">🌳 Dorm Roble (Masculino)</option>
@@ -908,7 +987,7 @@
           </div>
 
           <div class="form-group">
-            <label for="genero">Género *</label>
+            <label for="genero" id="lblGenero">Género *</label>
             <select id="genero" required>
               <option value="" disabled selected>Seleccionar...</option>
               <option value="Masculino">Masculino</option>
@@ -917,7 +996,7 @@
           </div>
 
           <div class="form-group">
-            <label for="fechaNacimiento">Fecha de Nacimiento (DD-MM-AAAA) *</label>
+            <label for="fechaNacimiento" id="lblNacimiento">Fecha de Nacimiento (DD-MM-AAAA) *</label>
             <div class="date-input-wrapper">
               <input type="text" id="fechaNacimiento" placeholder="DD-MM-AAAA" pattern="\d{2}-\d{2}-\d{4}" required>
               <span class="date-picker-trigger" onclick="abrirPicker('pickerNacimiento')">📅</span>
@@ -926,7 +1005,7 @@
           </div>
 
           <div class="form-group">
-            <label for="pais">País *</label>
+            <label for="pais" id="lblPais">País *</label>
             <select id="pais" required>
               <option value="" disabled selected>Seleccionar país...</option>
               <option value="Afganistán">Afganistán</option>
@@ -1130,8 +1209,8 @@
           </div>
 
           <div class="form-group">
-            <label for="tipoDocumento">Tipo de Documento *</label>
-            <select id="tipoDocumento" required>
+            <label for="tipoDocumento">Tipo de Documento</label>
+            <select id="tipoDocumento">
               <option value="Cédula de Ciudadanía" selected>Cédula de Ciudadanía (C.C.)</option>
               <option value="Pasaporte">Pasaporte</option>
               <option value="Cédula de Extranjería">Cédula de Extranjería (C.E.)</option>
@@ -1141,28 +1220,28 @@
           </div>
 
           <div class="form-group">
-            <label for="documento">Número de Documento *</label>
+            <label for="documento" id="lblDoc">Número de Documento *</label>
             <input type="text" id="documento" placeholder="Número de identificación" required>
           </div>
 
           <div class="form-group">
-            <label for="telefono">Teléfono / WhatsApp *</label>
+            <label for="telefono" id="lblTel">Teléfono / WhatsApp *</label>
             <input type="tel" id="telefono" placeholder="+57 300 000 0000" required>
           </div>
 
           <div class="form-group col-span-2">
-            <label for="correo">Correo Electrónico *</label>
+            <label for="correo" id="lblEmail">Correo Electrónico *</label>
             <input type="email" id="correo" placeholder="voluntario@email.com" required>
           </div>
 
           <div class="form-group">
-            <label for="direccion">Dirección / Procedencia *</label>
+            <label for="direccion" id="lblDir">Dirección / Procedencia *</label>
             <input type="text" id="direccion" placeholder="Ciudad, País" required>
           </div>
 
           <div class="form-group col-span-3">
             <label for="notas">Notas sobre el voluntario</label>
-            <textarea id="notas" placeholder="Habilidades, turnos, acuerdos o requerimientos..."></textarea>
+            <textarea id="notas" placeholder="Habilidades, turnos, acuerdos, requerimientos o detalles de la reserva..."></textarea>
           </div>
 
           <div class="btn-actions-form">
@@ -1177,7 +1256,7 @@
 
         <hr>
 
-        <!-- SECCIÓN: CALENDARIO DE VOLUNTARIOS -->
+        <!-- SECCIÓN: CALENDARIO -->
         <h2 class="section-heading"><span>📅</span> Calendario de Ocupación y Estancias</h2>
         <div class="calendar-container">
           <div class="cal-header-bar">
@@ -1208,10 +1287,14 @@
               <span class="cal-legend-color" style="background-color: #99641e;"></span>
               <span>Dorm Bamboo (Femenino)</span>
             </div>
+            <div class="cal-legend-item">
+              <span class="cal-legend-color" style="background-color: #2b2214; border: 1px dashed #ffffff;"></span>
+              <span>Pre-registro / Reserva Pendiente</span>
+            </div>
           </div>
         </div>
 
-        <h2 class="section-heading"><span>📋</span> Voluntarios Activos</h2>
+        <h2 class="section-heading"><span>📋</span> Voluntarios Registrados</h2>
         
         <input 
           type="text" 
@@ -1225,7 +1308,7 @@
           <table id="voluntariosTable">
             <thead>
               <tr>
-                <th>Habitación</th>
+                <th>Estado / Habitación</th>
                 <th>Voluntario</th>
                 <th>Llegada - Salida</th>
                 <th>Documento</th>
@@ -1313,11 +1396,25 @@
     const sinRegistros = document.getElementById('sinRegistros');
     const searchInput = document.getElementById('searchInput');
     const inputLlegada = document.getElementById('fechaLlegada');
+    const inputSalida = document.getElementById('fechaSalida');
+    const checkIndefinido = document.getElementById('checkIndefinido');
+    const checkPreRegistro = document.getElementById('checkPreRegistro');
+    const pickerSalidaTrigger = document.getElementById('pickerSalidaTrigger');
     const infoModal = document.getElementById('infoModal');
     const notificationsList = document.getElementById('notificationsList');
     const counterBadge = document.getElementById('counterBadge');
     const btnSubmitForm = document.getElementById('btnSubmitForm');
     const dbStatus = document.getElementById('dbStatus');
+
+    // Labels y campos para alternar obligatoriedad en pre-registro
+    const habitacionSelect = document.getElementById('habitacion');
+    const generoSelect = document.getElementById('genero');
+    const nacimientoInput = document.getElementById('fechaNacimiento');
+    const paisSelect = document.getElementById('pais');
+    const documentoInput = document.getElementById('documento');
+    const telefonoInput = document.getElementById('telefono');
+    const correoInput = document.getElementById('correo');
+    const direccionInput = document.getElementById('direccion');
 
     // Elementos del Calendario
     const calMonthTitle = document.getElementById('calMonthTitle');
@@ -1336,11 +1433,62 @@
     }
 
     function abrirPicker(pickerId) {
+      if (pickerId === 'pickerSalida' && checkIndefinido.checked) return;
       const picker = document.getElementById(pickerId);
       if (picker && typeof picker.showPicker === 'function') {
         picker.showPicker();
       } else if (picker) {
         picker.focus();
+      }
+    }
+
+    function alternarSalidaIndefinida() {
+      if (checkIndefinido.checked) {
+        inputSalida.value = '';
+        inputSalida.disabled = true;
+        inputSalida.placeholder = 'Indeterminado / Indefinido';
+        pickerSalidaTrigger.style.pointerEvents = 'none';
+        pickerSalidaTrigger.style.opacity = '0.3';
+        document.getElementById('pickerSalida').value = '';
+      } else {
+        inputSalida.disabled = false;
+        inputSalida.placeholder = 'DD-MM-AAAA';
+        pickerSalidaTrigger.style.pointerEvents = 'auto';
+        pickerSalidaTrigger.style.opacity = '0.8';
+      }
+    }
+
+    function alternarModoPreRegistro() {
+      const esPre = checkPreRegistro.checked;
+      const badgeInfo = document.getElementById('badgePreRegistroInfo');
+      
+      const camposOpcionales = [
+        habitacionSelect, generoSelect, nacimientoInput, paisSelect,
+        documentoInput, telefonoInput, correoInput, direccionInput
+      ];
+
+      camposOpcionales.forEach(campo => {
+        campo.required = !esPre;
+      });
+
+      // Modificar visualización de los labels
+      document.getElementById('lblHabitacion').textContent = esPre ? 'Habitación (Opcional)' : 'Habitación *';
+      document.getElementById('lblGenero').textContent = esPre ? 'Género (Opcional)' : 'Género *';
+      document.getElementById('lblNacimiento').textContent = esPre ? 'Fecha de Nacimiento (DD-MM-AAAA)' : 'Fecha de Nacimiento (DD-MM-AAAA) *';
+      document.getElementById('lblPais').textContent = esPre ? 'País (Opcional)' : 'País *';
+      document.getElementById('lblDoc').textContent = esPre ? 'Número de Documento (Opcional)' : 'Número de Documento *';
+      document.getElementById('lblTel').textContent = esPre ? 'Teléfono / WhatsApp (Opcional)' : 'Teléfono / WhatsApp *';
+      document.getElementById('lblEmail').textContent = esPre ? 'Correo Electrónico (Opcional)' : 'Correo Electrónico *';
+      document.getElementById('lblDir').textContent = esPre ? 'Dirección / Procedencia (Opcional)' : 'Dirección / Procedencia *';
+
+      if (esPre) {
+        badgeInfo.textContent = 'Modo Pre-registro ACTIVO (datos reducidos)';
+        badgeInfo.style.color = '#ff914d';
+        btnSubmitForm.innerHTML = '<span>✓</span> Guardar Pre-registro';
+      } else {
+        badgeInfo.textContent = 'Registro regular';
+        badgeInfo.style.color = 'var(--text-muted)';
+        btnSubmitForm.innerHTML = document.getElementById('editingId').value ? '<span>✓</span> Actualizar Cambios' : '<span>✓</span> Guardar Voluntario';
       }
     }
 
@@ -1353,9 +1501,9 @@
     }
 
     function fechaVisualAISO(fecha) {
-      if (!fecha) return '';
+      if (!fecha) return null;
       const partes = String(fecha).split('-');
-      if (partes.length !== 3) return String(fecha);
+      if (partes.length !== 3) return null;
       const [day, month, year] = partes;
       return `${year}-${month}-${day}`;
     }
@@ -1383,45 +1531,56 @@
         .replaceAll("'", '&#039;');
     }
 
+    // Comprobamos si tiene la etiqueta [PRE-REGISTRO] en sus notas para no romper la BD si no tiene columna booleana
     function filaDbAFrontend(row) {
+      const notasCompletas = row.notas || '';
+      const esPre = notasCompletas.includes('[PRE-REGISTRO]');
+      const notasLimpias = notasCompletas.replace('[PRE-REGISTRO]', '').trim();
+
       return {
         id: Number(row.id),
         fechaLlegada: fechaISOAVisual(row.fecha_llegada),
-        fechaSalida: fechaISOAVisual(row.fecha_salida),
-        habitacion: row.habitacion,
+        fechaSalida: row.fecha_salida ? fechaISOAVisual(row.fecha_salida) : null,
+        habitacion: row.habitacion || 'Por Asignar',
         nombre: row.nombre,
         primerApellido: row.primer_apellido,
         segundoApellido: row.segundo_apellido || '',
-        genero: row.genero,
-        fechaNacimiento: fechaISOAVisual(row.fecha_nacimiento),
-        pais: row.pais,
-        tipoDocumento: row.tipo_documento,
-        documento: row.documento,
-        telefono: row.telefono,
-        correo: row.correo,
-        direccion: row.direccion,
-        notas: row.notas || '',
+        genero: row.genero || 'No especificado',
+        fechaNacimiento: row.fecha_nacimiento ? fechaISOAVisual(row.fecha_nacimiento) : 'No especificada',
+        pais: row.pais || 'No especificado',
+        tipoDocumento: row.tipo_documento || 'No especificado',
+        documento: row.documento || 'Pendiente',
+        telefono: row.telefono || 'Pendiente',
+        correo: row.correo || 'Pendiente',
+        direccion: row.direccion || 'Pendiente',
+        notas: notasLimpias,
+        esPreRegistro: esPre,
         createdAt: row.created_at
       };
     }
 
-    function voluntarioFrontendADb(v) {
+    function voluntarioFrontendADb(v, esPre) {
+      let notasFinales = v.notas || '';
+      if (esPre) {
+        notasFinales = `[PRE-REGISTRO] ${notasFinales}`.trim();
+      }
+
       return {
         fecha_llegada: fechaVisualAISO(v.fechaLlegada),
-        fecha_salida: fechaVisualAISO(v.fechaSalida),
-        habitacion: v.habitacion,
+        fecha_salida: v.fechaSalida ? fechaVisualAISO(v.fechaSalida) : null,
+        habitacion: v.habitacion || 'Dorm Roble (Masculino)',
         nombre: v.nombre,
         primer_apellido: v.primerApellido,
         segundo_apellido: v.segundoApellido || null,
-        genero: v.genero,
-        fecha_nacimiento: fechaVisualAISO(v.fechaNacimiento),
-        pais: v.pais,
-        tipo_documento: v.tipoDocumento,
-        documento: v.documento,
-        telefono: v.telefono,
-        correo: v.correo,
-        direccion: v.direccion,
-        notas: v.notas || null
+        genero: v.genero || 'Masculino',
+        fecha_nacimiento: v.fechaNacimiento ? fechaVisualAISO(v.fechaNacimiento) : '2000-01-01',
+        pais: v.pais || 'Colombia',
+        tipo_documento: v.tipoDocumento || 'Cédula de Ciudadanía',
+        documento: v.documento || 'PENDIENTE',
+        telefono: v.telefono || 'PENDIENTE',
+        correo: v.correo || 'pendiente@kiwi.com',
+        direccion: v.direccion || 'Pendiente',
+        notas: notasFinales || null
       };
     }
 
@@ -1461,9 +1620,7 @@
       renderizarTabla(filtrados);
     }
 
-    // ==========================================================
-    // LÓGICA Y RENDERIZADO DEL CALENDARIO
-    // ==========================================================
+    // CALENDARIO
     function cambiarMesRelativo(delta) {
       fechaVistaCalendario.setMonth(fechaVistaCalendario.getMonth() + delta);
       renderizarCalendario();
@@ -1476,7 +1633,7 @@
 
     function renderizarCalendario() {
       const year = fechaVistaCalendario.getFullYear();
-      const month = fechaVistaCalendario.getMonth(); // 0 a 11
+      const month = fechaVistaCalendario.getMonth();
       const totalDias = new Date(year, month + 1, 0).getDate();
 
       const nombresMeses = [
@@ -1490,7 +1647,6 @@
       const esMesActual = hoy.getFullYear() === year && hoy.getMonth() === month;
       const diaHoy = hoy.getDate();
 
-      // Cabecera: Registro y cada una de las columnas con los días
       let headHtml = `<tr><th class="cal-row-label" style="text-align:center !important;">Registro / Voluntario</th>`;
       for (let dia = 1; dia <= totalDias; dia++) {
         const diaSemanaIndex = new Date(year, month, dia).getDay();
@@ -1518,63 +1674,68 @@
         return;
       }
 
-      // Rango del mes actual
       const inicioMes = new Date(year, month, 1, 0, 0, 0);
       const finMes = new Date(year, month, totalDias, 23, 59, 59);
 
       voluntarios.forEach(v => {
-        if (!v.fechaLlegada || !v.fechaSalida) return;
+        if (!v.fechaLlegada) return;
 
         const [dIn, mIn, yIn] = v.fechaLlegada.split('-').map(Number);
-        const [dOut, mOut, yOut] = v.fechaSalida.split('-').map(Number);
-
         const fechaIn = new Date(yIn, mIn - 1, dIn, 0, 0, 0);
-        const fechaOut = new Date(yOut, mOut - 1, dOut, 23, 59, 59);
+        
+        let fechaOut = null;
+        const esIndefinido = !v.fechaSalida;
 
-        // Si la estancia no cruza este mes, no dibuja la fila
-        if (fechaOut < inicioMes || fechaIn > finMes) return;
+        if (v.fechaSalida) {
+          const [dOut, mOut, yOut] = v.fechaSalida.split('-').map(Number);
+          fechaOut = new Date(yOut, mOut - 1, dOut, 23, 59, 59);
+        }
+
+        if (fechaOut && fechaOut < inicioMes) return;
+        if (fechaIn > finMes) return;
 
         const tr = document.createElement('tr');
         const habitacionClase = (v.habitacion || '').includes('Roble') ? 'roble' : 'bamboo';
-        const iconoHab = habitacionClase === 'roble' ? '🌳' : '🎋';
+        const iconoHab = v.esPreRegistro ? '📋' : (habitacionClase === 'roble' ? '🌳' : '🎋');
+        const salidaTexto = esIndefinido ? '∞ Indef.' : v.fechaSalida.slice(0, 5);
 
         let rowHtml = `
           <td class="cal-row-label">
             <div class="cal-user-name" onclick="verFicha(${v.id})" title="Ver ficha de ${escaparHTML(v.nombre)}">
-              ${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}
+              ${v.esPreRegistro ? '<span style="color:#ff914d;">[Pre] </span>' : ''}${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}
             </div>
             <div class="cal-user-meta">
               <span>${iconoHab} ${escaparHTML(v.pais)}</span>
               <span>•</span>
-              <span>${v.fechaLlegada.slice(0, 5)} - ${v.fechaSalida.slice(0, 5)}</span>
+              <span>${v.fechaLlegada.slice(0, 5)} - ${salidaTexto}</span>
             </div>
           </td>
         `;
 
         for (let dia = 1; dia <= totalDias; dia++) {
-          const fechaDia = new Date(year, month, dia);
           const isToday = esMesActual && dia === diaHoy;
-
-          // Verifica si el voluntario está en el hostel ese día
           const checkDiaInicio = new Date(year, month, dia, 0, 0, 0);
           const checkDiaFin = new Date(year, month, dia, 23, 59, 59);
-          const ocupa = (fechaIn <= checkDiaFin && fechaOut >= checkDiaInicio);
+
+          const ocupa = esIndefinido ? (fechaIn <= checkDiaFin) : (fechaIn <= checkDiaFin && fechaOut >= checkDiaInicio);
 
           const esDiaLlegada = fechaIn.getFullYear() === year && fechaIn.getMonth() === month && fechaIn.getDate() === dia;
-          const esDiaSalida = fechaOut.getFullYear() === year && fechaOut.getMonth() === month && fechaOut.getDate() === dia;
+          const esDiaSalida = fechaOut && (fechaOut.getFullYear() === year && fechaOut.getMonth() === month && fechaOut.getDate() === dia);
 
           let celdaContenido = '';
           if (ocupa) {
             let clasesBarra = `cal-bar ${habitacionClase}`;
+            if (v.esPreRegistro) clasesBarra += ' is-preregistro';
             if (esDiaLlegada || dia === 1) clasesBarra += ' is-start';
-            if (esDiaSalida || dia === totalDias) clasesBarra += ' is-end';
+            if (esDiaSalida) clasesBarra += ' is-end';
 
             let labelBarra = '';
-            if (esDiaLlegada) labelBarra = 'In';
+            if (esDiaLlegada) labelBarra = v.esPreRegistro ? 'Pre' : 'In';
             else if (esDiaSalida) labelBarra = 'Out';
+            else if (esIndefinido && dia === totalDias) labelBarra = '→';
 
             celdaContenido = `
-              <div class="${clasesBarra}" onclick="verFicha(${v.id})" title="${escaparHTML(v.nombre)}: ${v.fechaLlegada} a ${v.fechaSalida}">
+              <div class="${clasesBarra}" onclick="verFicha(${v.id})" title="${escaparHTML(v.nombre)} (${v.esPreRegistro ? 'Pre-registro' : 'Activo'})">
                 ${labelBarra}
               </div>
             `;
@@ -1638,22 +1799,30 @@
 
       const editingId = document.getElementById('editingId').value;
       const llegada = document.getElementById('fechaLlegada').value.trim();
-      const salida = document.getElementById('fechaSalida').value.trim();
+      const esIndefinido = checkIndefinido.checked;
+      const esPreRegistro = checkPreRegistro.checked;
+      const salida = esIndefinido ? null : document.getElementById('fechaSalida').value.trim();
       const nacimiento = document.getElementById('fechaNacimiento').value.trim();
 
-      if (!esFechaVisualValida(llegada) || !esFechaVisualValida(salida) || !esFechaVisualValida(nacimiento)) {
-        alert('Por favor introduce fechas válidas con el formato: DD-MM-AAAA');
+      if (!esFechaVisualValida(llegada)) {
+        alert('Por favor introduce una fecha de llegada válida (DD-MM-AAAA)');
         return;
       }
 
-      if (fechaVisualAISO(salida) < fechaVisualAISO(llegada)) {
-        alert('La fecha de salida no puede ser anterior a la fecha de llegada.');
+      if (!esPreRegistro && nacimiento && !esFechaVisualValida(nacimiento)) {
+        alert('Por favor introduce una fecha de nacimiento válida (DD-MM-AAAA)');
         return;
       }
 
-      if (SUPABASE_PUBLISHABLE_KEY.includes('PEGA_AQUI')) {
-        alert('Primero debes pegar tu Publishable key de Supabase dentro del archivo HTML.');
-        return;
+      if (!esIndefinido && salida) {
+        if (!esFechaVisualValida(salida)) {
+          alert('Por favor introduce una fecha de salida válida en formato DD-MM-AAAA.');
+          return;
+        }
+        if (fechaVisualAISO(salida) < fechaVisualAISO(llegada)) {
+          alert('La fecha de salida no puede ser anterior a la fecha de llegada.');
+          return;
+        }
       }
 
       const voluntarioData = {
@@ -1674,7 +1843,7 @@
         notas: document.getElementById('notas').value.trim()
       };
 
-      const dbData = voluntarioFrontendADb(voluntarioData);
+      const dbData = voluntarioFrontendADb(voluntarioData, esPreRegistro);
       btnSubmitForm.disabled = true;
       btnSubmitForm.textContent = editingId ? 'Actualizando...' : 'Guardando...';
 
@@ -1704,7 +1873,7 @@
 
           if (error) throw error;
           limpiarFormularioNuevo();
-          mostrarEstado('Voluntario guardado correctamente.', 'ok');
+          mostrarEstado(esPreRegistro ? 'Pre-registro guardado con éxito.' : 'Voluntario guardado correctamente.', 'ok');
         }
 
         await cargarVoluntarios();
@@ -1726,6 +1895,10 @@
     function limpiarFormularioNuevo() {
       form.reset();
       document.getElementById('editingId').value = '';
+      checkIndefinido.checked = false;
+      checkPreRegistro.checked = false;
+      alternarSalidaIndefinida();
+      alternarModoPreRegistro();
       inputLlegada.value = obtenerFechaActual();
       document.getElementById('pickerLlegada').value = fechaVisualAISO(obtenerFechaActual());
       document.getElementById('formTitleIcon').textContent = '✍️';
@@ -1747,16 +1920,24 @@
       datos.forEach(v => {
         const tr = document.createElement('tr');
         const badgeClass = (v.habitacion || '').includes('Roble') ? 'badge-roble' : 'badge-bamboo';
+        const salidaDisplay = v.fechaSalida ? escaparHTML(v.fechaSalida) : '<span style="color:var(--dark-orange-light); font-weight:600;">Indeterminado</span>';
+
+        let badgeEstadoHab = `<span class="badge ${badgeClass}">${escaparHTML(v.habitacion)}</span>`;
+        if (v.esPreRegistro) {
+          badgeEstadoHab = `<span class="badge badge-preregistro">📋 Pre-registro</span> ` + badgeEstadoHab;
+        }
+
+        const botonCheckin = v.esPreRegistro ? `<button class="btn-icon btn-checkin" title="Completar Check-in oficial" onclick="hacerCheckInDirecto(${v.id})">🛎️ Check-in</button>` : '';
 
         tr.innerHTML = `
-          <td><span class="badge ${badgeClass}">${escaparHTML(v.habitacion)}</span></td>
+          <td>${badgeEstadoHab}</td>
           <td>
             <strong>${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)} ${escaparHTML(v.segundoApellido || '')}</strong>
             <div style="font-size:12px; color:var(--text-muted);">${escaparHTML(v.genero)} • ${escaparHTML(v.correo)}</div>
           </td>
           <td>
             <div>In: ${escaparHTML(v.fechaLlegada)}</div>
-            <div style="color:var(--text-muted); font-size:12px;">Out: ${escaparHTML(v.fechaSalida)}</div>
+            <div style="color:var(--text-muted); font-size:12px;">Out: ${salidaDisplay}</div>
           </td>
           <td>
             <div>${escaparHTML(v.documento)}</div>
@@ -1765,7 +1946,8 @@
           <td>${escaparHTML(v.pais)}</td>
           <td>
             <div class="actions-cell">
-              <button class="btn-icon btn-view" title="Ver ficha y notas" onclick="verFicha(${v.id})">🔍 Ficha</button>
+              ${botonCheckin}
+              <button class="btn-icon btn-view" title="Ver ficha y notas" onclick="verFicha(${v.id})">🔍</button>
               <button class="btn-icon btn-edit" title="Editar" onclick="cargarEdicion(${v.id})">✏️</button>
               <button class="btn-icon btn-delete" title="Eliminar" onclick="eliminarVoluntario(${v.id})">🗑️</button>
             </div>
@@ -1783,22 +1965,16 @@
       let enCasaCount = 0;
 
       if (voluntarios.length === 0) {
-        notificationsList.innerHTML = '<div style="color:var(--text-muted); font-size:13px; text-align:center; padding:15px;">No hay voluntarios activos.</div>';
+        notificationsList.innerHTML = '<div style="color:var(--text-muted); font-size:13px; text-align:center; padding:15px;">No hay voluntarios registrados.</div>';
         counterBadge.textContent = '0';
         return;
       }
 
       voluntarios.forEach(v => {
-        if (!v.fechaLlegada || !v.fechaSalida) return;
+        if (!v.fechaLlegada) return;
 
         const [dIn, mIn, yIn] = v.fechaLlegada.split('-').map(Number);
-        const [dOut, mOut, yOut] = v.fechaSalida.split('-').map(Number);
-
         const fechaIn = new Date(yIn, mIn - 1, dIn);
-        const fechaOut = new Date(yOut, mOut - 1, dOut);
-
-        const diffTimeOut = fechaOut - hoy;
-        const diasParaSalir = Math.ceil(diffTimeOut / (1000 * 60 * 60 * 24));
 
         const diffTimeIn = fechaIn - hoy;
         const diasParaLlegar = Math.ceil(diffTimeIn / (1000 * 60 * 60 * 24));
@@ -1810,44 +1986,65 @@
         let borderColor = '';
         let countdownTexto = '';
 
-        if (diasParaLlegar > 0) {
+        if (v.esPreRegistro) {
+          estado = 'Pre-registro';
+          cardBg = '#1c1712';
+          borderColor = '#634419';
+          estadoBadgeBg = '#804000';
+          countdownTexto = diasParaLlegar > 0 ? `Llega en ${diasParaLlegar} días` : 'Listo para ingresar';
+        } else if (diasParaLlegar > 0) {
           estado = `Llega en ${diasParaLlegar}d`;
           cardBg = '#1c1b18';
           borderColor = '#4a3821';
           estadoBadgeBg = '#634419';
           countdownTexto = `Entrada: ${v.fechaLlegada}`;
-        } else if (diasParaSalir >= 0) {
+        } else if (!v.fechaSalida) {
           enCasaCount++;
           estado = 'En Casa';
-          countdownTexto = diasParaSalir === 0 ? '¡Sale Hoy!' : `Salida en ${diasParaSalir} días`;
-
-          if (diasParaSalir <= 1) {
-            cardBg = '#2a0a0a';
-            borderColor = '#8a1c1c';
-            estadoBadgeBg = '#7a1010';
-            estadoBadgeColor = '#ffb3b3';
-          } else if (diasParaSalir <= 3) {
-            cardBg = '#27100b';
-            borderColor = '#ad3411';
-            estadoBadgeBg = '#94290a';
-            estadoBadgeColor = '#ffd0b8';
-          } else if (diasParaSalir <= 7) {
-            cardBg = '#22150d';
-            borderColor = '#c84b00';
-            estadoBadgeBg = '#a83e00';
-            estadoBadgeColor = '#ffffff';
-          } else {
-            cardBg = '#181e14';
-            borderColor = '#2b441a';
-            estadoBadgeBg = '#2f521b';
-            estadoBadgeColor = '#d9f5c4';
-          }
+          cardBg = '#181e14';
+          borderColor = '#2b441a';
+          estadoBadgeBg = '#2f521b';
+          estadoBadgeColor = '#d9f5c4';
+          countdownTexto = 'Estadía indefinida';
         } else {
-          estado = 'Finalizado';
-          cardBg = '#181818';
-          borderColor = '#2e2e2e';
-          estadoBadgeBg = '#383838';
-          countdownTexto = `Salió el: ${v.fechaSalida}`;
+          const [dOut, mOut, yOut] = v.fechaSalida.split('-').map(Number);
+          const fechaOut = new Date(yOut, mOut - 1, dOut);
+          const diffTimeOut = fechaOut - hoy;
+          const diasParaSalir = Math.ceil(diffTimeOut / (1000 * 60 * 60 * 24));
+
+          if (diasParaSalir >= 0) {
+            enCasaCount++;
+            estado = 'En Casa';
+            countdownTexto = diasParaSalir === 0 ? '¡Sale Hoy!' : `Salida en ${diasParaSalir} días`;
+
+            if (diasParaSalir <= 1) {
+              cardBg = '#2a0a0a';
+              borderColor = '#8a1c1c';
+              estadoBadgeBg = '#7a1010';
+              estadoBadgeColor = '#ffb3b3';
+            } else if (diasParaSalir <= 3) {
+              cardBg = '#27100b';
+              borderColor = '#ad3411';
+              estadoBadgeBg = '#94290a';
+              estadoBadgeColor = '#ffd0b8';
+            } else if (diasParaSalir <= 7) {
+              cardBg = '#22150d';
+              borderColor = '#c84b00';
+              estadoBadgeBg = '#a83e00';
+              estadoBadgeColor = '#ffffff';
+            } else {
+              cardBg = '#181e14';
+              borderColor = '#2b441a';
+              estadoBadgeBg = '#2f521b';
+              estadoBadgeColor = '#d9f5c4';
+            }
+          } else {
+            estado = 'Finalizado';
+            cardBg = '#181818';
+            borderColor = '#2e2e2e';
+            estadoBadgeBg = '#383838';
+            countdownTexto = `Salió el: ${v.fechaSalida}`;
+          }
         }
 
         const card = document.createElement('div');
@@ -1855,13 +2052,15 @@
         card.style.backgroundColor = cardBg;
         card.style.borderColor = borderColor;
 
+        const salidaTexto = v.fechaSalida || 'Indeterminado';
+
         card.innerHTML = `
           <div class="notif-header">
             <span class="notif-name">${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}</span>
             <span class="notif-badge" style="background:${estadoBadgeBg}; color:${estadoBadgeColor};">${escaparHTML(estado)}</span>
           </div>
           <div class="notif-dates">
-            📅 In: ${escaparHTML(v.fechaLlegada)} | Out: ${escaparHTML(v.fechaSalida)}
+            📅 In: ${escaparHTML(v.fechaLlegada)} | Out: ${escaparHTML(salidaTexto)}
           </div>
           <div class="notif-countdown" style="color:${estadoBadgeColor};">
             ${escaparHTML(countdownTexto)}
@@ -1878,9 +2077,18 @@
       if (!v) return;
 
       const badgeClass = (v.habitacion || '').includes('Roble') ? 'badge-roble' : 'badge-bamboo';
-      document.getElementById('mBadge').innerHTML = `<span class="badge ${badgeClass}">${escaparHTML(v.habitacion)}</span>`;
+      let htmlBadge = `<span class="badge ${badgeClass}">${escaparHTML(v.habitacion)}</span>`;
+      if (v.esPreRegistro) {
+        htmlBadge += ` <span class="badge badge-preregistro">📋 Pre-registro</span>`;
+      }
+      document.getElementById('mBadge').innerHTML = htmlBadge;
       document.getElementById('mNombre').textContent = `${v.nombre} ${v.primerApellido} ${v.segundoApellido || ''}`;
-      document.getElementById('mEstadia').textContent = `${v.fechaLlegada} al ${v.fechaSalida}`;
+      
+      const estadiaTexto = v.fechaSalida 
+        ? `${v.fechaLlegada} al ${v.fechaSalida}`
+        : `${v.fechaLlegada} (Indeterminado / Indefinido)`;
+
+      document.getElementById('mEstadia').textContent = estadiaTexto;
       document.getElementById('mGeneroEdad').textContent = `${v.genero} (Nacimiento: ${v.fechaNacimiento})`;
       document.getElementById('mDoc').textContent = `${v.tipoDocumento}: ${v.documento}`;
       document.getElementById('mPais').textContent = v.pais;
@@ -1908,21 +2116,33 @@
       document.getElementById('editingId').value = v.id;
       document.getElementById('fechaLlegada').value = v.fechaLlegada;
       document.getElementById('pickerLlegada').value = fechaVisualAISO(v.fechaLlegada);
-      document.getElementById('fechaSalida').value = v.fechaSalida;
-      document.getElementById('pickerSalida').value = fechaVisualAISO(v.fechaSalida);
-      document.getElementById('habitacion').value = v.habitacion;
+
+      checkPreRegistro.checked = v.esPreRegistro;
+      alternarModoPreRegistro();
+
+      if (!v.fechaSalida) {
+        checkIndefinido.checked = true;
+        alternarSalidaIndefinida();
+      } else {
+        checkIndefinido.checked = false;
+        alternarSalidaIndefinida();
+        document.getElementById('fechaSalida').value = v.fechaSalida;
+        document.getElementById('pickerSalida').value = fechaVisualAISO(v.fechaSalida);
+      }
+
+      document.getElementById('habitacion').value = (v.habitacion === 'Por Asignar' ? '' : v.habitacion);
       document.getElementById('nombre').value = v.nombre;
       document.getElementById('primerApellido').value = v.primerApellido;
       document.getElementById('segundoApellido').value = v.segundoApellido || '';
-      document.getElementById('genero').value = v.genero;
-      document.getElementById('fechaNacimiento').value = v.fechaNacimiento;
-      document.getElementById('pickerNacimiento').value = fechaVisualAISO(v.fechaNacimiento);
-      document.getElementById('pais').value = v.pais;
-      document.getElementById('tipoDocumento').value = v.tipoDocumento;
-      document.getElementById('documento').value = v.documento;
-      document.getElementById('telefono').value = v.telefono;
-      document.getElementById('correo').value = v.correo;
-      document.getElementById('direccion').value = v.direccion;
+      document.getElementById('genero').value = (v.genero === 'No especificado' ? '' : v.genero);
+      document.getElementById('fechaNacimiento').value = (v.fechaNacimiento === 'No especificada' ? '' : v.fechaNacimiento);
+      document.getElementById('pickerNacimiento').value = (v.fechaNacimiento && v.fechaNacimiento !== 'No especificada') ? fechaVisualAISO(v.fechaNacimiento) : '';
+      document.getElementById('pais').value = (v.pais === 'No especificado' ? '' : v.pais);
+      document.getElementById('tipoDocumento').value = (v.tipoDocumento === 'No especificado' ? 'Cédula de Ciudadanía' : v.tipoDocumento);
+      document.getElementById('documento').value = (v.documento === 'Pendiente' ? '' : v.documento);
+      document.getElementById('telefono').value = (v.telefono === 'Pendiente' ? '' : v.telefono);
+      document.getElementById('correo').value = (v.correo === 'Pendiente' ? '' : v.correo);
+      document.getElementById('direccion').value = (v.direccion === 'Pendiente' ? '' : v.direccion);
       document.getElementById('notas').value = v.notas || '';
 
       document.getElementById('formTitleIcon').textContent = '✏️';
@@ -1933,12 +2153,22 @@
       window.scrollTo({ top: form.offsetTop - 40, behavior: 'smooth' });
     }
 
+    function hacerCheckInDirecto(id) {
+      cargarEdicion(id);
+      // Al hacer check-in, quitamos el estado de pre-registro para exigir llenar los datos oficiales
+      checkPreRegistro.checked = false;
+      alternarModoPreRegistro();
+      document.getElementById('formTitleText').textContent = 'Completar Check-in de Voluntario';
+      document.getElementById('btnSubmitForm').innerHTML = '<span>✓</span> Confirmar Ingreso / Check-in';
+      alert('Se cargaron los datos. Ahora desactiva el modo pre-registro para completar los datos faltantes y confirmar su llegada.');
+    }
+
     function cancelarEdicion() {
       limpiarFormularioNuevo();
     }
 
     async function eliminarVoluntario(id) {
-      if (!confirm('¿Estás seguro de eliminar este voluntario del registro?')) return;
+      if (!confirm('¿Estás seguro de eliminar este registro?')) return;
 
       const { error } = await supabaseClient
         .from(TABLA_VOLUNTARIOS)
@@ -1958,10 +2188,7 @@
       renderizarSegunFiltro();
     }
 
-    // Carga inicial
     cargarVoluntarios();
-
-    // Actualización automática
     setInterval(cargarVoluntarios, 30000);
   </script>
 
