@@ -1,0 +1,5074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa Kiwi Hostel - Registro de Voluntarios</title>
+  <style>
+    :root {
+      --bg-color: #0d0d0d;
+      --surface-bg: #171717;
+      --card-bg: #222222;
+      --text-main: #f3f3f3;
+      --text-muted: #9e9e9e;
+      --border-color: #2c2c2c;
+      --hover-bg: rgba(204, 75, 0, 0.12);
+
+      /* Negro y Anaranjado Oscuro */
+      --dark-orange: #c84b00;
+      --dark-orange-hover: #a83e00;
+      --dark-orange-light: #e65c00;
+      --dark-orange-border: #803000;
+
+      --tag-roble-bg: #2a1b12;
+      --tag-roble-text: #ff914d;
+      --tag-bamboo-bg: #2b2214;
+      --tag-bamboo-text: #e09f3e;
+
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .cover {
+      width: 100%;
+      height: 96px;
+      background: linear-gradient(135deg, #050505 0%, #1a0f08 45%, var(--dark-orange) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .page-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+      position: relative;
+    }
+
+    .brand-header {
+      margin-top: -50px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .header-texto {
+      flex: 1;
+      min-width: 220px;
+      padding-bottom: 4px;
+    }
+
+    .brand-logo-card {
+      background: var(--surface-bg);
+      padding: 10px 16px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--border-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-img {
+      height: 64px;
+      width: 64px;
+      object-fit: contain;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-top {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .brand-main {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--dark-orange-light);
+    }
+
+    .brand-city {
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .page-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+      color: #ffffff;
+    }
+
+    .page-desc {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .layout-grid > *, .main-column {
+      min-width: 0;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .section-heading {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark-orange-light);
+      margin: 20px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    form.notion-form {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px 18px;
+      background: var(--surface-bg);
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .preregistro-banner {
+      grid-column: span 3;
+      background: rgba(200, 75, 0, 0.1);
+      border: 1px dashed var(--dark-orange);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preregistro-banner label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .preregistro-banner input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--dark-orange);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.col-span-2 {
+      grid-column: span 2;
+    }
+
+    .form-group.col-span-3 {
+      grid-column: span 3;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #d4d4d4;
+    }
+
+    .req { color: var(--dark-orange-light); }
+
+    .opcional {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #262626;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 4px;
+    }
+
+    .checkbox-inline {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .checkbox-inline input {
+      accent-color: var(--dark-orange);
+      cursor: pointer;
+    }
+
+    input, select, textarea {
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-main);
+      padding: 9px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--card-bg);
+      outline: none;
+      transition: all 0.15s ease;
+      color-scheme: dark;
+    }
+
+    input:disabled {
+      opacity: 0.55;
+      background-color: #1a1a1a;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 65px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--dark-orange);
+      box-shadow: 0 0 0 1.5px var(--dark-orange);
+    }
+
+    .date-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .date-input-wrapper input[type="text"] {
+      width: 100%;
+      padding-right: 40px;
+    }
+
+    .date-picker-trigger {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      user-select: none;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+
+    .date-picker-trigger:hover {
+      opacity: 1;
+    }
+
+    .native-hidden-date {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      width: 0;
+      height: 0;
+    }
+
+    .btn-actions-form {
+      grid-column: span 3;
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btn-submit {
+      background-color: var(--dark-orange);
+      color: #ffffff;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--dark-orange-hover);
+    }
+
+    .btn-cancel {
+      display: none;
+      background-color: #282828;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 11px 18px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+      color: #ffffff;
+      background-color: #363636;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 36px 0;
+    }
+
+    .search-bar {
+      margin-bottom: 14px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--surface-bg);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+      min-width: 820px;
+    }
+
+    thead th {
+      background-color: #121212;
+      padding: 11px 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.12s ease;
+    }
+
+    tbody tr:hover {
+      background-color: var(--hover-bg);
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-roble {
+      background-color: var(--tag-roble-bg);
+      color: var(--tag-roble-text);
+      border: 1px solid var(--dark-orange-border);
+    }
+
+    .badge-bamboo {
+      background-color: var(--tag-bamboo-bg);
+      color: var(--tag-bamboo-text);
+      border: 1px solid #573f1d;
+    }
+
+    .badge-preregistro {
+      background-color: #2b2214;
+      color: #ffd082;
+      border: 1px dashed #c84b00;
+    }
+
+    .actions-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-view {
+      color: var(--dark-orange-light);
+      background-color: rgba(200, 75, 0, 0.15);
+      border-color: rgba(200, 75, 0, 0.3);
+    }
+
+    .btn-view:hover {
+      background-color: rgba(200, 75, 0, 0.28);
+    }
+
+    .btn-edit {
+      color: #f0f0f0;
+      background-color: #2c2c2c;
+      border-color: var(--border-color);
+    }
+
+    .btn-edit:hover {
+      background-color: #3b3b3b;
+    }
+
+    .btn-checkin {
+      color: #d9f5c4;
+      background-color: #1c2b14;
+      border-color: #2b441a;
+    }
+
+    .btn-checkin:hover {
+      background-color: #2b441a;
+    }
+
+    .btn-checkout {
+      color: #cfe3ff;
+      background-color: #14202e;
+      border-color: #22374f;
+    }
+
+    .btn-checkout:hover {
+      background-color: #22374f;
+    }
+
+    .btn-revertir {
+      color: #ffd082;
+      background-color: #2b2214;
+      border-color: #573f1d;
+    }
+
+    .btn-revertir:hover {
+      background-color: #3d2f1a;
+    }
+
+    .badge-checkout {
+      background-color: #1a1f26;
+      color: #9fb3c8;
+      border: 1px solid #33404f;
+    }
+
+    .tabla-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tab-count {
+      display: inline-block;
+      margin-left: 4px;
+      padding: 0 6px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 11px;
+    }
+
+    .historial-nota {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .cal-bar.is-checkout {
+      opacity: 0.4;
+      filter: grayscale(0.7);
+    }
+
+    .btn-delete {
+      color: #ff5e5e;
+      background-color: rgba(255, 94, 94, 0.1);
+      border-color: rgba(255, 94, 94, 0.2);
+    }
+
+    .btn-delete:hover {
+      background-color: rgba(255, 94, 94, 0.2);
+    }
+
+    .empty-state {
+      padding: 34px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .sidebar-notifications {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      position: sticky;
+      top: 80px;
+    }
+
+    .sidebar-header {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .counter-badge {
+      background: var(--dark-orange);
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .notifications-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 75vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .notification-card {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: transform 0.15s ease;
+    }
+
+    .notification-card:hover {
+      transform: translateX(-2px);
+    }
+
+    .notif-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .notif-name {
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #ffffff;
+    }
+
+    .notif-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .notif-dates {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .notif-countdown {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(3px);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-card {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      width: 90%;
+      max-width: 520px;
+      border-radius: 8px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      color: var(--text-main);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-close:hover {
+      color: #ffffff;
+    }
+
+    .modal-badge-room {
+      margin-bottom: 8px;
+    }
+
+    .modal-header-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+
+    .modal-grid-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-label {
+      font-weight: 600;
+      color: var(--dark-orange-light);
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .modal-notes-box {
+      background: var(--card-bg);
+      border-left: 3px solid var(--dark-orange);
+      padding: 12px 14px;
+      border-radius: 0 4px 4px 0;
+      font-size: 14px;
+      white-space: pre-wrap;
+      color: var(--text-main);
+      margin-top: 6px;
+    }
+
+    .db-status {
+      margin: 0 0 6px;
+      padding: 6px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      white-space: nowrap;
+      background: var(--surface-bg);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .db-status.ok {
+      border-color: #2b441a;
+      color: #d9f5c4;
+      background: #181e14;
+    }
+
+    .db-status.error {
+      border-color: #8a1c1c;
+      color: #ffb3b3;
+      background: #2a0a0a;
+      white-space: pre-wrap;
+    }
+
+    /* CALENDARIO */
+    .calendar-container {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 30px;
+    }
+
+    .cal-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cal-title-section {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .cal-month-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: capitalize;
+    }
+
+    .cal-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-cal-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .btn-cal-nav:hover {
+      background-color: var(--dark-orange);
+      border-color: var(--dark-orange-border);
+      color: #ffffff;
+    }
+
+    .cal-scroll-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: #121212;
+    }
+
+    .cal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      min-width: 900px;
+    }
+
+    .cal-table th, .cal-table td {
+      border: 1px solid var(--border-color);
+      text-align: center;
+      padding: 0;
+      vertical-align: middle;
+    }
+
+    .cal-col-header {
+      background: #181818;
+      color: var(--text-muted);
+      padding: 7px 2px;
+      min-width: 32px;
+      font-weight: 600;
+    }
+
+    .cal-col-header.is-today {
+      background: rgba(200, 75, 0, 0.22);
+      color: var(--dark-orange-light);
+      border-bottom: 2px solid var(--dark-orange);
+    }
+
+    .cal-row-label {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      background: #181818;
+      min-width: 220px;
+      max-width: 240px;
+      text-align: left !important;
+      padding: 8px 12px !important;
+      border-right: 2px solid var(--border-color);
+    }
+
+    tbody tr:hover .cal-row-label {
+      background: #202020;
+    }
+
+    .cal-user-name {
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+
+    .cal-user-name:hover {
+      color: var(--dark-orange-light);
+    }
+
+    .cal-user-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .cal-cell {
+      height: 42px;
+      min-width: 32px;
+      background-color: #141414;
+      position: relative;
+    }
+
+    .cal-cell.is-today {
+      background-color: rgba(200, 75, 0, 0.06);
+    }
+
+    .cal-bar {
+      position: absolute;
+      top: 9px;
+      bottom: 9px;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+      transition: filter 0.15s ease;
+    }
+
+    .cal-bar:hover {
+      filter: brightness(1.2);
+    }
+
+    .cal-bar.roble {
+      background-color: var(--dark-orange);
+      border-top: 1px solid var(--dark-orange-light);
+      border-bottom: 1px solid var(--dark-orange-border);
+    }
+
+    .cal-bar.bamboo {
+      background-color: #99641e;
+      border-top: 1px solid #c9882e;
+      border-bottom: 1px solid #5a3a0e;
+    }
+
+    .cal-bar.is-preregistro {
+      opacity: 0.55;
+      border: 1px dashed #ffffff !important;
+    }
+
+    .cal-bar.is-start {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      left: 4px;
+    }
+
+    .cal-bar.is-end {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      right: 4px;
+    }
+
+    .cal-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cal-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cal-legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+    }
+
+    /* AYUDAS GENERALES */
+    .view-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin: -6px 0 18px;
+    }
+
+    .view-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .view-head .section-heading {
+      margin-top: 0;
+    }
+
+    .btn-secundario {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 11px 18px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-secundario:hover {
+      border-color: var(--dark-orange);
+    }
+
+    /* AVISOS FLOTANTES (TOASTS) */
+    .toast-zone {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 2000;
+      max-width: min(420px, calc(100vw - 36px));
+    }
+
+    .toast {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      border: 1px solid;
+      white-space: pre-wrap;
+      cursor: pointer;
+      animation: toastIn 0.2s ease;
+    }
+
+    .toast.ok { background: #18240f; border-color: #3d6b23; color: #d9f5c4; }
+    .toast.error { background: #2a0a0a; border-color: #8a1c1c; color: #ffd0d0; }
+    .toast.info { background: #1b1b1b; border-color: var(--dark-orange); color: var(--text-main); }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* INICIO */
+    .inicio-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .inicio-acciones {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .kpi {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      color: var(--text-main);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .kpi:hover {
+      border-color: var(--dark-orange);
+      transform: translateY(-1px);
+    }
+
+    .kpi-label {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .kpi-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .kpi.alerta { border-color: #8a1c1c; }
+    .kpi.alerta .kpi-num { color: #ff8a8a; }
+
+    .inicio-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .tarea {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border-left: 3px solid var(--border-color);
+      margin-bottom: 8px;
+    }
+
+    .tarea.urgente { border-left-color: #d22d2d; }
+    .tarea.hoy { border-left-color: var(--dark-orange); }
+    .tarea.info { border-left-color: #4a8a2a; }
+
+    .tarea-icono {
+      font-size: 20px;
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .tarea-texto {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+    }
+
+    .tarea-texto strong {
+      display: block;
+      color: #ffffff;
+      font-size: 13.5px;
+    }
+
+    .tarea-texto span {
+      color: var(--text-muted);
+    }
+
+    .tarea-botones {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .todo-ok {
+      text-align: center;
+      padding: 22px 10px;
+      color: #9be07a;
+      font-weight: 600;
+    }
+
+    .fila-persona {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .fila-persona:hover {
+      background: var(--hover-bg);
+    }
+
+    .fila-persona .quien {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .grupo-dorm {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      margin: 10px 0 4px;
+    }
+
+    .grupo-dorm:first-child {
+      margin-top: 0;
+    }
+
+    .pill-dias {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* FORMULARIO POR SECCIONES */
+    .form-section-title {
+      grid-column: span 3;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--dark-orange-light);
+      padding-top: 14px;
+      margin-top: 4px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .form-section-title.primero {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .tipo-registro {
+      grid-column: span 3;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .segmented button {
+      text-align: left;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .segmented button small {
+      display: block;
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .segmented button.active {
+      border-color: var(--dark-orange);
+      background: rgba(200, 75, 0, 0.14);
+      box-shadow: 0 0 0 1px var(--dark-orange);
+    }
+
+    .form-aviso {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: rgba(200, 75, 0, 0.12);
+      border: 1px solid var(--dark-orange);
+      font-size: 14px;
+    }
+
+    /* NAVEGACIÓN ENTRE HERRAMIENTAS */
+    .tool-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-color);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tool-nav button {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .tool-nav button:hover {
+      border-color: var(--dark-orange);
+    }
+
+    .tool-nav button.active {
+      background: var(--dark-orange);
+      border-color: var(--dark-orange);
+      color: #ffffff;
+    }
+
+    .nav-count {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 0 7px;
+      font-size: 11.5px;
+    }
+
+    .vista { display: none; }
+    .vista.activa { display: block; }
+    .vista > .section-heading:first-child { margin-top: 0; }
+
+    /* PERFILES */
+    .perfil-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-left: 6px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .chip-nuevo {
+      border-style: dashed;
+      color: var(--dark-orange-light);
+    }
+
+    .perfil-crear {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .perfiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .perfil-card {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .perfil-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .perfil-icono {
+      font-size: 26px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .perfil-nombre {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .perfil-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .perfil-stat {
+      background: var(--card-bg);
+      border-radius: 6px;
+      padding: 8px 4px;
+    }
+
+    .perfil-stat strong {
+      display: block;
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+
+    .perfil-stat span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .perfil-encasa {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      min-height: 18px;
+    }
+
+    .perfil-acciones {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    /* CANDIDATOS / PROCESO DE SELECCIÓN */
+    .cand-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .cand-toolbar .search-bar {
+      margin-bottom: 0;
+    }
+
+    .cand-aviso {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      border: 1px dashed var(--dark-orange);
+      background: rgba(200, 75, 0, 0.08);
+      font-size: 13.5px;
+      display: none;
+    }
+
+    .cand-alerta {
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #7a1010;
+      color: #ffd6d6;
+    }
+
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(220px, 1fr));
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .kanban-col {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 170px;
+    }
+
+    .kanban-col-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #ffffff;
+      padding: 2px 4px 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cand-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12.5px;
+      transition: border-color 0.15s ease;
+    }
+
+    .cand-card:hover {
+      border-color: var(--dark-orange);
+    }
+
+    .cand-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .cand-nombre {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 13.5px;
+    }
+
+    .cand-plat {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #1f2a1a;
+      color: #b8e08f;
+      white-space: nowrap;
+    }
+
+    .cand-meta {
+      color: var(--text-muted);
+    }
+
+    .cand-meta .perfil-badge {
+      margin-left: 0;
+    }
+
+    .cand-ultima {
+      color: #cfcfcf;
+      font-style: italic;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .cand-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+
+    .seg {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #262626;
+      color: var(--text-muted);
+    }
+
+    .seg.hoy { background: #a83e00; color: #ffffff; }
+    .seg.vencido { background: #7a1010; color: #ffb3b3; }
+
+    .cand-mover {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    .cand-mover button {
+      background: #2c2c2c;
+      border: 1px solid var(--border-color);
+      color: #eeeeee;
+      border-radius: 4px;
+      padding: 2px 7px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: inherit;
+    }
+
+    .cand-mover button:hover {
+      background: var(--dark-orange);
+    }
+
+    .kanban-vacio {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 14px 4px;
+    }
+
+    .modal-card.modal-wide {
+      max-width: 800px;
+    }
+
+    .cand-form {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px 14px;
+    }
+
+    .cand-form > * { min-width: 0; }
+    .cand-form input, .cand-form select { width: 100%; }
+    #candNuevaNota { width: 100%; }
+
+    .cand-form .span2 { grid-column: span 2; }
+    .cand-form .full { grid-column: span 3; }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      margin: 8px 0 10px;
+    }
+
+    .tl-item {
+      border-left: 3px solid var(--dark-orange);
+      background: var(--card-bg);
+      padding: 8px 10px;
+      border-radius: 0 4px 4px 0;
+      font-size: 13px;
+    }
+
+    .tl-item.etapa {
+      border-left-color: #4a8a2a;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .tl-fecha {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .tl-texto {
+      white-space: pre-wrap;
+    }
+
+    .cand-acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .cand-hint {
+      font-size: 12.5px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: var(--card-bg);
+      margin-top: 12px;
+    }
+
+    .seg-hoy-box {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .seg-hoy-titulo {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffb3b3;
+    }
+
+    .seg-hoy-item {
+      font-size: 12.5px;
+      padding: 7px 9px;
+      border-radius: 5px;
+      background: #27100b;
+      border: 1px solid #ad3411;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+
+    .seg-hoy-item:hover {
+      background: #3a170e;
+    }
+
+    /* DISPONIBILIDAD DE HABITACIONES */
+    .disp-container {
+      background: var(--surface-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 30px;
+    }
+
+    .disp-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .disp-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .disp-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 7px 12px;
+      border-radius: 16px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--dark-orange);
+    }
+
+    .chip.active {
+      background: var(--dark-orange);
+      border-color: var(--dark-orange);
+      color: #ffffff;
+    }
+
+    .disp-capacidad input {
+      width: 64px;
+      padding: 6px 8px;
+    }
+
+    .disp-resumen {
+      font-size: 14px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--card-bg);
+      border-left: 3px solid var(--dark-orange);
+    }
+
+    .disp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .room-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .room-card.roble { border-top: 3px solid var(--dark-orange); }
+    .room-card.bamboo { border-top: 3px solid #99641e; }
+
+    .room-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .room-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .room-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .room-status {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-ok { background: #2f521b; color: #d9f5c4; }
+    .status-low { background: #a83e00; color: #ffffff; }
+    .status-full { background: #7a1010; color: #ffb3b3; }
+
+    .room-big {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .room-big-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .room-big-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .beds-row {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .bed {
+      width: 24px;
+      height: 14px;
+      border-radius: 3px;
+      background: #2f521b;
+      border: 1px solid #4a8a2a;
+    }
+
+    .bed.ocupada { background: var(--dark-orange); border-color: var(--dark-orange-light); }
+    .bed.reservada { background: transparent; border: 1px dashed #ff914d; }
+    .bed.extra { background: #7a1010; border-color: #ff5e5e; }
+
+    .room-label-mini {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .room-days {
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .room-day {
+      min-width: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+
+    .room-day-cell {
+      width: 100%;
+      height: 24px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .room-people {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .room-people li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12.5px;
+      padding: 7px 9px;
+      background: #1b1b1b;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .room-people li:hover {
+      background: var(--hover-bg);
+    }
+
+    .room-people .vacio {
+      cursor: default;
+      color: var(--text-muted);
+      justify-content: center;
+    }
+
+    .room-warning {
+      font-size: 12px;
+      color: #ffb3b3;
+      background: #2a0a0a;
+      border: 1px solid #8a1c1c;
+      border-radius: 4px;
+      padding: 7px 9px;
+    }
+
+    .hab-hint {
+      font-size: 12px;
+      margin-top: 2px;
+      color: var(--text-muted);
+      min-height: 16px;
+    }
+
+    .hab-hint.ok { color: #9be07a; }
+    .hab-hint.low { color: #ff914d; }
+    .hab-hint.full { color: #ff7a7a; }
+
+    @media (max-width: 1080px) {
+      .inicio-grid {
+        grid-template-columns: 1fr;
+      }
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-notifications {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tool-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
+      .inicio-grid {
+        grid-template-columns: 1fr;
+      }
+      .segmented {
+        grid-template-columns: 1fr;
+      }
+      .tarea {
+        flex-wrap: wrap;
+      }
+      .tarea-botones {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .brand-header {
+        align-items: flex-start;
+      }
+      .tool-nav button {
+        white-space: nowrap;
+      }
+      .cand-form {
+        grid-template-columns: 1fr;
+      }
+      .cand-form .span2, .cand-form .full {
+        grid-column: span 1;
+      }
+      form.notion-form {
+        grid-template-columns: 1fr;
+      }
+      .form-group.col-span-2, .form-group.col-span-3, .btn-actions-form, .preregistro-banner,
+      .form-section-title, .tipo-registro {
+        grid-column: span 1;
+      }
+      .page-container {
+        padding: 0 16px 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover"></div>
+
+  <main class="page-container">
+
+    <header class="brand-header">
+      <div class="brand-logo-card">
+        <img 
+          src="Code_Generated_Image.jpg" 
+          alt="Casa Kiwi Hostel Medellín" 
+          class="logo-img"
+          onerror="this.style.display='none'; document.getElementById('svg-logo-fallback').style.display='block';"
+        >
+        
+        <svg id="svg-logo-fallback" class="logo-img" viewBox="0 0 100 100" style="display:none;">
+          <rect x="15" y="15" width="70" height="70" rx="12" transform="rotate(45 50 50)" fill="#e63312"/>
+          <rect x="23" y="23" width="54" height="54" rx="8" transform="rotate(45 50 50)" fill="#ffdf00"/>
+          <path d="M42 45 c-5 -2 -9 2 -11 7 c-2 5 -1 10 3 13 c3 2 7 2 10 0 c2 4 4 6 7 5 c3 -1 4 -4 3 -7 c5 -2 8 -7 7 -12 c-1 -4 -4 -6 -8 -6 z" fill="#111111"/>
+          <path d="M58 48 Q 65 54 70 62" stroke="#111111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="56" cy="47" r="1.5" fill="#ffdf00"/>
+        </svg>
+
+        <div class="brand-text">
+          <span class="brand-top">CASA HOSTEL</span>
+          <span class="brand-main">KiWi</span>
+          <span class="brand-city">MEDELLÍN</span>
+        </div>
+      </div>
+      <div class="header-texto">
+        <h1 class="page-title">Gestor de Voluntarios</h1>
+        <p class="page-desc" style="margin-bottom:0;">Candidatos, registros, camas y estancias de los voluntarios en un solo lugar.</p>
+      </div>
+      <div id="dbStatus" class="db-status">⏳ Conectando…</div>
+    </header>
+
+    <nav class="tool-nav" id="toolNav">
+      <button type="button" data-vista="registro" onclick="nuevoRegistro()" title="Registrar un voluntario o pre-registro">＋ Registrar</button>
+      <button type="button" data-vista="inicio" onclick="navegar('inicio')" title="Resumen del día y tareas pendientes">🏠 Inicio <span class="nav-count" id="navCountTareas">0</span></button>
+      <button type="button" data-vista="calendario" onclick="navegar('calendario')" title="Estancias en el mes">📅 Calendario</button>
+      <button type="button" data-vista="voluntarios" onclick="navegar('voluntarios')" title="Lista de voluntarios activos, reservas e historial">📋 Voluntarios <span class="nav-count" id="navCountVoluntarios">0</span></button>
+      <button type="button" data-vista="disponibilidad" onclick="navegar('disponibilidad')" title="Camas libres por fecha y género">🛏️ Camas</button>
+      <button type="button" data-vista="candidatos" onclick="navegar('candidatos')" title="Proceso de selección antes de que lleguen">🤝 Candidatos <span class="nav-count" id="navCountCandidatos">0</span></button>
+      <button type="button" data-vista="perfiles" onclick="navegar('perfiles')" title="Áreas de voluntariado">🏷️ Perfiles <span class="nav-count" id="navCountPerfiles">0</span></button>
+    </nav>
+
+    <div class="layout-grid">
+      <!-- Columna Principal -->
+      <div class="main-column">
+        
+        <!-- SECCIÓN: INICIO -->
+        <section class="vista" id="vista-inicio">
+          <div class="inicio-head">
+            <div>
+              <h2 class="section-heading" style="margin-top:0;"><span>🏠</span> <span id="inicioFecha">Hoy</span></h2>
+              <p class="view-desc">Lo que pasa hoy: quién está en casa, quién llega o sale y qué tienes pendiente.</p>
+            </div>
+            <div class="inicio-acciones">
+              <button type="button" class="btn-submit" onclick="nuevoRegistro()">＋ Registrar voluntario</button>
+              <button type="button" class="btn-secundario" onclick="navegar('candidatos'); abrirCandidato(null)">＋ Nuevo candidato</button>
+            </div>
+          </div>
+
+          <div class="kpi-grid" id="kpiGrid"></div>
+
+          <div class="inicio-grid">
+            <div class="panel">
+              <div class="panel-head">
+                <span>✅ Tareas pendientes</span>
+                <span class="counter-badge" id="tareasCount">0</span>
+              </div>
+              <div id="tareasLista"></div>
+            </div>
+            <div>
+              <div class="panel">
+                <div class="panel-head"><span>🏠 En casa ahora</span></div>
+                <div id="enCasaLista"></div>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><span>🛬 Llegan en los próximos 7 días</span></div>
+                <div id="proximasLista"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN: CANDIDATOS -->
+        <section class="vista" id="vista-candidatos">
+          <h2 class="section-heading"><span>🤝</span> Proceso de Candidatos</h2>
+          <p class="page-desc" style="margin-bottom:16px;">Seguimiento de quienes te escriben por Worldpackers u otras plataformas: contacto, entrevista, información compartida y pre-aprobación.</p>
+
+          <div class="cand-aviso" id="candAviso"></div>
+
+          <div class="cand-toolbar">
+            <button type="button" class="btn-submit" id="btnNuevoCandidato" onclick="abrirCandidato(null)">＋ Nuevo candidato</button>
+            <input type="text" id="candBuscar" class="search-bar" placeholder="🔍 Buscar candidato, país o nota..." oninput="renderizarCandidatos()">
+            <select id="candFiltroPlataforma" onchange="renderizarCandidatos()" style="width:auto;"></select>
+            <span id="candResumenSeguimiento"></span>
+          </div>
+
+          <div class="kanban" id="kanban"></div>
+
+          <div style="margin-top:18px;">
+            <button type="button" class="chip" id="btnCerrados" onclick="alternarCerrados()">Ver cerrados</button>
+          </div>
+          <div id="candCerrados" style="margin-top:12px;"></div>
+        </section>
+
+        <section class="vista" id="vista-registro">
+        <h2 class="section-heading"><span id="formTitleIcon">✍️</span> <span id="formTitleText">Nuevo Voluntario</span></h2>
+        <p class="view-desc">Elige si es un registro completo o solo un pre-registro para reservar el cupo. Los campos con <span class="req">*</span> son obligatorios.</p>
+        <div class="form-aviso" id="formAviso"></div>
+        
+        <form class="notion-form" id="voluntarioForm">
+          <input type="hidden" id="editingId" value="">
+
+          <!-- TIPO DE REGISTRO -->
+          <div class="tipo-registro">
+            <label>Tipo de registro</label>
+            <div class="segmented">
+              <button type="button" id="segCompleto" class="active" onclick="setTipoRegistro(false)">
+                🧾 Registro completo
+                <small>El voluntario llega o ya llegó y tienes todos sus datos.</small>
+              </button>
+              <button type="button" id="segPre" onclick="setTipoRegistro(true)">
+                📋 Pre-registro
+                <small>Solo reservar el cupo con nombre y fechas; los demás datos se completan en el check-in.</small>
+              </button>
+            </div>
+            <input type="checkbox" id="checkPreRegistro" hidden onchange="alternarModoPreRegistro()">
+            <span id="badgePreRegistroInfo" hidden></span>
+          </div>
+
+          <!-- 1. ESTANCIA -->
+          <div class="form-section-title">1 · Estancia y habitación</div>
+
+          <div class="form-group">
+            <label for="fechaLlegada">Llegada <span class="req">*</span></label>
+            <div class="date-input-wrapper">
+              <input type="text" id="fechaLlegada" placeholder="DD-MM-AAAA" pattern="\d{2}-\d{2}-\d{4}" required>
+              <span class="date-picker-trigger" onclick="abrirPicker('pickerLlegada')" title="Abrir calendario">📅</span>
+              <input type="date" id="pickerLlegada" class="native-hidden-date" onchange="sincronizarFecha('pickerLlegada', 'fechaLlegada')">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fechaSalida">Salida</label>
+            <div class="date-input-wrapper">
+              <input type="text" id="fechaSalida" placeholder="DD-MM-AAAA" pattern="\d{2}-\d{2}-\d{4}">
+              <span class="date-picker-trigger" id="pickerSalidaTrigger" onclick="abrirPicker('pickerSalida')" title="Abrir calendario">📅</span>
+              <input type="date" id="pickerSalida" class="native-hidden-date" onchange="sincronizarFecha('pickerSalida', 'fechaSalida')">
+            </div>
+            <label class="checkbox-inline">
+              <input type="checkbox" id="checkIndefinido" onchange="alternarSalidaIndefinida()">
+              <span>Aún no sabe cuándo se va</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="genero" id="lblGenero">Género <span class="req">*</span></label>
+            <select id="genero" required>
+              <option value="" disabled selected>Selecciona…</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="habitacion" id="lblHabitacion">Habitación <span class="req">*</span></label>
+            <select id="habitacion" required>
+              <option value="" disabled selected>Se elige según el género…</option>
+              <option value="Dorm Roble (Masculino)">🌳 Dorm Roble (Masculino)</option>
+              <option value="Dorm Bamboo (Femenino)">🎋 Dorm Bamboo (Femenino)</option>
+            </select>
+            <div class="hab-hint" id="habHint"></div>
+          </div>
+
+          <div class="form-group col-span-2">
+            <label>Perfil / área de voluntariado</label>
+            <input type="hidden" id="perfil" value="">
+            <div class="disp-chips" id="perfilChips"></div>
+          </div>
+
+          <!-- 2. DATOS PERSONALES -->
+          <div class="form-section-title">2 · Datos personales</div>
+
+          <div class="form-group">
+            <label for="nombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="nombre" placeholder="Nombre" required>
+          </div>
+
+          <div class="form-group">
+            <label for="primerApellido">Primer apellido <span class="req">*</span></label>
+            <input type="text" id="primerApellido" placeholder="Primer apellido" required>
+          </div>
+
+          <div class="form-group">
+            <label for="segundoApellido">Segundo apellido</label>
+            <input type="text" id="segundoApellido" placeholder="Opcional">
+          </div>
+
+          <div class="form-group">
+            <label for="fechaNacimiento" id="lblNacimiento">Fecha de nacimiento <span class="req">*</span></label>
+            <div class="date-input-wrapper">
+              <input type="text" id="fechaNacimiento" placeholder="DD-MM-AAAA" pattern="\d{2}-\d{2}-\d{4}" required>
+              <span class="date-picker-trigger" onclick="abrirPicker('pickerNacimiento')" title="Abrir calendario">📅</span>
+              <input type="date" id="pickerNacimiento" class="native-hidden-date" onchange="sincronizarFecha('pickerNacimiento', 'fechaNacimiento')">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pais" id="lblPais">País <span class="req">*</span></label>
+            <select id="pais" required>
+              <option value="" disabled selected>Selecciona el país…</option>
+              <option value="Afganistán">Afganistán</option>
+              <option value="Albania">Albania</option>
+              <option value="Alemania">Alemania</option>
+              <option value="Andorra">Andorra</option>
+              <option value="Angola">Angola</option>
+              <option value="Antigua y Barbuda">Antigua y Barbuda</option>
+              <option value="Arabia Saudita">Arabia Saudita</option>
+              <option value="Argelia">Argelia</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Armenia">Armenia</option>
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Azerbaiyán">Azerbaiyán</option>
+              <option value="Bahamas">Bahamas</option>
+              <option value="Bangladés">Bangladés</option>
+              <option value="Barbados">Barbados</option>
+              <option value="Baréin">Baréin</option>
+              <option value="Bélgica">Bélgica</option>
+              <option value="Belice">Belice</option>
+              <option value="Benín">Benín</option>
+              <option value="Bielorrusia">Bielorrusia</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
+              <option value="Botsuana">Botsuana</option>
+              <option value="Brasil">Brasil</option>
+              <option value="Brunéi">Brunéi</option>
+              <option value="Bulgaria">Bulgaria</option>
+              <option value="Burkina Faso">Burkina Faso</option>
+              <option value="Burundi">Burundi</option>
+              <option value="Bután">Bután</option>
+              <option value="Cabo Verde">Cabo Verde</option>
+              <option value="Camboya">Camboya</option>
+              <option value="Camerún">Camerún</option>
+              <option value="Canadá">Canadá</option>
+              <option value="Catar">Catar</option>
+              <option value="Chad">Chad</option>
+              <option value="Chile">Chile</option>
+              <option value="China">China</option>
+              <option value="Chipre">Chipre</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Comoras">Comoras</option>
+              <option value="Corea del Norte">Corea del Norte</option>
+              <option value="Corea del Sur">Corea del Sur</option>
+              <option value="Costa de Marfil">Costa de Marfil</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="Croacia">Croacia</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Dinamarca">Dinamarca</option>
+              <option value="Dominica">Dominica</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="Egipto">Egipto</option>
+              <option value="El Salvador">El Salvador</option>
+              <option value="Emiratos Árabes Unidos">Emiratos Árabes Unidos</option>
+              <option value="Eritrea">Eritrea</option>
+              <option value="Eslovaquia">Eslovaquia</option>
+              <option value="Eslovenia">Eslovenia</option>
+              <option value="España">España</option>
+              <option value="Estados Unidos">Estados Unidos</option>
+              <option value="Estonia">Estonia</option>
+              <option value="Esuatini">Esuatini</option>
+              <option value="Etiopía">Etiopía</option>
+              <option value="Filipinas">Filipinas</option>
+              <option value="Finlandia">Finlandia</option>
+              <option value="Fiyi">Fiyi</option>
+              <option value="Francia">Francia</option>
+              <option value="Gabón">Gabón</option>
+              <option value="Gambia">Gambia</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Ghana">Ghana</option>
+              <option value="Granada">Granada</option>
+              <option value="Grecia">Grecia</option>
+              <option value="Guatemala">Guatemala</option>
+              <option value="Guinea">Guinea</option>
+              <option value="Guinea-Bisáu">Guinea-Bisáu</option>
+              <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
+              <option value="Guyana">Guyana</option>
+              <option value="Haití">Haití</option>
+              <option value="Honduras">Honduras</option>
+              <option value="Hungría">Hungría</option>
+              <option value="India">India</option>
+              <option value="Indonesia">Indonesia</option>
+              <option value="Irak">Irak</option>
+              <option value="Irán">Irán</option>
+              <option value="Irlanda">Irlanda</option>
+              <option value="Islandia">Islandia</option>
+              <option value="Islas Marshall">Islas Marshall</option>
+              <option value="Islas Salomón">Islas Salomón</option>
+              <option value="Israel">Israel</option>
+              <option value="Italia">Italia</option>
+              <option value="Jamaica">Jamaica</option>
+              <option value="Japón">Japón</option>
+              <option value="Jordania">Jordania</option>
+              <option value="Kazajistán">Kazajistán</option>
+              <option value="Kenia">Kenia</option>
+              <option value="Kirguistán">Kirguistán</option>
+              <option value="Kiribati">Kiribati</option>
+              <option value="Kosovo">Kosovo</option>
+              <option value="Kuwait">Kuwait</option>
+              <option value="Laos">Laos</option>
+              <option value="Lesoto">Lesoto</option>
+              <option value="Letonia">Letonia</option>
+              <option value="Líbano">Líbano</option>
+              <option value="Liberia">Liberia</option>
+              <option value="Libia">Libia</option>
+              <option value="Liechtenstein">Liechtenstein</option>
+              <option value="Lituania">Lituania</option>
+              <option value="Luxemburgo">Luxemburgo</option>
+              <option value="Macedonia del Norte">Macedonia del Norte</option>
+              <option value="Madagascar">Madagascar</option>
+              <option value="Malasia">Malasia</option>
+              <option value="Malaui">Malaui</option>
+              <option value="Maldivas">Maldivas</option>
+              <option value="Malí">Malí</option>
+              <option value="Malta">Malta</option>
+              <option value="Marruecos">Marruecos</option>
+              <option value="Mauricio">Mauricio</option>
+              <option value="Mauritania">Mauritania</option>
+              <option value="México">México</option>
+              <option value="Micronesia">Micronesia</option>
+              <option value="Moldavia">Moldavia</option>
+              <option value="Mónaco">Mónaco</option>
+              <option value="Mongolia">Mongolia</option>
+              <option value="Montenegro">Montenegro</option>
+              <option value="Mozambique">Mozambique</option>
+              <option value="Myanmar">Myanmar</option>
+              <option value="Namibia">Namibia</option>
+              <option value="Nauru">Nauru</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Níger">Níger</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Noruega">Noruega</option>
+              <option value="Nueva Zelanda">Nueva Zelanda</option>
+              <option value="Omán">Omán</option>
+              <option value="Países Bajos">Países Bajos</option>
+              <option value="Pakistán">Pakistán</option>
+              <option value="Palaos">Palaos</option>
+              <option value="Palestina">Palestina</option>
+              <option value="Panamá">Panamá</option>
+              <option value="Papúa Nueva Guinea">Papúa Nueva Guinea</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Perú">Perú</option>
+              <option value="Polonia">Polonia</option>
+              <option value="Portugal">Portugal</option>
+              <option value="Reino Unido">Reino Unido</option>
+              <option value="República Centroafricana">República Centroafricana</option>
+              <option value="República Checa (Chequia)">República Checa (Chequia)</option>
+              <option value="República del Congo">República del Congo</option>
+              <option value="República Democrática del Congo">República Democrática del Congo</option>
+              <option value="República Dominicana">República Dominicana</option>
+              <option value="Ruanda">Ruanda</option>
+              <option value="Rumania">Rumania</option>
+              <option value="Rusia">Rusia</option>
+              <option value="Samoa">Samoa</option>
+              <option value="San Cristóbal y Nieves">San Cristóbal y Nieves</option>
+              <option value="San Marino">San Marino</option>
+              <option value="San Vicente y las Granadinas">San Vicente y las Granadinas</option>
+              <option value="Santa Lucía">Santa Lucía</option>
+              <option value="Santo Tomé y Príncipe">Santo Tomé y Príncipe</option>
+              <option value="Senegal">Senegal</option>
+              <option value="Serbia">Serbia</option>
+              <option value="Seychelles">Seychelles</option>
+              <option value="Sierra Leona">Sierra Leona</option>
+              <option value="Singapur">Singapur</option>
+              <option value="Siria">Siria</option>
+              <option value="Somalia">Somalia</option>
+              <option value="Sri Lanka">Sri Lanka</option>
+              <option value="Sudáfrica">Sudáfrica</option>
+              <option value="Sudán">Sudán</option>
+              <option value="Sudán del Sur">Sudán del Sur</option>
+              <option value="Suecia">Suecia</option>
+              <option value="Suiza">Suiza</option>
+              <option value="Surinam">Surinam</option>
+              <option value="Tailandia">Tailandia</option>
+              <option value="Taiwán">Taiwán</option>
+              <option value="Tanzania">Tanzania</option>
+              <option value="Tayikistán">Tayikistán</option>
+              <option value="Timor Oriental">Timor Oriental</option>
+              <option value="Togo">Togo</option>
+              <option value="Tonga">Tonga</option>
+              <option value="Trinidad y Tobago">Trinidad y Tobago</option>
+              <option value="Túnez">Túnez</option>
+              <option value="Turkmenistán">Turkmenistán</option>
+              <option value="Turquía">Turquía</option>
+              <option value="Tuvalu">Tuvalu</option>
+              <option value="Ucrania">Ucrania</option>
+              <option value="Uganda">Uganda</option>
+              <option value="Uruguay">Uruguay</option>
+              <option value="Uzbekistán">Uzbekistán</option>
+              <option value="Vanuatu">Vanuatu</option>
+              <option value="Vaticano">Vaticano</option>
+              <option value="Venezuela">Venezuela</option>
+              <option value="Vietnam">Vietnam</option>
+              <option value="Yemen">Yemen</option>
+              <option value="Yibuti">Yibuti</option>
+              <option value="Zambia">Zambia</option>
+              <option value="Zimbabue">Zimbabue</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="direccion" id="lblDir">Ciudad / procedencia <span class="req">*</span></label>
+            <input type="text" id="direccion" placeholder="Ciudad, país" required>
+          </div>
+
+          <!-- 3. DOCUMENTO Y CONTACTO -->
+          <div class="form-section-title">3 · Documento y contacto</div>
+
+          <div class="form-group">
+            <label for="tipoDocumento">Tipo de documento</label>
+            <select id="tipoDocumento">
+              <option value="Cédula de Ciudadanía" selected>Cédula de Ciudadanía (C.C.)</option>
+              <option value="Pasaporte">Pasaporte</option>
+              <option value="Cédula de Extranjería">Cédula de Extranjería (C.E.)</option>
+              <option value="DNI">DNI / ID Nacional</option>
+              <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="documento" id="lblDoc">Número de documento <span class="req">*</span></label>
+            <input type="text" id="documento" placeholder="Número de identificación" required>
+          </div>
+
+          <div class="form-group">
+            <label for="telefono" id="lblTel">Teléfono / WhatsApp <span class="req">*</span></label>
+            <input type="tel" id="telefono" placeholder="+57 300 000 0000" required>
+          </div>
+
+          <div class="form-group col-span-3">
+            <label for="correo" id="lblEmail">Correo electrónico <span class="req">*</span></label>
+            <input type="email" id="correo" placeholder="voluntario@email.com" required>
+          </div>
+
+          <!-- 4. NOTAS -->
+          <div class="form-section-title">4 · Notas internas</div>
+
+          <div class="form-group col-span-3">
+            <textarea id="notas" placeholder="Habilidades, turnos, acuerdos, requerimientos o detalles de la reserva…"></textarea>
+          </div>
+
+          <div class="btn-actions-form">
+            <button type="submit" class="btn-submit" id="btnSubmitForm">
+              <span>✓</span> Guardar Voluntario
+            </button>
+            <button type="button" class="btn-cancel" id="btnCancelEdit" onclick="cancelarEdicion()">
+              Cancelar edición
+            </button>
+          </div>
+        </form>
+        </section>
+
+        <!-- SECCIÓN: DISPONIBILIDAD DE HABITACIONES -->
+        <section class="vista" id="vista-disponibilidad">
+        <h2 class="section-heading"><span>🛏️</span> Camas disponibles</h2>
+        <p class="view-desc">Elige fechas y género para ver cuántas camas quedan libres en cada dormitorio.</p>
+        <div class="disp-container">
+          <div class="disp-controls">
+            <div class="disp-field">
+              <label for="dispDesde">Desde</label>
+              <input type="date" id="dispDesde" onchange="renderizarDisponibilidad()">
+            </div>
+            <div class="disp-field">
+              <label for="dispHasta">Hasta</label>
+              <input type="date" id="dispHasta" onchange="renderizarDisponibilidad()">
+            </div>
+            <div class="disp-field">
+              <label>Rango rápido</label>
+              <div class="disp-chips">
+                <button type="button" class="chip" onclick="rangoRapido('hoy')">Hoy</button>
+                <button type="button" class="chip" onclick="rangoRapido('manana')">Mañana</button>
+                <button type="button" class="chip" onclick="rangoRapido('7')">Próx. 7 días</button>
+                <button type="button" class="chip" onclick="rangoRapido('30')">Próx. 30 días</button>
+                <button type="button" class="chip" onclick="rangoRapido('mes')">Mes del calendario</button>
+              </div>
+            </div>
+            <div class="disp-field">
+              <label>Género</label>
+              <div class="disp-chips" id="dispGeneroChips">
+                <button type="button" class="chip active" data-genero="Todos" onclick="cambiarFiltroGenero('Todos')">Todos</button>
+                <button type="button" class="chip" data-genero="Masculino" onclick="cambiarFiltroGenero('Masculino')">♂ Masculino</button>
+                <button type="button" class="chip" data-genero="Femenino" onclick="cambiarFiltroGenero('Femenino')">♀ Femenino</button>
+              </div>
+            </div>
+            <div class="disp-field disp-capacidad">
+              <label>Camas por habitación</label>
+              <div class="disp-chips" style="align-items:center;">
+                <span style="font-size:12px; color:var(--text-muted);">🌳 Roble</span>
+                <input type="number" id="capRoble" min="1" max="50" onchange="guardarCapacidad('roble', this.value)">
+                <span style="font-size:12px; color:var(--text-muted);">🎋 Bamboo</span>
+                <input type="number" id="capBamboo" min="1" max="50" onchange="guardarCapacidad('bamboo', this.value)">
+              </div>
+            </div>
+          </div>
+
+          <div class="disp-resumen" id="dispResumen">Cargando disponibilidad...</div>
+          <div class="disp-grid" id="dispGrid"></div>
+
+          <div class="cal-legend">
+            <span style="font-weight:600;">Camas:</span>
+            <div class="cal-legend-item"><span class="bed"></span><span>Libre</span></div>
+            <div class="cal-legend-item"><span class="bed ocupada"></span><span>Ocupada</span></div>
+            <div class="cal-legend-item"><span class="bed reservada"></span><span>Reservada (pre-registro)</span></div>
+            <div class="cal-legend-item"><span class="bed extra"></span><span>Sobrecupo</span></div>
+            <span style="margin-left:auto;">El día de salida la cama se cuenta como libre.</span>
+          </div>
+        </div>
+
+        </section>
+
+        <!-- SECCIÓN: CALENDARIO -->
+        <section class="vista" id="vista-calendario">
+        <h2 class="section-heading"><span>📅</span> Calendario de estancias</h2>
+        <p class="view-desc">Cada fila es un voluntario y cada barra su estancia en el mes. Haz clic en un nombre o barra para ver la ficha.</p>
+        <div class="calendar-container">
+          <div class="cal-header-bar">
+            <div class="cal-title-section">
+              <span class="cal-month-title" id="calMonthTitle">Cargando mes...</span>
+            </div>
+            <div class="cal-controls">
+              <button class="btn-cal-nav" onclick="cambiarMesRelativo(-1)">◀ Mes Anterior</button>
+              <button class="btn-cal-nav" onclick="irAlMesActual()">Hoy</button>
+              <button class="btn-cal-nav" onclick="cambiarMesRelativo(1)">Siguiente Mes ▶</button>
+            </div>
+          </div>
+
+          <div class="cal-scroll-wrapper">
+            <table class="cal-table" id="calendarTable">
+              <thead id="calHead"></thead>
+              <tbody id="calBody"></tbody>
+            </table>
+          </div>
+
+          <div class="cal-legend">
+            <span style="font-weight:600;">Convenciones:</span>
+            <div class="cal-legend-item">
+              <span class="cal-legend-color" style="background-color: var(--dark-orange);"></span>
+              <span>Dorm Roble (Masculino)</span>
+            </div>
+            <div class="cal-legend-item">
+              <span class="cal-legend-color" style="background-color: #99641e;"></span>
+              <span>Dorm Bamboo (Femenino)</span>
+            </div>
+            <div class="cal-legend-item">
+              <span class="cal-legend-color" style="background-color: #2b2214; border: 1px dashed #ffffff;"></span>
+              <span>Pre-registro / Reserva Pendiente</span>
+            </div>
+          </div>
+        </div>
+
+        </section>
+
+        <!-- SECCIÓN: VOLUNTARIOS -->
+        <section class="vista" id="vista-voluntarios">
+        <div class="view-head">
+          <h2 class="section-heading"><span>📋</span> Voluntarios</h2>
+          <button type="button" class="btn-submit" onclick="nuevoRegistro()">＋ Registrar voluntario</button>
+        </div>
+        <p class="view-desc">Activos y reservas en la primera pestaña; quienes ya hicieron check-out quedan en Historial.</p>
+
+        <div class="tabla-tabs" id="tablaTabs">
+          <button type="button" class="chip active" data-vista="activos" onclick="cambiarVistaTabla('activos')">
+            🏠 Activos y reservas <span class="tab-count" id="countActivos">0</span>
+          </button>
+          <button type="button" class="chip" data-vista="historial" onclick="cambiarVistaTabla('historial')">
+            🗂️ Historial (check-out) <span class="tab-count" id="countHistorial">0</span>
+          </button>
+        </div>
+        <div class="tabla-tabs" id="tablaPerfilChips" style="margin-top:-4px;"></div>
+        <p class="historial-nota" id="historialNota">
+          Voluntarios que ya hicieron check-out. Sus datos se conservan para consultarlos; puedes ver la ficha o revertir el check-out si fue un error.
+        </p>
+        
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-bar" 
+          placeholder="🔍 Buscar por voluntario, documento, país o perfil..." 
+          oninput="filtrarVoluntarios()"
+        >
+
+        <div class="table-wrapper">
+          <table id="voluntariosTable">
+            <thead>
+              <tr>
+                <th>Estado / Habitación</th>
+                <th>Voluntario</th>
+                <th>Llegada - Salida</th>
+                <th>Documento</th>
+                <th>País</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaCuerpo"></tbody>
+          </table>
+          <div id="sinRegistros" class="empty-state" style="display: none;">
+            No hay registros disponibles.
+          </div>
+        </div>
+
+        </section>
+
+        <!-- SECCIÓN: PERFILES -->
+        <section class="vista" id="vista-perfiles">
+          <h2 class="section-heading"><span>🏷️</span> Perfiles de Voluntariado</h2>
+          <p class="page-desc" style="margin-bottom:16px;">Áreas en las que apoyan los voluntarios. Crea nuevos perfiles aquí y asígnalos desde el registro.</p>
+
+          <div class="perfil-crear">
+            <div class="disp-field">
+              <label for="nuevoPerfilIcono">Ícono</label>
+              <select id="nuevoPerfilIcono">
+                <option>🏷️</option><option>🛎️</option><option>🧹</option><option>🔧</option>
+                <option>🍳</option><option>🍹</option><option>🧺</option><option>🌱</option>
+                <option>🎨</option><option>📸</option><option>💻</option><option>🎉</option>
+                <option>🚲</option><option>📚</option><option>🗣️</option><option>🐾</option>
+              </select>
+            </div>
+            <div class="disp-field" style="flex:1; min-width:200px;">
+              <label for="nuevoPerfilNombre">Nombre del nuevo perfil</label>
+              <input type="text" id="nuevoPerfilNombre" maxlength="30" placeholder="Ej: Cocina, Bar, Redes sociales...">
+            </div>
+            <button type="button" class="btn-submit" onclick="crearPerfilDesdeVista()">＋ Agregar perfil</button>
+          </div>
+
+          <div class="perfiles-grid" id="perfilesGrid"></div>
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <div class="toast-zone" id="toastZone"></div>
+
+  <!-- Modal / Ficha Informativa -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="cerrarModal()">&times;</button>
+      <div class="modal-badge-room" id="mBadge"></div>
+      <h3 class="modal-header-name" id="mNombre"></h3>
+      
+      <div class="modal-grid">
+        <div class="modal-grid-item">
+          <span class="modal-label">Estadía</span>
+          <span id="mEstadia"></span>
+        </div>
+        <div class="modal-grid-item">
+          <span class="modal-label">Género / Nacimiento</span>
+          <span id="mGeneroEdad"></span>
+        </div>
+        <div class="modal-grid-item">
+          <span class="modal-label">Identificación</span>
+          <span id="mDoc"></span>
+        </div>
+        <div class="modal-grid-item">
+          <span class="modal-label">País</span>
+          <span id="mPais"></span>
+        </div>
+        <div class="modal-grid-item">
+          <span class="modal-label">Contacto</span>
+          <span id="mContacto"></span>
+        </div>
+        <div class="modal-grid-item">
+          <span class="modal-label">Dirección</span>
+          <span id="mDireccion"></span>
+        </div>
+        <div class="modal-grid-item">
+          <span class="modal-label">Perfil</span>
+          <span id="mPerfil"></span>
+        </div>
+        <div class="modal-grid-item" id="mCheckoutBox" style="display:none;">
+          <span class="modal-label">Check-out realizado</span>
+          <span id="mCheckout"></span>
+        </div>
+      </div>
+
+      <span class="modal-label">Notas del voluntario</span>
+      <div class="modal-notes-box" id="mNotas"></div>
+    </div>
+  </div>
+
+  <!-- Modal / Ficha del Candidato -->
+  <div class="modal-overlay" id="candModal">
+    <div class="modal-card modal-wide">
+      <button class="modal-close" onclick="cerrarCandidato()">&times;</button>
+      <h3 class="modal-header-name" id="candModalTitulo">Nuevo candidato</h3>
+
+      <div class="cand-form">
+        <div class="form-group">
+          <label for="cNombre">Nombre *</label>
+          <input type="text" id="cNombre" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+          <label for="cApellido">Apellido</label>
+          <input type="text" id="cApellido" placeholder="Apellido">
+        </div>
+        <div class="form-group">
+          <label for="cGenero">Género</label>
+          <select id="cGenero" onchange="actualizarHintCandidato()">
+            <option value="">Sin definir</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cPais">País</label>
+          <select id="cPais"></select>
+        </div>
+        <div class="form-group">
+          <label for="cPlataforma">Plataforma</label>
+          <select id="cPlataforma"></select>
+        </div>
+        <div class="form-group">
+          <label for="cEnlace">Enlace del perfil</label>
+          <input type="url" id="cEnlace" placeholder="https://www.worldpackers.com/...">
+        </div>
+
+        <div class="form-group">
+          <label for="cTelefono">Teléfono / WhatsApp</label>
+          <input type="tel" id="cTelefono" placeholder="+57 300 000 0000">
+        </div>
+        <div class="form-group">
+          <label for="cCorreo">Correo</label>
+          <input type="email" id="cCorreo" placeholder="correo@email.com">
+        </div>
+        <div class="form-group">
+          <label for="cPerfil">Perfil de interés</label>
+          <select id="cPerfil"></select>
+        </div>
+
+        <div class="form-group">
+          <label for="cLlegada">Llegada tentativa</label>
+          <input type="date" id="cLlegada" onchange="actualizarHintCandidato()">
+        </div>
+        <div class="form-group">
+          <label for="cSalida">Salida tentativa</label>
+          <input type="date" id="cSalida" onchange="actualizarHintCandidato()">
+        </div>
+        <div class="form-group">
+          <label for="cEtapa">Etapa del proceso</label>
+          <select id="cEtapa"></select>
+        </div>
+
+        <div class="form-group span2">
+          <label for="cProximaAccion">Próxima acción</label>
+          <input type="text" id="cProximaAccion" placeholder="Ej: Agendar entrevista, enviar información, esperar respuesta...">
+        </div>
+        <div class="form-group">
+          <label for="cFechaSeguimiento">Fecha de seguimiento</label>
+          <input type="date" id="cFechaSeguimiento">
+        </div>
+      </div>
+
+      <div class="cand-hint" id="candHint" style="display:none;"></div>
+
+      <h4 class="section-heading" style="font-size:1rem; margin:20px 0 4px;">🗒️ Notas y seguimiento</h4>
+      <div class="timeline" id="candTimeline"></div>
+      <textarea id="candNuevaNota" style="width:100%;" placeholder="Ej: Hicimos la entrevista por videollamada, tiene experiencia en recepción y habla inglés..."></textarea>
+      <div style="margin-top:6px;">
+        <button type="button" class="btn-icon btn-view" onclick="agregarNotaCandidato()">＋ Agregar nota</button>
+      </div>
+
+      <div class="cand-acciones" id="candAcciones"></div>
+    </div>
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://pvsoiceyokivvvwpevqm.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_pOGjwwWM6-EB-REooO3N4w_7oHSrdYe';
+    const TABLA_VOLUNTARIOS = 'voluntarios';
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const form = document.getElementById('voluntarioForm');
+    const tablaCuerpo = document.getElementById('tablaCuerpo');
+    const sinRegistros = document.getElementById('sinRegistros');
+    const searchInput = document.getElementById('searchInput');
+    const inputLlegada = document.getElementById('fechaLlegada');
+    const inputSalida = document.getElementById('fechaSalida');
+    const checkIndefinido = document.getElementById('checkIndefinido');
+    const checkPreRegistro = document.getElementById('checkPreRegistro');
+    const pickerSalidaTrigger = document.getElementById('pickerSalidaTrigger');
+    const infoModal = document.getElementById('infoModal');
+    const notificationsList = document.getElementById('notificationsList');
+    const counterBadge = document.getElementById('counterBadge');
+    const btnSubmitForm = document.getElementById('btnSubmitForm');
+    const dbStatus = document.getElementById('dbStatus');
+
+    // Labels y campos para alternar obligatoriedad en pre-registro
+    const habitacionSelect = document.getElementById('habitacion');
+    const generoSelect = document.getElementById('genero');
+    const nacimientoInput = document.getElementById('fechaNacimiento');
+    const paisSelect = document.getElementById('pais');
+    const documentoInput = document.getElementById('documento');
+    const telefonoInput = document.getElementById('telefono');
+    const correoInput = document.getElementById('correo');
+    const direccionInput = document.getElementById('direccion');
+
+    // Elementos del Calendario
+    const calMonthTitle = document.getElementById('calMonthTitle');
+    const calHead = document.getElementById('calHead');
+    const calBody = document.getElementById('calBody');
+
+    let voluntarios = [];
+    let fechaVistaCalendario = new Date();
+    let vistaTabla = 'activos';
+    let candidatos = [];
+
+    // ===== NAVEGACIÓN ENTRE HERRAMIENTAS =====
+    const VISTAS = ['inicio', 'candidatos', 'registro', 'voluntarios', 'disponibilidad', 'calendario', 'perfiles'];
+    const VISTA_INICIAL = 'inicio';
+
+    function navegar(vista) {
+      if (location.hash.slice(1) === vista) {
+        mostrarVista(vista);
+      } else {
+        location.hash = vista;
+      }
+    }
+
+    function mostrarVista(vista) {
+      if (!VISTAS.includes(vista)) vista = VISTA_INICIAL;
+      document.querySelectorAll('.vista').forEach(sec => {
+        sec.classList.toggle('activa', sec.id === 'vista-' + vista);
+      });
+      document.querySelectorAll('#toolNav button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.vista === vista);
+      });
+      if (vista === 'calendario') renderizarCalendario();
+      if (vista === 'disponibilidad') renderizarDisponibilidad();
+      if (vista === 'perfiles') renderizarPerfiles();
+      if (vista === 'candidatos') renderizarCandidatos();
+      if (vista === 'inicio') renderizarInicio();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('hashchange', () => mostrarVista(location.hash.slice(1)));
+
+    function actualizarContadoresNav() {
+      document.getElementById('navCountVoluntarios').textContent = voluntarios.filter(v => !v.esCheckout).length;
+      document.getElementById('navCountPerfiles').textContent = obtenerPerfiles().length;
+      document.getElementById('navCountCandidatos').textContent = candidatos.filter(c => esEtapaAbierta(c.etapa)).length;
+    }
+
+    // ===== PERFILES DE VOLUNTARIADO =====
+    const PERFILES_BASE = [
+      { nombre: 'Recepción', icono: '🛎️' },
+      { nombre: 'Aseo', icono: '🧹' },
+      { nombre: 'Mantenimiento', icono: '🔧' }
+    ];
+    let filtroPerfilTabla = 'Todos';
+
+    function leerListaLocal(clave) {
+      try {
+        const datos = JSON.parse(localStorage.getItem(clave) || '[]');
+        return Array.isArray(datos) ? datos : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function guardarListaLocal(clave, lista) {
+      try { localStorage.setItem(clave, JSON.stringify(lista)); } catch (e) { /* sin almacenamiento */ }
+    }
+
+    function normalizarTexto(t) {
+      return String(t || '').trim().toLowerCase();
+    }
+
+    // Lista final = perfiles base (no ocultos) + creados + los que ya existan en la base de datos
+    function obtenerPerfiles() {
+      const ocultos = leerListaLocal('kiwi_perfiles_ocultos').map(normalizarTexto);
+      const creados = leerListaLocal('kiwi_perfiles');
+      const lista = [];
+      const vistos = new Set();
+
+      const agregar = (p) => {
+        const clave = normalizarTexto(p.nombre);
+        if (!clave || vistos.has(clave)) return;
+        vistos.add(clave);
+        lista.push({ nombre: p.nombre.trim(), icono: p.icono || '🏷️' });
+      };
+
+      PERFILES_BASE.filter(p => !ocultos.includes(normalizarTexto(p.nombre))).forEach(agregar);
+      creados.forEach(agregar);
+      voluntarios.forEach(v => { if (v.perfil) agregar({ nombre: v.perfil, icono: '🏷️' }); });
+      candidatos.forEach(c => { if (c.perfil) agregar({ nombre: c.perfil, icono: '🏷️' }); });
+      return lista;
+    }
+
+    function iconoPerfil(nombre) {
+      const p = obtenerPerfiles().find(x => normalizarTexto(x.nombre) === normalizarTexto(nombre));
+      return p ? p.icono : '🏷️';
+    }
+
+    function tonoPerfil(nombre) {
+      let hash = 0;
+      for (const c of String(nombre)) hash = (hash * 31 + c.charCodeAt(0)) % 360;
+      return hash;
+    }
+
+    function badgePerfil(nombre) {
+      if (!nombre) return '';
+      const h = tonoPerfil(nombre);
+      return `<span class="perfil-badge" style="background:hsla(${h},45%,30%,0.45); color:hsl(${h},85%,78%); border:1px solid hsla(${h},50%,50%,0.4);">${iconoPerfil(nombre)} ${escaparHTML(nombre)}</span>`;
+    }
+
+    function agregarPerfil(nombre, icono) {
+      const limpio = String(nombre || '').replace(/[\[\]]/g, '').trim();
+      if (!limpio) {
+        alert('Escribe un nombre para el perfil.');
+        return null;
+      }
+      if (limpio.length > 30) {
+        alert('El nombre del perfil puede tener máximo 30 caracteres.');
+        return null;
+      }
+      const existente = obtenerPerfiles().find(p => normalizarTexto(p.nombre) === normalizarTexto(limpio));
+      if (existente) {
+        alert(`El perfil "${existente.nombre}" ya existe.`);
+        return existente.nombre;
+      }
+
+      // Si era un perfil base que se había ocultado, se vuelve a mostrar
+      const ocultos = leerListaLocal('kiwi_perfiles_ocultos');
+      const sinOcultar = ocultos.filter(n => normalizarTexto(n) !== normalizarTexto(limpio));
+      if (sinOcultar.length !== ocultos.length) {
+        guardarListaLocal('kiwi_perfiles_ocultos', sinOcultar);
+      } else {
+        const creados = leerListaLocal('kiwi_perfiles');
+        creados.push({ nombre: limpio, icono: icono || '🏷️' });
+        guardarListaLocal('kiwi_perfiles', creados);
+      }
+
+      refrescarPerfilesUI();
+      return limpio;
+    }
+
+    function eliminarPerfil(nombre) {
+      const enUso = voluntarios.filter(v => normalizarTexto(v.perfil) === normalizarTexto(nombre)).length;
+      const enCandidatos = candidatos.filter(c => normalizarTexto(c.perfil) === normalizarTexto(nombre)).length;
+      if (enUso > 0 || enCandidatos > 0) {
+        alert(`No se puede eliminar "${nombre}": está asignado a ${enUso} voluntario(s) y ${enCandidatos} candidato(s).\nCámbiales el perfil primero.`);
+        return;
+      }
+      if (!confirm(`¿Eliminar el perfil "${nombre}"?`)) return;
+
+      const creados = leerListaLocal('kiwi_perfiles');
+      const restantes = creados.filter(p => normalizarTexto(p.nombre) !== normalizarTexto(nombre));
+      if (restantes.length !== creados.length) {
+        guardarListaLocal('kiwi_perfiles', restantes);
+      }
+      if (PERFILES_BASE.some(p => normalizarTexto(p.nombre) === normalizarTexto(nombre))) {
+        const ocultos = leerListaLocal('kiwi_perfiles_ocultos');
+        ocultos.push(nombre);
+        guardarListaLocal('kiwi_perfiles_ocultos', ocultos);
+      }
+      if (normalizarTexto(filtroPerfilTabla) === normalizarTexto(nombre)) filtroPerfilTabla = 'Todos';
+      refrescarPerfilesUI();
+    }
+
+    function crearPerfilDesdeVista() {
+      const input = document.getElementById('nuevoPerfilNombre');
+      const icono = document.getElementById('nuevoPerfilIcono').value;
+      const creado = agregarPerfil(input.value, icono);
+      if (creado) input.value = '';
+    }
+
+    function crearPerfilRapido() {
+      const nombre = prompt('Nombre del nuevo perfil (ej: Cocina, Bar, Redes sociales):');
+      if (nombre === null) return;
+      const creado = agregarPerfil(nombre, '🏷️');
+      if (creado) seleccionarPerfilFormulario(creado);
+    }
+
+    function seleccionarPerfilFormulario(nombre) {
+      document.getElementById('perfil').value = nombre || '';
+      renderizarChipsPerfilFormulario();
+    }
+
+    function renderizarChipsPerfilFormulario() {
+      const cont = document.getElementById('perfilChips');
+      if (!cont) return;
+      const actual = document.getElementById('perfil').value;
+      let html = `<button type="button" class="chip ${!actual ? 'active' : ''}" data-perfil="" onclick="seleccionarPerfilFormulario(this.dataset.perfil)">Sin perfil</button>`;
+      obtenerPerfiles().forEach(p => {
+        const activo = normalizarTexto(p.nombre) === normalizarTexto(actual);
+        html += `<button type="button" class="chip ${activo ? 'active' : ''}" data-perfil="${escaparHTML(p.nombre)}" onclick="seleccionarPerfilFormulario(this.dataset.perfil)">${p.icono} ${escaparHTML(p.nombre)}</button>`;
+      });
+      html += `<button type="button" class="chip chip-nuevo" onclick="crearPerfilRapido()">＋ Nuevo perfil</button>`;
+      cont.innerHTML = html;
+    }
+
+    function cambiarFiltroPerfilTabla(valor) {
+      filtroPerfilTabla = valor;
+      renderizarSegunFiltro();
+    }
+
+    function renderizarChipsPerfilTabla(base) {
+      const cont = document.getElementById('tablaPerfilChips');
+      if (!cont) return;
+      const contar = (fn) => base.filter(fn).length;
+      let html = `<button type="button" class="chip ${filtroPerfilTabla === 'Todos' ? 'active' : ''}" data-perfil="Todos" onclick="cambiarFiltroPerfilTabla(this.dataset.perfil)">Todos los perfiles <span class="tab-count">${base.length}</span></button>`;
+      obtenerPerfiles().forEach(p => {
+        const n = contar(v => normalizarTexto(v.perfil) === normalizarTexto(p.nombre));
+        const activo = normalizarTexto(filtroPerfilTabla) === normalizarTexto(p.nombre);
+        html += `<button type="button" class="chip ${activo ? 'active' : ''}" data-perfil="${escaparHTML(p.nombre)}" onclick="cambiarFiltroPerfilTabla(this.dataset.perfil)">${p.icono} ${escaparHTML(p.nombre)} <span class="tab-count">${n}</span></button>`;
+      });
+      const sinPerfil = contar(v => !v.perfil);
+      if (sinPerfil > 0) {
+        html += `<button type="button" class="chip ${filtroPerfilTabla === '__sin__' ? 'active' : ''}" data-perfil="__sin__" onclick="cambiarFiltroPerfilTabla(this.dataset.perfil)">Sin perfil <span class="tab-count">${sinPerfil}</span></button>`;
+      }
+      cont.innerHTML = html;
+    }
+
+    function filtrarPorPerfil(lista) {
+      if (filtroPerfilTabla === 'Todos') return lista;
+      if (filtroPerfilTabla === '__sin__') return lista.filter(v => !v.perfil);
+      return lista.filter(v => normalizarTexto(v.perfil) === normalizarTexto(filtroPerfilTabla));
+    }
+
+    function estaEnCasaHoy(v) {
+      if (v.esCheckout || v.esPreRegistro || !v.fechaLlegada) return false;
+      const hoy = isoHoy();
+      const llegada = fechaVisualAISO(v.fechaLlegada);
+      const salida = v.fechaSalida ? fechaVisualAISO(v.fechaSalida) : null;
+      return llegada <= hoy && (!salida || salida >= hoy);
+    }
+
+    function verVoluntariosDePerfil(nombre) {
+      filtroPerfilTabla = nombre;
+      cambiarVistaTabla('activos');
+      navegar('voluntarios');
+    }
+
+    function renderizarPerfiles() {
+      const grid = document.getElementById('perfilesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const tarjetas = obtenerPerfiles().map(p => ({ ...p, sinPerfil: false }));
+      if (voluntarios.some(v => !v.perfil && !v.esCheckout)) {
+        tarjetas.push({ nombre: 'Sin perfil', icono: '❔', sinPerfil: true });
+      }
+
+      if (tarjetas.length === 0) {
+        grid.innerHTML = '<div class="empty-state">No hay perfiles. Crea el primero arriba.</div>';
+        return;
+      }
+
+      tarjetas.forEach(p => {
+        const delPerfil = voluntarios.filter(v => p.sinPerfil ? !v.perfil : normalizarTexto(v.perfil) === normalizarTexto(p.nombre));
+        const enCasa = delPerfil.filter(estaEnCasaHoy);
+        const activos = delPerfil.filter(v => !v.esCheckout);
+        const historial = delPerfil.filter(v => v.esCheckout);
+        const h = p.sinPerfil ? 0 : tonoPerfil(p.nombre);
+        const fondoIcono = p.sinPerfil ? '#2a2a2a' : `hsla(${h},45%,30%,0.45)`;
+
+        const nombresEnCasa = enCasa.length
+          ? 'En casa: ' + enCasa.map(v => escaparHTML(`${v.nombre} ${v.primerApellido}`)).join(', ')
+          : 'Nadie en casa hoy';
+
+        const card = document.createElement('div');
+        card.className = 'perfil-card';
+        card.innerHTML = `
+          <div class="perfil-card-head">
+            <div class="perfil-icono" style="background:${fondoIcono};">${p.icono}</div>
+            <div class="perfil-nombre">${escaparHTML(p.nombre)}</div>
+          </div>
+          <div class="perfil-stats">
+            <div class="perfil-stat"><strong>${enCasa.length}</strong><span>En casa hoy</span></div>
+            <div class="perfil-stat"><strong>${activos.length}</strong><span>Activos y reservas</span></div>
+            <div class="perfil-stat"><strong>${historial.length}</strong><span>Historial</span></div>
+          </div>
+          <div class="perfil-encasa">${nombresEnCasa}</div>
+          <div class="perfil-acciones">
+            <button type="button" class="btn-icon btn-view" data-perfil="${p.sinPerfil ? '__sin__' : escaparHTML(p.nombre)}" onclick="verVoluntariosDePerfil(this.dataset.perfil)">📋 Ver voluntarios</button>
+            ${p.sinPerfil ? '' : `<button type="button" class="btn-icon btn-delete" data-perfil="${escaparHTML(p.nombre)}" onclick="eliminarPerfil(this.dataset.perfil)">🗑️ Eliminar</button>`}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function refrescarPerfilesUI() {
+      renderizarChipsPerfilFormulario();
+      renderizarPerfiles();
+      renderizarSegunFiltro();
+      actualizarContadoresNav();
+    }
+
+    // ===== CANDIDATOS / PROCESO DE SELECCIÓN =====
+    const TABLA_CANDIDATOS = 'candidatos';
+    const ETAPAS_PROCESO = [
+      { id: 'contacto',    nombre: 'Contacto',               icono: '💬' },
+      { id: 'entrevista',  nombre: 'Entrevista',             icono: '🎤' },
+      { id: 'informacion', nombre: 'Información compartida', icono: '📄' },
+      { id: 'preaprobado', nombre: 'Pre-aprobado',           icono: '✅' }
+    ];
+    const ETAPAS_CERRADAS = [
+      { id: 'convertido', nombre: 'Pasó a pre-registro', icono: '🏠' },
+      { id: 'descartado', nombre: 'Descartado',          icono: '❌' }
+    ];
+    const PLATAFORMAS = ['Worldpackers', 'Workaway', 'Instagram', 'WhatsApp', 'Referido', 'Otra'];
+
+    let tablaCandidatosOk = null;   // null = sin cargar, false = la tabla no existe
+    let mostrarCerrados = false;
+    let candidatoAbiertoId = null;  // null = candidato nuevo
+    let candidatoEtapaOriginal = null;
+    let borradorNotas = [];         // notas de un candidato que aún no se ha guardado
+
+    function etapaInfo(id) {
+      return [...ETAPAS_PROCESO, ...ETAPAS_CERRADAS].find(e => e.id === id) || ETAPAS_PROCESO[0];
+    }
+
+    function esEtapaAbierta(id) {
+      return ETAPAS_PROCESO.some(e => e.id === id);
+    }
+
+    function filaCandidatoAFrontend(row) {
+      let seguimiento = row.seguimiento;
+      if (typeof seguimiento === 'string') {
+        try { seguimiento = JSON.parse(seguimiento); } catch (e) { seguimiento = []; }
+      }
+      return {
+        id: Number(row.id),
+        nombre: row.nombre || '',
+        apellido: row.apellido || '',
+        genero: row.genero || '',
+        pais: row.pais || '',
+        plataforma: row.plataforma || 'Worldpackers',
+        enlace: row.enlace_perfil || '',
+        telefono: row.telefono || '',
+        correo: row.correo || '',
+        perfil: row.perfil || '',
+        llegada: row.fecha_llegada_tentativa || '',
+        salida: row.fecha_salida_tentativa || '',
+        etapa: row.etapa || 'contacto',
+        proximaAccion: row.proxima_accion || '',
+        fechaSeguimiento: row.fecha_seguimiento || '',
+        seguimiento: Array.isArray(seguimiento) ? seguimiento : [],
+        voluntarioId: row.voluntario_id ? Number(row.voluntario_id) : null,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at
+      };
+    }
+
+    function esErrorTablaInexistente(error) {
+      const msg = (error?.message || '') + ' ' + (error?.details || '');
+      return error?.code === '42P01' || error?.code === 'PGRST205' || /does not exist|could not find the table/i.test(msg);
+    }
+
+    async function cargarCandidatos() {
+      const aviso = document.getElementById('candAviso');
+      try {
+        const { data, error } = await supabaseClient
+          .from(TABLA_CANDIDATOS)
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Candidatos:', error);
+          tablaCandidatosOk = false;
+          aviso.style.display = 'block';
+          aviso.innerHTML = esErrorTablaInexistente(error)
+            ? '🛠️ <strong>Esta herramienta necesita la tabla <code>candidatos</code> en Supabase.</strong> Todavía no existe; cuando se cree con el SQL de configuración, aquí aparecerá el tablero.'
+            : `⚠️ No se pudieron cargar los candidatos: ${escaparHTML(error.message || 'error desconocido')}`;
+          document.getElementById('btnNuevoCandidato').disabled = true;
+          candidatos = [];
+          renderizarCandidatos();
+          return;
+        }
+
+        tablaCandidatosOk = true;
+        aviso.style.display = 'none';
+        document.getElementById('btnNuevoCandidato').disabled = false;
+        candidatos = (data || []).map(filaCandidatoAFrontend);
+        renderizarCandidatos();
+        renderizarChipsPerfilFormulario();
+        actualizarContadoresNav();
+      } catch (error) {
+        console.error('Candidatos:', error);
+      }
+    }
+
+    function estadoSeguimiento(c) {
+      if (!c.fechaSeguimiento || !esEtapaAbierta(c.etapa)) return null;
+      const hoy = isoHoy();
+      if (c.fechaSeguimiento < hoy) return { clase: 'vencido', texto: `⏰ Vencido ${fechaISOAVisual(c.fechaSeguimiento).slice(0, 5)}` };
+      if (c.fechaSeguimiento === hoy) return { clase: 'hoy', texto: '⏰ Hoy' };
+      return { clase: '', texto: `⏰ ${fechaISOAVisual(c.fechaSeguimiento).slice(0, 5)}` };
+    }
+
+    function ultimaNota(c) {
+      const notas = (c.seguimiento || []).filter(n => n.tipo === 'nota');
+      return notas.length ? notas[notas.length - 1].texto : '';
+    }
+
+    function tarjetaCandidatoHTML(c, conMover = true) {
+      const seg = estadoSeguimiento(c);
+      const idx = ETAPAS_PROCESO.findIndex(e => e.id === c.etapa);
+      const nota = ultimaNota(c);
+      const fechas = c.llegada
+        ? `📅 ${fechaISOAVisual(c.llegada).slice(0, 5)} → ${c.salida ? fechaISOAVisual(c.salida).slice(0, 5) : '∞'}`
+        : '📅 Sin fechas';
+      const generoIcono = c.genero === 'Femenino' ? '♀' : (c.genero === 'Masculino' ? '♂' : '');
+
+      let mover = '';
+      if (conMover && idx >= 0) {
+        mover = '<span class="cand-mover">';
+        if (idx > 0) mover += `<button type="button" title="Etapa anterior" onclick="event.stopPropagation(); moverCandidato(${c.id}, -1)">◀</button>`;
+        if (idx < ETAPAS_PROCESO.length - 1) {
+          mover += `<button type="button" title="Siguiente etapa" onclick="event.stopPropagation(); moverCandidato(${c.id}, 1)">▶</button>`;
+        } else {
+          mover += `<button type="button" title="Pasar a pre-registro" onclick="event.stopPropagation(); convertirAPreRegistro(${c.id})">🏠 Pre-registro</button>`;
+        }
+        mover += '</span>';
+      } else if (!conMover) {
+        const e = etapaInfo(c.etapa);
+        mover = `<span class="seg">${e.icono} ${e.nombre}</span>`;
+      }
+
+      return `
+        <div class="cand-card" onclick="abrirCandidato(${c.id})">
+          <div class="cand-card-top">
+            <span class="cand-nombre">${escaparHTML(c.nombre)} ${escaparHTML(c.apellido)}</span>
+            <span class="cand-plat">${escaparHTML(c.plataforma)}</span>
+          </div>
+          <div class="cand-meta">${generoIcono} ${escaparHTML(c.pais || 'País sin definir')} ${c.perfil ? badgePerfil(c.perfil) : ''}</div>
+          <div class="cand-meta">${fechas}</div>
+          ${c.proximaAccion && esEtapaAbierta(c.etapa) ? `<div class="cand-meta">➡️ ${escaparHTML(c.proximaAccion)}</div>` : ''}
+          ${nota ? `<div class="cand-ultima">"${escaparHTML(nota)}"</div>` : ''}
+          <div class="cand-foot">
+            ${seg ? `<span class="seg ${seg.clase}">${seg.texto}</span>` : ''}
+            ${mover}
+          </div>
+        </div>`;
+    }
+
+    function filtrarCandidatosBusqueda(lista) {
+      const q = normalizarTexto(document.getElementById('candBuscar')?.value);
+      const plat = document.getElementById('candFiltroPlataforma')?.value || '';
+      return lista.filter(c => {
+        if (plat && c.plataforma !== plat) return false;
+        if (!q) return true;
+        const texto = [c.nombre, c.apellido, c.pais, c.perfil, c.plataforma, c.proximaAccion,
+          ...(c.seguimiento || []).map(n => n.texto)].join(' ').toLowerCase();
+        return texto.includes(q);
+      });
+    }
+
+    function ordenarPorSeguimiento(a, b) {
+      const fa = a.fechaSeguimiento || '9999-12-31';
+      const fb = b.fechaSeguimiento || '9999-12-31';
+      if (fa !== fb) return fa.localeCompare(fb);
+      return String(b.updatedAt || b.createdAt || '').localeCompare(String(a.updatedAt || a.createdAt || ''));
+    }
+
+    function renderizarCandidatos() {
+      const kanban = document.getElementById('kanban');
+      if (!kanban) return;
+
+      // Filtro de plataformas (se conserva la selección)
+      const selPlat = document.getElementById('candFiltroPlataforma');
+      const platActual = selPlat.value;
+      const plataformas = [...new Set([...PLATAFORMAS, ...candidatos.map(c => c.plataforma).filter(Boolean)])];
+      selPlat.innerHTML = '<option value="">Todas las plataformas</option>' +
+        plataformas.map(p => `<option value="${escaparHTML(p)}">${escaparHTML(p)}</option>`).join('');
+      selPlat.value = platActual;
+
+      const filtrados = filtrarCandidatosBusqueda(candidatos);
+      const abiertos = filtrados.filter(c => esEtapaAbierta(c.etapa));
+      const cerrados = filtrados.filter(c => !esEtapaAbierta(c.etapa));
+
+      kanban.innerHTML = ETAPAS_PROCESO.map(etapa => {
+        const deEtapa = abiertos.filter(c => c.etapa === etapa.id).sort(ordenarPorSeguimiento);
+        return `
+          <div class="kanban-col">
+            <div class="kanban-col-head">
+              <span>${etapa.icono} ${etapa.nombre}</span>
+              <span class="tab-count">${deEtapa.length}</span>
+            </div>
+            ${deEtapa.length ? deEtapa.map(c => tarjetaCandidatoHTML(c)).join('') : '<div class="kanban-vacio">Sin candidatos</div>'}
+          </div>`;
+      }).join('');
+
+      // Cerrados (pasaron a pre-registro o descartados)
+      const btnCerrados = document.getElementById('btnCerrados');
+      btnCerrados.textContent = `${mostrarCerrados ? 'Ocultar' : 'Ver'} cerrados (${cerrados.length})`;
+      btnCerrados.classList.toggle('active', mostrarCerrados);
+      document.getElementById('candCerrados').innerHTML = mostrarCerrados
+        ? (cerrados.length
+          ? `<div class="perfiles-grid">${cerrados.sort(ordenarPorSeguimiento).map(c => tarjetaCandidatoHTML(c, false)).join('')}</div>`
+          : '<div class="empty-state">No hay candidatos cerrados.</div>')
+        : '';
+
+      // Seguimientos pendientes (hoy o vencidos)
+      const pendientes = candidatos
+        .filter(c => esEtapaAbierta(c.etapa) && c.fechaSeguimiento && c.fechaSeguimiento <= isoHoy())
+        .sort(ordenarPorSeguimiento);
+      const resumen = document.getElementById('candResumenSeguimiento');
+      resumen.innerHTML = pendientes.length
+        ? `<span class="cand-alerta">⏰ ${pendientes.length} seguimiento(s) para hoy o vencidos</span>`
+        : '';
+
+      const box = document.getElementById('segHoyBox');
+      if (!box) {
+        // El panel lateral se reemplazó por la vista Inicio
+      } else if (pendientes.length) {
+        box.style.display = 'block';
+        box.innerHTML = `<div class="seg-hoy-titulo">⏰ Seguimientos de candidatos (${pendientes.length})</div>` +
+          pendientes.map(c => {
+            const seg = estadoSeguimiento(c);
+            return `<div class="seg-hoy-item" onclick="navegar('candidatos'); abrirCandidato(${c.id})">
+              <strong>${escaparHTML(c.nombre)} ${escaparHTML(c.apellido)}</strong> · ${seg ? seg.texto : ''}<br>
+              <span style="color:var(--text-muted);">${escaparHTML(c.proximaAccion || etapaInfo(c.etapa).nombre)}</span>
+            </div>`;
+          }).join('');
+      } else {
+        box.style.display = 'none';
+        box.innerHTML = '';
+      }
+
+      const countNav = document.getElementById('navCountCandidatos');
+      if (countNav) countNav.textContent = candidatos.filter(c => esEtapaAbierta(c.etapa)).length;
+      renderizarInicio();
+    }
+
+    function alternarCerrados() {
+      mostrarCerrados = !mostrarCerrados;
+      renderizarCandidatos();
+    }
+
+    function nuevaEntrada(tipo, texto, etapa) {
+      return { fecha: new Date().toISOString(), tipo, texto, etapa };
+    }
+
+    async function moverCandidato(id, delta) {
+      const c = candidatos.find(x => x.id === id);
+      if (!c) return;
+      const idx = ETAPAS_PROCESO.findIndex(e => e.id === c.etapa);
+      const destino = ETAPAS_PROCESO[idx + delta];
+      if (!destino) return;
+
+      const seguimiento = [...c.seguimiento, nuevaEntrada('etapa', `${etapaInfo(c.etapa).nombre} → ${destino.nombre}`, destino.id)];
+      const { error } = await supabaseClient
+        .from(TABLA_CANDIDATOS)
+        .update({ etapa: destino.id, seguimiento, updated_at: new Date().toISOString() })
+        .eq('id', id);
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo mover el candidato', error);
+        return;
+      }
+      await cargarCandidatos();
+    }
+
+    function llenarSelectsCandidato(c) {
+      document.getElementById('cPais').innerHTML =
+        '<option value="">Sin definir</option>' + paisSelect.innerHTML.replace(/<option value="" disabled selected>[^<]*<\/option>/, '');
+
+      const plataformas = [...new Set([...PLATAFORMAS, c?.plataforma].filter(Boolean))];
+      document.getElementById('cPlataforma').innerHTML =
+        plataformas.map(p => `<option value="${escaparHTML(p)}">${escaparHTML(p)}</option>`).join('');
+
+      document.getElementById('cPerfil').innerHTML = '<option value="">Sin definir</option>' +
+        obtenerPerfiles().map(p => `<option value="${escaparHTML(p.nombre)}">${p.icono} ${escaparHTML(p.nombre)}</option>`).join('');
+
+      const etapas = [...ETAPAS_PROCESO, ETAPAS_CERRADAS[1]];
+      if (c?.etapa === 'convertido') etapas.push(ETAPAS_CERRADAS[0]);
+      document.getElementById('cEtapa').innerHTML =
+        etapas.map(e => `<option value="${e.id}">${e.icono} ${e.nombre}</option>`).join('');
+    }
+
+    function abrirCandidato(id) {
+      if (tablaCandidatosOk === false) {
+        alert('La tabla de candidatos todavía no existe en Supabase.');
+        return;
+      }
+      const c = id ? candidatos.find(x => x.id === id) : null;
+      if (id && !c) return;
+
+      candidatoAbiertoId = c ? c.id : null;
+      candidatoEtapaOriginal = c ? c.etapa : null;
+      borradorNotas = [];
+      llenarSelectsCandidato(c);
+
+      document.getElementById('candModalTitulo').textContent = c ? `${c.nombre} ${c.apellido}`.trim() : 'Nuevo candidato';
+      document.getElementById('cNombre').value = c?.nombre || '';
+      document.getElementById('cApellido').value = c?.apellido || '';
+      document.getElementById('cGenero').value = c?.genero || '';
+      document.getElementById('cPais').value = c?.pais || '';
+      document.getElementById('cPlataforma').value = c?.plataforma || 'Worldpackers';
+      document.getElementById('cEnlace').value = c?.enlace || '';
+      document.getElementById('cTelefono').value = c?.telefono || '';
+      document.getElementById('cCorreo').value = c?.correo || '';
+      document.getElementById('cPerfil').value = c?.perfil || '';
+      document.getElementById('cLlegada').value = c?.llegada || '';
+      document.getElementById('cSalida').value = c?.salida || '';
+      document.getElementById('cEtapa').value = c?.etapa || 'contacto';
+      document.getElementById('cProximaAccion').value = c?.proximaAccion || '';
+      document.getElementById('cFechaSeguimiento').value = c?.fechaSeguimiento || '';
+      document.getElementById('candNuevaNota').value = '';
+
+      renderizarTimelineCandidato();
+      renderizarAccionesCandidato(c);
+      actualizarHintCandidato();
+      document.getElementById('candModal').style.display = 'flex';
+      setTimeout(() => document.getElementById('cNombre').focus(), 50);
+    }
+
+    function cerrarCandidato() {
+      document.getElementById('candModal').style.display = 'none';
+      candidatoAbiertoId = null;
+      borradorNotas = [];
+    }
+
+    function formatearFechaHora(iso) {
+      const d = new Date(iso);
+      if (isNaN(d)) return '';
+      return d.toLocaleString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function renderizarTimelineCandidato() {
+      const c = candidatos.find(x => x.id === candidatoAbiertoId);
+      const entradas = [...(c ? c.seguimiento : []), ...borradorNotas].slice().reverse();
+      const cont = document.getElementById('candTimeline');
+      if (!entradas.length) {
+        cont.innerHTML = '<div class="kanban-vacio">Todavía no hay notas. Escribe la primera abajo.</div>';
+        return;
+      }
+      cont.innerHTML = entradas.map(n => `
+        <div class="tl-item ${n.tipo === 'etapa' ? 'etapa' : ''}">
+          <div class="tl-fecha">${formatearFechaHora(n.fecha)} · ${etapaInfo(n.etapa).icono} ${etapaInfo(n.etapa).nombre}</div>
+          <div class="tl-texto">${n.tipo === 'etapa' ? '🔀 ' : ''}${escaparHTML(n.texto)}</div>
+        </div>`).join('');
+    }
+
+    function renderizarAccionesCandidato(c) {
+      let html = `<button type="button" class="btn-submit" onclick="guardarCandidato()"><span>✓</span> Guardar</button>`;
+      if (c && c.etapa === 'preaprobado') {
+        html += `<button type="button" class="btn-icon btn-checkin" style="padding:10px 14px;" onclick="convertirAPreRegistro(${c.id})">🏠 Pasar a pre-registro</button>`;
+      }
+      if (c && c.etapa === 'convertido' && c.voluntarioId) {
+        html += `<button type="button" class="btn-icon btn-view" style="padding:10px 14px;" onclick="cerrarCandidato(); verFicha(${c.voluntarioId})">🔍 Ver ficha de voluntario</button>`;
+      }
+      if (c && esEtapaAbierta(c.etapa)) {
+        html += `<button type="button" class="btn-icon btn-revertir" style="padding:10px 14px;" onclick="descartarCandidato(${c.id})">❌ Descartar</button>`;
+      }
+      if (c) {
+        html += `<button type="button" class="btn-icon btn-delete" style="padding:10px 14px; margin-left:auto;" onclick="eliminarCandidato(${c.id})">🗑️ Eliminar</button>`;
+      }
+      html += `<button type="button" class="btn-cancel" style="display:inline-block;${c ? '' : ' margin-left:auto;'}" onclick="cerrarCandidato()">Cerrar</button>`;
+      document.getElementById('candAcciones').innerHTML = html;
+    }
+
+    function disponibilidadPara(genero, llegadaISO, salidaISO) {
+      const hab = HABITACIONES_VOLUNTARIOS.find(h => h.genero === genero);
+      if (!hab || !llegadaISO) return null;
+      let hasta;
+      let indefinida = false;
+      if (!salidaISO) {
+        hasta = sumarDiasISO(llegadaISO, 29);
+        indefinida = true;
+      } else if (salidaISO < llegadaISO) {
+        return null;
+      } else {
+        hasta = salidaISO === llegadaISO ? llegadaISO : sumarDiasISO(salidaISO, -1);
+      }
+      const capacidad = leerCapacidad(hab.id);
+      const oc = calcularOcupacion(hab.id, llegadaISO, hasta);
+      return { hab, capacidad, libres: capacidad - oc.peor.total, peor: oc.peor, indefinida };
+    }
+
+    function actualizarHintCandidato() {
+      const hint = document.getElementById('candHint');
+      const info = disponibilidadPara(
+        document.getElementById('cGenero').value,
+        document.getElementById('cLlegada').value,
+        document.getElementById('cSalida').value
+      );
+      if (!info) {
+        hint.style.display = 'none';
+        return;
+      }
+      const periodo = info.indefinida ? ' (próximos 30 días)' : ' para esas fechas';
+      hint.style.display = 'block';
+      if (info.libres <= 0) {
+        hint.innerHTML = `<span style="color:#ff7a7a;">⛔ ${info.hab.icono} ${info.hab.corto} no tiene camas libres${periodo}: el ${fechaISOAVisual(info.peor.iso)} está ${info.peor.total}/${info.capacidad}.</span>`;
+      } else {
+        hint.innerHTML = `<span style="color:${info.libres === 1 ? '#ff914d' : '#9be07a'};">🛏️ ${info.hab.icono} ${info.hab.corto}: ${info.libres} cama(s) libre(s)${periodo}.</span>`;
+      }
+    }
+
+    async function agregarNotaCandidato() {
+      const textarea = document.getElementById('candNuevaNota');
+      const texto = textarea.value.trim();
+      if (!texto) return;
+      const etapa = document.getElementById('cEtapa').value || 'contacto';
+
+      if (!candidatoAbiertoId) {
+        borradorNotas.push(nuevaEntrada('nota', texto, etapa));
+        textarea.value = '';
+        renderizarTimelineCandidato();
+        return;
+      }
+
+      const c = candidatos.find(x => x.id === candidatoAbiertoId);
+      const seguimiento = [...c.seguimiento, nuevaEntrada('nota', texto, c.etapa)];
+      const { error } = await supabaseClient
+        .from(TABLA_CANDIDATOS)
+        .update({ seguimiento, updated_at: new Date().toISOString() })
+        .eq('id', c.id);
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo guardar la nota', error);
+        return;
+      }
+      c.seguimiento = seguimiento;
+      textarea.value = '';
+      renderizarTimelineCandidato();
+      renderizarCandidatos();
+    }
+
+    function vacioANull(valor) {
+      const v = String(valor ?? '').trim();
+      return v ? v : null;
+    }
+
+    async function guardarCandidato() {
+      const nombre = document.getElementById('cNombre').value.trim();
+      if (!nombre) {
+        alert('Escribe al menos el nombre del candidato.');
+        document.getElementById('cNombre').focus();
+        return;
+      }
+      const llegada = document.getElementById('cLlegada').value;
+      const salida = document.getElementById('cSalida').value;
+      if (llegada && salida && salida < llegada) {
+        alert('La salida tentativa no puede ser anterior a la llegada.');
+        return;
+      }
+
+      const enlace = document.getElementById('cEnlace').value.trim();
+      const etapa = document.getElementById('cEtapa').value || 'contacto';
+      const c = candidatos.find(x => x.id === candidatoAbiertoId);
+
+      let seguimiento = c ? [...c.seguimiento] : [nuevaEntrada('etapa', 'Candidato creado', etapa)];
+      seguimiento.push(...borradorNotas);
+      const notaPendiente = document.getElementById('candNuevaNota').value.trim();
+      if (notaPendiente) seguimiento.push(nuevaEntrada('nota', notaPendiente, etapa));
+      if (c && candidatoEtapaOriginal !== etapa) {
+        seguimiento.push(nuevaEntrada('etapa', `${etapaInfo(candidatoEtapaOriginal).nombre} → ${etapaInfo(etapa).nombre}`, etapa));
+      }
+
+      const datos = {
+        nombre,
+        apellido: vacioANull(document.getElementById('cApellido').value),
+        genero: vacioANull(document.getElementById('cGenero').value),
+        pais: vacioANull(document.getElementById('cPais').value),
+        plataforma: vacioANull(document.getElementById('cPlataforma').value) || 'Worldpackers',
+        enlace_perfil: vacioANull(enlace),
+        telefono: vacioANull(document.getElementById('cTelefono').value),
+        correo: vacioANull(document.getElementById('cCorreo').value),
+        perfil: vacioANull(document.getElementById('cPerfil').value),
+        fecha_llegada_tentativa: vacioANull(llegada),
+        fecha_salida_tentativa: vacioANull(salida),
+        etapa,
+        proxima_accion: vacioANull(document.getElementById('cProximaAccion').value),
+        fecha_seguimiento: vacioANull(document.getElementById('cFechaSeguimiento').value),
+        seguimiento,
+        updated_at: new Date().toISOString()
+      };
+
+      const consulta = c
+        ? supabaseClient.from(TABLA_CANDIDATOS).update(datos).eq('id', c.id)
+        : supabaseClient.from(TABLA_CANDIDATOS).insert(datos);
+      const { error } = await consulta;
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo guardar el candidato', error);
+        return;
+      }
+
+      cerrarCandidato();
+      await cargarCandidatos();
+      mostrarEstado(`Candidato ${c ? 'actualizado' : 'creado'}: ${nombre}.`, 'ok');
+    }
+
+    async function descartarCandidato(id) {
+      const c = candidatos.find(x => x.id === id);
+      if (!c) return;
+      const motivo = prompt(`¿Por qué se descarta a ${c.nombre}? (opcional)`, '');
+      if (motivo === null) return;
+
+      const seguimiento = [...c.seguimiento,
+        nuevaEntrada('etapa', `${etapaInfo(c.etapa).nombre} → Descartado${motivo.trim() ? ': ' + motivo.trim() : ''}`, 'descartado')];
+      const { error } = await supabaseClient
+        .from(TABLA_CANDIDATOS)
+        .update({ etapa: 'descartado', seguimiento, updated_at: new Date().toISOString() })
+        .eq('id', id);
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo descartar el candidato', error);
+        return;
+      }
+      cerrarCandidato();
+      await cargarCandidatos();
+      mostrarEstado(`${c.nombre} quedó como descartado (puedes verlo en "Ver cerrados").`, 'ok');
+    }
+
+    async function eliminarCandidato(id) {
+      const c = candidatos.find(x => x.id === id);
+      if (!c) return;
+      if (!confirm(`¿Eliminar a ${c.nombre} ${c.apellido} y todas sus notas de forma PERMANENTE?\n\nSi solo no siguió en el proceso, usa "Descartar" para conservar el historial.`)) return;
+
+      const { error } = await supabaseClient.from(TABLA_CANDIDATOS).delete().eq('id', id);
+      if (error) {
+        mostrarErrorSupabase('No se pudo eliminar el candidato', error);
+        return;
+      }
+      cerrarCandidato();
+      await cargarCandidatos();
+      mostrarEstado('Candidato eliminado.', 'ok');
+    }
+
+    async function convertirAPreRegistro(id) {
+      const c = candidatos.find(x => x.id === id);
+      if (!c) return;
+
+      const faltantes = [];
+      if (!c.apellido) faltantes.push('apellido');
+      if (!c.genero) faltantes.push('género (define el dormitorio)');
+      if (!c.llegada) faltantes.push('fecha de llegada tentativa');
+      if (faltantes.length) {
+        alert(`Para pasar a ${c.nombre} a pre-registro falta: ${faltantes.join(', ')}.\nCompleta esos datos en su ficha y guarda.`);
+        abrirCandidato(c.id);
+        return;
+      }
+
+      const info = disponibilidadPara(c.genero, c.llegada, c.salida);
+      let mensaje = `¿Pasar a ${c.nombre} ${c.apellido} a PRE-REGISTRO?\n\n` +
+        `Llegada: ${fechaISOAVisual(c.llegada)} · Salida: ${c.salida ? fechaISOAVisual(c.salida) : 'Indefinida'}\n` +
+        `Dormitorio: ${info ? info.hab.corto : '-'}`;
+      if (info && info.libres <= 0) {
+        mensaje += `\n\n⚠️ OJO: ${info.hab.corto} no tiene camas libres el ${fechaISOAVisual(info.peor.iso)} (${info.peor.total}/${info.capacidad}).`;
+      }
+      if (!confirm(mensaje)) return;
+
+      const notaResumen = [`Candidato vía ${c.plataforma}.`, ultimaNota(c)].filter(Boolean).join(' Última nota: ');
+      const v = {
+        fechaLlegada: fechaISOAVisual(c.llegada),
+        fechaSalida: c.salida ? fechaISOAVisual(c.salida) : null,
+        habitacion: info ? info.hab.nombre : '',
+        nombre: c.nombre,
+        primerApellido: c.apellido,
+        segundoApellido: '',
+        genero: c.genero,
+        fechaNacimiento: '',
+        pais: c.pais,
+        tipoDocumento: c.pais === 'Colombia' ? 'Cédula de Ciudadanía' : 'Pasaporte',
+        documento: '',
+        telefono: c.telefono,
+        correo: c.correo,
+        direccion: '',
+        notas: notaResumen,
+        perfil: c.perfil,
+        fechaCheckout: null
+      };
+      const dbData = voluntarioFrontendADb(v, true);
+
+      let { data, error } = await supabaseClient.from(TABLA_VOLUNTARIOS).insert(dbData).select('id');
+      if (error && error.code === '23502' && /id/i.test(error.message || '')) {
+        const reintento = await supabaseClient.from(TABLA_VOLUNTARIOS).insert({ id: Date.now(), ...dbData }).select('id');
+        data = reintento.data;
+        error = reintento.error;
+      }
+      if (error) {
+        mostrarErrorSupabase('No se pudo crear el pre-registro', error);
+        return;
+      }
+
+      const voluntarioId = Array.isArray(data) && data[0] ? data[0].id : null;
+      const seguimiento = [...c.seguimiento, nuevaEntrada('etapa', 'Pre-aprobado → Pasó a pre-registro de voluntarios', 'convertido')];
+      const { error: errorCand } = await supabaseClient
+        .from(TABLA_CANDIDATOS)
+        .update({ etapa: 'convertido', voluntario_id: voluntarioId, seguimiento, updated_at: new Date().toISOString() })
+        .eq('id', c.id);
+      if (errorCand) {
+        mostrarErrorSupabase('El pre-registro se creó, pero no se pudo actualizar el candidato', errorCand);
+      }
+
+      cerrarCandidato();
+      await cargarVoluntarios();
+      await cargarCandidatos();
+      mostrarEstado(`${c.nombre} ${c.apellido} pasó a pre-registro. Lo verás en Voluntarios con la etiqueta 📋 Pre-registro.`, 'ok');
+    }
+
+    // ===== DISPONIBILIDAD DE HABITACIONES =====
+    // Ajusta capacidadDefault al número real de camas de cada dorm (también se puede cambiar desde la página).
+    const HABITACIONES_VOLUNTARIOS = [
+      { id: 'roble',  nombre: 'Dorm Roble (Masculino)', corto: 'Dorm Roble',  genero: 'Masculino', icono: '🌳', capacidadDefault: 6 },
+      { id: 'bamboo', nombre: 'Dorm Bamboo (Femenino)', corto: 'Dorm Bamboo', genero: 'Femenino',  icono: '🎋', capacidadDefault: 6 }
+    ];
+    let filtroGeneroDisp = 'Todos';
+    const MAX_DIAS_RANGO = 366;
+
+    function leerCapacidad(habId) {
+      const hab = HABITACIONES_VOLUNTARIOS.find(h => h.id === habId);
+      try {
+        const guardado = parseInt(localStorage.getItem('kiwi_capacidad_' + habId), 10);
+        if (guardado > 0) return guardado;
+      } catch (e) { /* almacenamiento no disponible */ }
+      return hab ? hab.capacidadDefault : 0;
+    }
+
+    function guardarCapacidad(habId, valor) {
+      const n = parseInt(valor, 10);
+      if (!(n > 0)) {
+        document.getElementById(habId === 'roble' ? 'capRoble' : 'capBamboo').value = leerCapacidad(habId);
+        return;
+      }
+      try { localStorage.setItem('kiwi_capacidad_' + habId, String(n)); } catch (e) { /* sin almacenamiento */ }
+      renderizarDisponibilidad();
+      actualizarHintHabitacion();
+    }
+
+    function isoDeFecha(d) {
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function isoHoy() {
+      return isoDeFecha(new Date());
+    }
+
+    function sumarDiasISO(iso, n) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return isoDeFecha(new Date(y, m - 1, d + n));
+    }
+
+    function diasEntreISO(desde, hasta) {
+      const dias = [];
+      let actual = desde;
+      while (actual <= hasta && dias.length < MAX_DIAS_RANGO) {
+        dias.push(actual);
+        actual = sumarDiasISO(actual, 1);
+      }
+      return dias;
+    }
+
+    function habitacionDeVoluntario(v) {
+      const h = v.habitacion || '';
+      if (h.includes('Roble')) return 'roble';
+      if (h.includes('Bamboo')) return 'bamboo';
+      return null;
+    }
+
+    // Ocupa la cama la noche del día "iso": llegó ese día o antes y sale después.
+    // El día de salida la cama queda libre (salvo estancias de un solo día).
+    function ocupaNoche(v, iso) {
+      const inISO = fechaVisualAISO(v.fechaLlegada);
+      if (!inISO || inISO > iso) return false;
+      if (!v.fechaSalida) return true;
+      const outISO = fechaVisualAISO(v.fechaSalida);
+      if (outISO === inISO) return iso === inISO;
+      return iso < outISO;
+    }
+
+    function calcularOcupacion(habId, desde, hasta, excluirId = null) {
+      const dias = diasEntreISO(desde, hasta);
+      const delCuarto = voluntarios.filter(v => habitacionDeVoluntario(v) === habId && v.id !== excluirId);
+
+      const porDia = dias.map(iso => {
+        const presentes = delCuarto.filter(v => ocupaNoche(v, iso));
+        return { iso, total: presentes.length, pre: presentes.filter(v => v.esPreRegistro).length };
+      });
+
+      const personas = delCuarto
+        .filter(v => dias.some(iso => ocupaNoche(v, iso)))
+        .sort((a, b) => fechaVisualAISO(a.fechaLlegada).localeCompare(fechaVisualAISO(b.fechaLlegada)));
+
+      let peor = porDia[0] || { iso: desde, total: 0, pre: 0 };
+      porDia.forEach(d => { if (d.total > peor.total) peor = d; });
+
+      return { dias: porDia, personas, peor };
+    }
+
+    function obtenerRangoDisponibilidad() {
+      const inputDesde = document.getElementById('dispDesde');
+      const inputHasta = document.getElementById('dispHasta');
+      let desde = inputDesde.value || isoHoy();
+      let hasta = inputHasta.value || desde;
+      if (hasta < desde) {
+        hasta = desde;
+        inputHasta.value = hasta;
+      }
+      const tope = sumarDiasISO(desde, MAX_DIAS_RANGO - 1);
+      if (hasta > tope) {
+        hasta = tope;
+        inputHasta.value = hasta;
+      }
+      return { desde, hasta };
+    }
+
+    function rangoRapido(tipo) {
+      const hoy = isoHoy();
+      let desde = hoy;
+      let hasta = hoy;
+      if (tipo === 'manana') {
+        desde = sumarDiasISO(hoy, 1);
+        hasta = desde;
+      } else if (tipo === '7') {
+        hasta = sumarDiasISO(hoy, 6);
+      } else if (tipo === '30') {
+        hasta = sumarDiasISO(hoy, 29);
+      } else if (tipo === 'mes') {
+        const y = fechaVistaCalendario.getFullYear();
+        const m = fechaVistaCalendario.getMonth();
+        desde = isoDeFecha(new Date(y, m, 1));
+        hasta = isoDeFecha(new Date(y, m + 1, 0));
+      }
+      document.getElementById('dispDesde').value = desde;
+      document.getElementById('dispHasta').value = hasta;
+      renderizarDisponibilidad();
+    }
+
+    function cambiarFiltroGenero(genero) {
+      filtroGeneroDisp = genero;
+      document.querySelectorAll('#dispGeneroChips .chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.genero === genero);
+      });
+      renderizarDisponibilidad();
+    }
+
+    function estadoDisponibilidad(libres, capacidad) {
+      if (libres <= 0) return { clase: 'status-full', texto: 'Sin cupo' };
+      if (libres === 1 || libres <= Math.floor(capacidad * 0.25)) return { clase: 'status-low', texto: 'Pocas camas' };
+      return { clase: 'status-ok', texto: 'Disponible' };
+    }
+
+    function renderizarDisponibilidad() {
+      const grid = document.getElementById('dispGrid');
+      const resumen = document.getElementById('dispResumen');
+      if (!grid) return;
+
+      const { desde, hasta } = obtenerRangoDisponibilidad();
+      const totalDias = diasEntreISO(desde, hasta).length;
+      const textoRango = desde === hasta
+        ? `la noche del ${fechaISOAVisual(desde)}`
+        : `del ${fechaISOAVisual(desde)} al ${fechaISOAVisual(hasta)} (${totalDias} noches)`;
+
+      const habsVisibles = HABITACIONES_VOLUNTARIOS.filter(h => filtroGeneroDisp === 'Todos' || h.genero === filtroGeneroDisp);
+      const resumenPartes = [];
+      grid.innerHTML = '';
+
+      habsVisibles.forEach(hab => {
+        const capacidad = leerCapacidad(hab.id);
+        const oc = calcularOcupacion(hab.id, desde, hasta);
+        const libres = capacidad - oc.peor.total;
+        const libresMostrar = Math.max(0, libres);
+        const estado = estadoDisponibilidad(libres, capacidad);
+
+        resumenPartes.push(
+          `${hab.icono} <strong>${hab.corto}</strong> (${hab.genero.toLowerCase()}): ` +
+          `<strong style="color:${libres > 0 ? '#9be07a' : '#ff7a7a'};">${libresMostrar} cama(s) libre(s)</strong>`
+        );
+
+        // Camas del día más lleno del rango
+        const confirmados = oc.peor.total - oc.peor.pre;
+        let camasHtml = '';
+        const totalIconos = Math.max(capacidad, oc.peor.total);
+        for (let i = 0; i < totalIconos; i++) {
+          let clase = 'bed';
+          if (i >= capacidad) clase += ' extra';
+          else if (i < confirmados) clase += ' ocupada';
+          else if (i < oc.peor.total) clase += ' reservada';
+          camasHtml += `<span class="${clase}"></span>`;
+        }
+
+        // Tira de días (solo rangos de hasta 62 días)
+        let diasHtml = '';
+        if (oc.dias.length > 1 && oc.dias.length <= 62) {
+          diasHtml = `<div class="room-label-mini">Camas libres por noche</div><div class="room-days">`;
+          oc.dias.forEach(d => {
+            const libresDia = capacidad - d.total;
+            const color = libresDia <= 0 ? '#7a1010' : (libresDia === 1 ? '#a83e00' : '#2f521b');
+            const [, mes, dia] = d.iso.split('-');
+            diasHtml += `
+              <div class="room-day" title="${fechaISOAVisual(d.iso)}: ${d.total}/${capacidad} ocupadas${d.pre ? ` (${d.pre} pre-registro)` : ''}">
+                <div class="room-day-cell" style="background:${color};">${Math.max(0, libresDia)}</div>
+                <span>${dia}/${mes}</span>
+              </div>`;
+          });
+          diasHtml += `</div>`;
+        }
+
+        // Personas en el rango
+        let personasHtml = '';
+        if (oc.personas.length === 0) {
+          personasHtml = '<li class="vacio">Nadie asignado en este rango</li>';
+        } else {
+          oc.personas.forEach(v => {
+            personasHtml += `
+              <li onclick="verFicha(${v.id})" title="Ver ficha">
+                <span>${v.perfil ? iconoPerfil(v.perfil) + ' ' : ''}${v.esPreRegistro ? '<span style="color:#ff914d;">[Pre]</span> ' : ''}${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}</span>
+                <span style="color:var(--text-muted);">${escaparHTML(v.fechaLlegada.slice(0, 5))} → ${v.fechaSalida ? escaparHTML(v.fechaSalida.slice(0, 5)) : '∞'}</span>
+              </li>`;
+          });
+        }
+
+        const aviso = libres < 0
+          ? `<div class="room-warning">⚠️ Sobrecupo: el ${fechaISOAVisual(oc.peor.iso)} hay ${oc.peor.total} personas para ${capacidad} camas.</div>`
+          : '';
+
+        const card = document.createElement('div');
+        card.className = `room-card ${hab.id}`;
+        card.innerHTML = `
+          <div class="room-head">
+            <div>
+              <div class="room-name">${hab.icono} ${hab.corto}</div>
+              <div class="room-sub">${hab.genero} · ${capacidad} camas</div>
+            </div>
+            <span class="room-status ${estado.clase}">${estado.texto}</span>
+          </div>
+          <div class="room-big">
+            <span class="room-big-num">${libresMostrar}</span>
+            <span class="room-big-label">cama(s) libre(s) ${totalDias > 1 ? 'durante todo el rango' : 'esa noche'}</span>
+          </div>
+          <div>
+            <div class="room-label-mini" style="margin-bottom:5px;">
+              ${totalDias > 1 ? `Noche más llena: ${fechaISOAVisual(oc.peor.iso)}` : 'Ocupación'} · ${oc.peor.total}/${capacidad}
+            </div>
+            <div class="beds-row">${camasHtml}</div>
+          </div>
+          ${aviso}
+          ${diasHtml}
+          <div>
+            <div class="room-label-mini" style="margin-bottom:5px;">Voluntarios en el rango (${oc.personas.length})</div>
+            <ul class="room-people">${personasHtml}</ul>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      const paraQuien = filtroGeneroDisp === 'Todos'
+        ? 'Disponibilidad'
+        : `Para una persona de género <strong>${filtroGeneroDisp.toLowerCase()}</strong>`;
+      resumen.innerHTML = `${paraQuien} ${textoRango}: ${resumenPartes.join(' &nbsp;·&nbsp; ')}`;
+    }
+
+    // Pista de disponibilidad dentro del formulario
+    function calcularDisponibilidadFormulario() {
+      const hab = HABITACIONES_VOLUNTARIOS.find(h => h.nombre === habitacionSelect.value);
+      const llegada = inputLlegada.value.trim();
+      if (!hab || !esFechaVisualValida(llegada)) return null;
+
+      const desde = fechaVisualAISO(llegada);
+      let hasta;
+      let indefinida = false;
+      const salida = inputSalida.value.trim();
+
+      if (checkIndefinido.checked || !salida) {
+        hasta = sumarDiasISO(desde, 29);
+        indefinida = true;
+      } else if (esFechaVisualValida(salida)) {
+        const salidaISO = fechaVisualAISO(salida);
+        if (salidaISO < desde) return null;
+        hasta = salidaISO === desde ? desde : sumarDiasISO(salidaISO, -1);
+      } else {
+        return null;
+      }
+
+      const editId = Number(document.getElementById('editingId').value) || null;
+      const capacidad = leerCapacidad(hab.id);
+      const oc = calcularOcupacion(hab.id, desde, hasta, editId);
+      return { hab, capacidad, libres: capacidad - oc.peor.total, peor: oc.peor, indefinida };
+    }
+
+    function actualizarHintHabitacion() {
+      const hint = document.getElementById('habHint');
+      if (!hint) return;
+      hint.className = 'hab-hint';
+      hint.textContent = '';
+
+      const hab = HABITACIONES_VOLUNTARIOS.find(h => h.nombre === habitacionSelect.value);
+      const genero = generoSelect.value;
+      if (hab && genero && hab.genero !== genero) {
+        hint.className = 'hab-hint full';
+        hint.textContent = `⚠️ ${hab.corto} es para género ${hab.genero.toLowerCase()}.`;
+        return;
+      }
+
+      const info = calcularDisponibilidadFormulario();
+      if (!info) return;
+      const periodo = info.indefinida ? ' (próximos 30 días)' : '';
+
+      if (info.libres <= 0) {
+        hint.className = 'hab-hint full';
+        hint.textContent = `⛔ Sin camas libres${periodo}: el ${fechaISOAVisual(info.peor.iso)} está ${info.peor.total}/${info.capacidad}.`;
+      } else if (info.libres === 1) {
+        hint.className = 'hab-hint low';
+        hint.textContent = `🛏️ Queda 1 cama libre en ${info.hab.corto}${periodo}.`;
+      } else {
+        hint.className = 'hab-hint ok';
+        hint.textContent = `🛏️ ${info.libres} camas libres en ${info.hab.corto}${periodo}.`;
+      }
+    }
+
+    // Al elegir género, se sugiere automáticamente el dorm correspondiente
+    function sugerirHabitacionPorGenero() {
+      const genero = generoSelect.value;
+      const sugerida = HABITACIONES_VOLUNTARIOS.find(h => h.genero === genero);
+      if (sugerida) habitacionSelect.value = sugerida.nombre;
+      actualizarHintHabitacion();
+    }
+
+    function obtenerFechaActual() {
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${day}-${month}-${year}`;
+    }
+
+    function abrirPicker(pickerId) {
+      if (pickerId === 'pickerSalida' && checkIndefinido.checked) return;
+      const picker = document.getElementById(pickerId);
+      if (picker && typeof picker.showPicker === 'function') {
+        picker.showPicker();
+      } else if (picker) {
+        picker.focus();
+      }
+    }
+
+    function alternarSalidaIndefinida() {
+      if (checkIndefinido.checked) {
+        inputSalida.value = '';
+        inputSalida.disabled = true;
+        inputSalida.placeholder = 'Indeterminado / Indefinido';
+        pickerSalidaTrigger.style.pointerEvents = 'none';
+        pickerSalidaTrigger.style.opacity = '0.3';
+        document.getElementById('pickerSalida').value = '';
+      } else {
+        inputSalida.disabled = false;
+        inputSalida.placeholder = 'DD-MM-AAAA';
+        pickerSalidaTrigger.style.pointerEvents = 'auto';
+        pickerSalidaTrigger.style.opacity = '0.8';
+      }
+      actualizarHintHabitacion();
+    }
+
+    function setTipoRegistro(esPre) {
+      checkPreRegistro.checked = esPre;
+      alternarModoPreRegistro();
+    }
+
+    function alternarModoPreRegistro() {
+      const esPre = checkPreRegistro.checked;
+      const badgeInfo = document.getElementById('badgePreRegistroInfo');
+      
+      const camposOpcionales = [
+        habitacionSelect, generoSelect, nacimientoInput, paisSelect,
+        documentoInput, telefonoInput, correoInput, direccionInput
+      ];
+
+      camposOpcionales.forEach(campo => {
+        campo.required = !esPre;
+      });
+
+      // Etiquetas: marca de obligatorio u "opcional" según el tipo de registro
+      const textosLabels = {
+        lblHabitacion: 'Habitación', lblGenero: 'Género', lblNacimiento: 'Fecha de nacimiento',
+        lblPais: 'País', lblDoc: 'Número de documento', lblTel: 'Teléfono / WhatsApp',
+        lblEmail: 'Correo electrónico', lblDir: 'Ciudad / procedencia'
+      };
+      Object.entries(textosLabels).forEach(([id, texto]) => {
+        document.getElementById(id).innerHTML = esPre
+          ? `${texto} <span class="opcional">opcional</span>`
+          : `${texto} <span class="req">*</span>`;
+      });
+      document.getElementById('segCompleto').classList.toggle('active', !esPre);
+      document.getElementById('segPre').classList.toggle('active', esPre);
+
+      if (esPre) {
+        badgeInfo.textContent = 'Modo Pre-registro ACTIVO (datos reducidos)';
+        badgeInfo.style.color = '#ff914d';
+        btnSubmitForm.innerHTML = '<span>✓</span> Guardar Pre-registro';
+      } else {
+        badgeInfo.textContent = 'Registro regular';
+        badgeInfo.style.color = 'var(--text-muted)';
+        btnSubmitForm.innerHTML = document.getElementById('editingId').value ? '<span>✓</span> Actualizar Cambios' : '<span>✓</span> Guardar Voluntario';
+      }
+    }
+
+    function fechaISOAVisual(fecha) {
+      if (!fecha) return '';
+      const partes = String(fecha).split('-');
+      if (partes.length !== 3) return String(fecha);
+      const [year, month, day] = partes;
+      return `${day}-${month}-${year}`;
+    }
+
+    function fechaVisualAISO(fecha) {
+      if (!fecha) return null;
+      const partes = String(fecha).split('-');
+      if (partes.length !== 3) return null;
+      const [day, month, year] = partes;
+      return `${year}-${month}-${day}`;
+    }
+
+    function esFechaVisualValida(fecha) {
+      if (!/^\d{2}-\d{2}-\d{4}$/.test(fecha)) return false;
+      const [day, month, year] = fecha.split('-').map(Number);
+      const d = new Date(year, month - 1, day);
+      return d.getFullYear() === year && d.getMonth() === month - 1 && d.getDate() === day;
+    }
+
+    function sincronizarFecha(pickerId, targetTextId) {
+      const val = document.getElementById(pickerId).value;
+      if (val) {
+        document.getElementById(targetTextId).value = fechaISOAVisual(val);
+      }
+      actualizarHintHabitacion();
+    }
+
+    function escaparHTML(valor) {
+      return String(valor ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    // Comprobamos si tiene la etiqueta [PRE-REGISTRO] en sus notas para no romper la BD si no tiene columna booleana
+    // El check-out se guarda como etiqueta [CHECK-OUT:DD-MM-AAAA] en las notas (no requiere cambiar la BD)
+    const REGEX_CHECKOUT = /\[CHECK-OUT:(\d{2}-\d{2}-\d{4})\]/;
+
+    // El perfil se guarda como etiqueta [PERFIL:Nombre] en las notas
+    const REGEX_PERFIL = /\[PERFIL:([^\]]+)\]/;
+
+    function construirNotas(notasLimpias, esPre, fechaCheckout, perfil) {
+      const partes = [];
+      if (esPre) partes.push('[PRE-REGISTRO]');
+      if (fechaCheckout) partes.push(`[CHECK-OUT:${fechaCheckout}]`);
+      if (perfil) partes.push(`[PERFIL:${perfil}]`);
+      if (notasLimpias) partes.push(notasLimpias);
+      return partes.join(' ').trim() || null;
+    }
+
+    function filaDbAFrontend(row) {
+      const notasCompletas = row.notas || '';
+      const esPre = notasCompletas.includes('[PRE-REGISTRO]');
+      const matchCheckout = notasCompletas.match(REGEX_CHECKOUT);
+      const matchPerfil = notasCompletas.match(REGEX_PERFIL);
+      const notasLimpias = notasCompletas
+        .replace('[PRE-REGISTRO]', '')
+        .replace(REGEX_CHECKOUT, '')
+        .replace(REGEX_PERFIL, '')
+        .trim();
+
+      return {
+        id: Number(row.id),
+        fechaLlegada: fechaISOAVisual(row.fecha_llegada),
+        fechaSalida: row.fecha_salida ? fechaISOAVisual(row.fecha_salida) : null,
+        habitacion: row.habitacion || 'Por Asignar',
+        nombre: row.nombre,
+        primerApellido: row.primer_apellido,
+        segundoApellido: row.segundo_apellido || '',
+        genero: row.genero || 'No especificado',
+        fechaNacimiento: row.fecha_nacimiento ? fechaISOAVisual(row.fecha_nacimiento) : 'No especificada',
+        pais: row.pais || 'No especificado',
+        tipoDocumento: row.tipo_documento || 'No especificado',
+        documento: row.documento || 'Pendiente',
+        telefono: row.telefono || 'Pendiente',
+        correo: row.correo || 'Pendiente',
+        direccion: row.direccion || 'Pendiente',
+        notas: notasLimpias,
+        esPreRegistro: esPre,
+        esCheckout: !!matchCheckout,
+        fechaCheckout: matchCheckout ? matchCheckout[1] : null,
+        perfil: matchPerfil ? matchPerfil[1].trim() : '',
+        createdAt: row.created_at
+      };
+    }
+
+    function voluntarioFrontendADb(v, esPre) {
+      const notasFinales = construirNotas(v.notas || '', esPre, v.fechaCheckout || null, v.perfil || '');
+
+      return {
+        fecha_llegada: fechaVisualAISO(v.fechaLlegada),
+        fecha_salida: v.fechaSalida ? fechaVisualAISO(v.fechaSalida) : null,
+        habitacion: v.habitacion || (v.genero === 'Femenino' ? 'Dorm Bamboo (Femenino)' : 'Dorm Roble (Masculino)'),
+        nombre: v.nombre,
+        primer_apellido: v.primerApellido,
+        segundo_apellido: v.segundoApellido || null,
+        genero: v.genero || 'Masculino',
+        fecha_nacimiento: v.fechaNacimiento ? fechaVisualAISO(v.fechaNacimiento) : '2000-01-01',
+        pais: v.pais || 'Colombia',
+        tipo_documento: v.tipoDocumento || 'Cédula de Ciudadanía',
+        documento: v.documento || 'PENDIENTE',
+        telefono: v.telefono || 'PENDIENTE',
+        correo: v.correo || 'pendiente@kiwi.com',
+        direccion: v.direccion || 'Pendiente',
+        notas: notasFinales || null
+      };
+    }
+
+    // Estado de conexión (pastilla del encabezado)
+    function estadoConexion(mensaje, tipo = '') {
+      dbStatus.className = `db-status ${tipo}`.trim();
+      dbStatus.textContent = mensaje;
+    }
+
+    // Avisos flotantes que no interrumpen el trabajo
+    function toast(mensaje, tipo = 'ok', ms = 4000) {
+      const zona = document.getElementById('toastZone');
+      if (!zona) return;
+      const el = document.createElement('div');
+      el.className = `toast ${tipo}`;
+      el.textContent = mensaje;
+      el.title = 'Clic para cerrar';
+      el.onclick = () => el.remove();
+      zona.appendChild(el);
+      setTimeout(() => el.remove(), ms);
+    }
+
+    function mostrarEstado(mensaje, tipo = '') {
+      if (tipo === 'ok') toast('✅ ' + mensaje, 'ok');
+      else if (tipo === 'error') toast('⚠️ ' + mensaje, 'error', 9000);
+    }
+
+    function mostrarErrorSupabase(contexto, error) {
+      console.error(contexto, error);
+      const partes = [contexto];
+      if (error?.message) partes.push(`Mensaje: ${error.message}`);
+      if (error?.code) partes.push(`Código: ${error.code}`);
+      if (error?.hint) partes.push(`Sugerencia: ${error.hint}`);
+      toast('⚠️ ' + partes.join('\n'), 'error', 10000);
+      if (/cargar|conectar/i.test(contexto)) {
+        estadoConexion('🔴 Sin conexión con la base de datos', 'error');
+      }
+    }
+
+    function cambiarVistaTabla(vista) {
+      vistaTabla = vista;
+      document.querySelectorAll('#tablaTabs .chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.vista === vista);
+      });
+      document.getElementById('historialNota').style.display = vista === 'historial' ? 'block' : 'none';
+      renderizarSegunFiltro();
+    }
+
+    function renderizarSegunFiltro() {
+      const activos = voluntarios.filter(v => !v.esCheckout);
+      const historial = voluntarios
+        .filter(v => v.esCheckout)
+        .sort((a, b) => fechaVisualAISO(b.fechaCheckout).localeCompare(fechaVisualAISO(a.fechaCheckout)));
+      document.getElementById('countActivos').textContent = activos.length;
+      document.getElementById('countHistorial').textContent = historial.length;
+
+      const baseVista = vistaTabla === 'historial' ? historial : activos;
+      renderizarChipsPerfilTabla(baseVista);
+      const base = filtrarPorPerfil(baseVista);
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        renderizarTabla(base);
+        return;
+      }
+
+      const filtrados = base.filter(v =>
+        (v.nombre || '').toLowerCase().includes(query) ||
+        (v.primerApellido || '').toLowerCase().includes(query) ||
+        (v.segundoApellido || '').toLowerCase().includes(query) ||
+        (v.documento || '').toLowerCase().includes(query) ||
+        (v.pais || '').toLowerCase().includes(query) ||
+        (v.habitacion || '').toLowerCase().includes(query) ||
+        (v.perfil || '').toLowerCase().includes(query)
+      );
+
+      renderizarTabla(filtrados);
+    }
+
+    // CALENDARIO
+    function cambiarMesRelativo(delta) {
+      fechaVistaCalendario.setMonth(fechaVistaCalendario.getMonth() + delta);
+      renderizarCalendario();
+    }
+
+    function irAlMesActual() {
+      fechaVistaCalendario = new Date();
+      renderizarCalendario();
+    }
+
+    function renderizarCalendario() {
+      const year = fechaVistaCalendario.getFullYear();
+      const month = fechaVistaCalendario.getMonth();
+      const totalDias = new Date(year, month + 1, 0).getDate();
+
+      const nombresMeses = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      ];
+      calMonthTitle.textContent = `${nombresMeses[month]} ${year}`;
+
+      const diasSemana = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
+      const hoy = new Date();
+      const esMesActual = hoy.getFullYear() === year && hoy.getMonth() === month;
+      const diaHoy = hoy.getDate();
+
+      let headHtml = `<tr><th class="cal-row-label" style="text-align:center !important;">Registro / Voluntario</th>`;
+      for (let dia = 1; dia <= totalDias; dia++) {
+        const diaSemanaIndex = new Date(year, month, dia).getDay();
+        const isToday = esMesActual && dia === diaHoy;
+        headHtml += `
+          <th class="cal-col-header ${isToday ? 'is-today' : ''}" title="${dia} de ${nombresMeses[month]}">
+            <div style="font-size:10px; opacity:0.8;">${diasSemana[diaSemanaIndex]}</div>
+            <div>${dia}</div>
+          </th>
+        `;
+      }
+      headHtml += `</tr>`;
+      calHead.innerHTML = headHtml;
+
+      calBody.innerHTML = '';
+
+      if (voluntarios.length === 0) {
+        calBody.innerHTML = `
+          <tr>
+            <td colspan="${totalDias + 1}" style="padding: 24px; text-align: center; color: var(--text-muted);">
+              No hay voluntarios registrados para visualizar en el calendario.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      const inicioMes = new Date(year, month, 1, 0, 0, 0);
+      const finMes = new Date(year, month, totalDias, 23, 59, 59);
+
+      voluntarios.forEach(v => {
+        if (!v.fechaLlegada) return;
+
+        const [dIn, mIn, yIn] = v.fechaLlegada.split('-').map(Number);
+        const fechaIn = new Date(yIn, mIn - 1, dIn, 0, 0, 0);
+        
+        let fechaOut = null;
+        const esIndefinido = !v.fechaSalida;
+
+        if (v.fechaSalida) {
+          const [dOut, mOut, yOut] = v.fechaSalida.split('-').map(Number);
+          fechaOut = new Date(yOut, mOut - 1, dOut, 23, 59, 59);
+        }
+
+        if (fechaOut && fechaOut < inicioMes) return;
+        if (fechaIn > finMes) return;
+
+        const tr = document.createElement('tr');
+        const habitacionClase = (v.habitacion || '').includes('Roble') ? 'roble' : 'bamboo';
+        const iconoHab = v.esPreRegistro ? '📋' : (habitacionClase === 'roble' ? '🌳' : '🎋');
+        const salidaTexto = esIndefinido ? '∞ Indef.' : v.fechaSalida.slice(0, 5);
+
+        let rowHtml = `
+          <td class="cal-row-label">
+            <div class="cal-user-name" onclick="verFicha(${v.id})" title="Ver ficha de ${escaparHTML(v.nombre)}">
+              ${v.esPreRegistro ? '<span style="color:#ff914d;">[Pre] </span>' : ''}${v.esCheckout ? '<span style="color:#9fb3c8;">✔ </span>' : ''}${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}
+            </div>
+            <div class="cal-user-meta">
+              <span>${iconoHab} ${escaparHTML(v.pais)}</span>
+              ${v.perfil ? `<span>•</span><span>${iconoPerfil(v.perfil)} ${escaparHTML(v.perfil)}</span>` : ''}
+              <span>•</span>
+              <span>${v.fechaLlegada.slice(0, 5)} - ${salidaTexto}</span>
+            </div>
+          </td>
+        `;
+
+        for (let dia = 1; dia <= totalDias; dia++) {
+          const isToday = esMesActual && dia === diaHoy;
+          const checkDiaInicio = new Date(year, month, dia, 0, 0, 0);
+          const checkDiaFin = new Date(year, month, dia, 23, 59, 59);
+
+          const ocupa = esIndefinido ? (fechaIn <= checkDiaFin) : (fechaIn <= checkDiaFin && fechaOut >= checkDiaInicio);
+
+          const esDiaLlegada = fechaIn.getFullYear() === year && fechaIn.getMonth() === month && fechaIn.getDate() === dia;
+          const esDiaSalida = fechaOut && (fechaOut.getFullYear() === year && fechaOut.getMonth() === month && fechaOut.getDate() === dia);
+
+          let celdaContenido = '';
+          if (ocupa) {
+            let clasesBarra = `cal-bar ${habitacionClase}`;
+            if (v.esPreRegistro) clasesBarra += ' is-preregistro';
+            if (v.esCheckout) clasesBarra += ' is-checkout';
+            if (esDiaLlegada || dia === 1) clasesBarra += ' is-start';
+            if (esDiaSalida) clasesBarra += ' is-end';
+
+            let labelBarra = '';
+            if (esDiaLlegada) labelBarra = v.esPreRegistro ? 'Pre' : 'In';
+            else if (esDiaSalida) labelBarra = 'Out';
+            else if (esIndefinido && dia === totalDias) labelBarra = '→';
+
+            celdaContenido = `
+              <div class="${clasesBarra}" onclick="verFicha(${v.id})" title="${escaparHTML(v.nombre)} (${v.esPreRegistro ? 'Pre-registro' : 'Activo'})">
+                ${labelBarra}
+              </div>
+            `;
+          }
+
+          rowHtml += `<td class="cal-cell ${isToday ? 'is-today' : ''}">${celdaContenido}</td>`;
+        }
+
+        tr.innerHTML = rowHtml;
+        calBody.appendChild(tr);
+      });
+
+      if (calBody.children.length === 0) {
+        calBody.innerHTML = `
+          <tr>
+            <td colspan="${totalDias + 1}" style="padding: 24px; text-align: center; color: var(--text-muted);">
+              No hay voluntarios con estadía durante ${nombresMeses[month]} de ${year}.
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    async function cargarVoluntarios() {
+      if (SUPABASE_PUBLISHABLE_KEY.includes('PEGA_AQUI')) {
+        sinRegistros.style.display = 'block';
+        sinRegistros.textContent = 'Falta configurar la Publishable key de Supabase en el archivo HTML.';
+        estadoConexion('🔴 Falta configurar la llave de Supabase', 'error');
+        return;
+      }
+
+      if (!voluntarios.length) estadoConexion('⏳ Conectando…');
+
+      try {
+        const { data, error } = await supabaseClient
+          .from(TABLA_VOLUNTARIOS)
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          mostrarErrorSupabase('No se pudieron cargar los voluntarios desde Supabase', error);
+          return;
+        }
+
+        voluntarios = (data || []).map(filaDbAFrontend);
+        renderizarSegunFiltro();
+        renderizarCalendario();
+        renderizarDisponibilidad();
+        actualizarHintHabitacion();
+        renderizarChipsPerfilFormulario();
+        renderizarPerfiles();
+        actualizarContadoresNav();
+        actualizarNotificaciones();
+        const hora = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+        estadoConexion(`🟢 Conectado · actualizado ${hora}`, 'ok');
+      } catch (error) {
+        mostrarErrorSupabase('No se pudo conectar con Supabase', error);
+      }
+    }
+
+    inputLlegada.value = obtenerFechaActual();
+    document.getElementById('pickerLlegada').value = fechaVisualAISO(obtenerFechaActual());
+
+    // Inicializar sección de disponibilidad
+    document.getElementById('dispDesde').value = isoHoy();
+    document.getElementById('dispHasta').value = sumarDiasISO(isoHoy(), 6);
+    document.getElementById('capRoble').value = leerCapacidad('roble');
+    document.getElementById('capBamboo').value = leerCapacidad('bamboo');
+    renderizarDisponibilidad();
+
+    ['input', 'change'].forEach(evt => {
+      inputLlegada.addEventListener(evt, actualizarHintHabitacion);
+      inputSalida.addEventListener(evt, actualizarHintHabitacion);
+    });
+    habitacionSelect.addEventListener('change', actualizarHintHabitacion);
+    generoSelect.addEventListener('change', sugerirHabitacionPorGenero);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const editingId = document.getElementById('editingId').value;
+      const llegada = document.getElementById('fechaLlegada').value.trim();
+      const esIndefinido = checkIndefinido.checked;
+      const esPreRegistro = checkPreRegistro.checked;
+      const salida = esIndefinido ? null : document.getElementById('fechaSalida').value.trim();
+      const nacimiento = document.getElementById('fechaNacimiento').value.trim();
+
+      if (!esFechaVisualValida(llegada)) {
+        alert('Por favor introduce una fecha de llegada válida (DD-MM-AAAA)');
+        return;
+      }
+
+      if (!esPreRegistro && nacimiento && !esFechaVisualValida(nacimiento)) {
+        alert('Por favor introduce una fecha de nacimiento válida (DD-MM-AAAA)');
+        return;
+      }
+
+      if (!esIndefinido && salida) {
+        if (!esFechaVisualValida(salida)) {
+          alert('Por favor introduce una fecha de salida válida en formato DD-MM-AAAA.');
+          return;
+        }
+        if (fechaVisualAISO(salida) < fechaVisualAISO(llegada)) {
+          alert('La fecha de salida no puede ser anterior a la fecha de llegada.');
+          return;
+        }
+      }
+
+      const voluntarioData = {
+        fechaLlegada: llegada,
+        fechaSalida: salida,
+        habitacion: document.getElementById('habitacion').value,
+        nombre: document.getElementById('nombre').value.trim(),
+        primerApellido: document.getElementById('primerApellido').value.trim(),
+        segundoApellido: document.getElementById('segundoApellido').value.trim(),
+        genero: document.getElementById('genero').value,
+        fechaNacimiento: nacimiento,
+        pais: document.getElementById('pais').value,
+        tipoDocumento: document.getElementById('tipoDocumento').value,
+        documento: document.getElementById('documento').value.trim(),
+        telefono: document.getElementById('telefono').value.trim(),
+        correo: document.getElementById('correo').value.trim(),
+        direccion: document.getElementById('direccion').value.trim(),
+        notas: document.getElementById('notas').value.trim(),
+        perfil: document.getElementById('perfil').value,
+        fechaCheckout: editingId ? (voluntarios.find(x => x.id === Number(editingId))?.fechaCheckout || null) : null
+      };
+
+      if (voluntarioData.habitacion) {
+        const hab = HABITACIONES_VOLUNTARIOS.find(h => h.nombre === voluntarioData.habitacion);
+        if (hab && voluntarioData.genero && hab.genero !== voluntarioData.genero) {
+          if (!confirm(`${hab.corto} es para género ${hab.genero.toLowerCase()}, pero el voluntario es ${voluntarioData.genero.toLowerCase()}. ¿Guardar de todos modos?`)) return;
+        }
+        const info = calcularDisponibilidadFormulario();
+        if (info && info.libres <= 0) {
+          if (!confirm(`${info.hab.corto} no tiene camas libres: el ${fechaISOAVisual(info.peor.iso)} ya hay ${info.peor.total}/${info.capacidad} ocupadas.\n¿Guardar de todos modos?`)) return;
+        }
+      }
+
+      const dbData = voluntarioFrontendADb(voluntarioData, esPreRegistro);
+      btnSubmitForm.disabled = true;
+      btnSubmitForm.textContent = editingId ? 'Actualizando...' : 'Guardando...';
+
+      try {
+        if (editingId) {
+          const { error } = await supabaseClient
+            .from(TABLA_VOLUNTARIOS)
+            .update(dbData)
+            .eq('id', Number(editingId));
+
+          if (error) throw error;
+          cancelarEdicion();
+          mostrarEstado('Voluntario actualizado correctamente.', 'ok');
+          navegar('voluntarios');
+        } else {
+          mostrarEstado('Guardando voluntario en Supabase...');
+
+          let { error } = await supabaseClient
+            .from(TABLA_VOLUNTARIOS)
+            .insert(dbData);
+
+          if (error && error.code === '23502' && /id/i.test(error.message || '')) {
+            const reintento = await supabaseClient
+              .from(TABLA_VOLUNTARIOS)
+              .insert({ id: Date.now(), ...dbData });
+            error = reintento.error;
+          }
+
+          if (error) throw error;
+          limpiarFormularioNuevo();
+          mostrarEstado(esPreRegistro ? 'Pre-registro guardado con éxito.' : 'Voluntario guardado correctamente.', 'ok');
+        }
+
+        await cargarVoluntarios();
+      } catch (error) {
+        mostrarErrorSupabase(
+          editingId ? 'No se pudo actualizar el voluntario' : 'No se pudo guardar el voluntario',
+          error
+        );
+      } finally {
+        btnSubmitForm.disabled = false;
+        if (document.getElementById('editingId').value) {
+          btnSubmitForm.innerHTML = '<span>✓</span> Actualizar Cambios';
+        } else {
+          btnSubmitForm.innerHTML = '<span>✓</span> Guardar Voluntario';
+        }
+      }
+    });
+
+    function limpiarFormularioNuevo() {
+      form.reset();
+      document.getElementById('editingId').value = '';
+      checkIndefinido.checked = false;
+      checkPreRegistro.checked = false;
+      alternarSalidaIndefinida();
+      alternarModoPreRegistro();
+      inputLlegada.value = obtenerFechaActual();
+      document.getElementById('pickerLlegada').value = fechaVisualAISO(obtenerFechaActual());
+      document.getElementById('formTitleIcon').textContent = '✍️';
+      document.getElementById('formTitleText').textContent = 'Nuevo Voluntario';
+      document.getElementById('btnSubmitForm').innerHTML = '<span>✓</span> Guardar Voluntario';
+      document.getElementById('btnCancelEdit').style.display = 'none';
+      seleccionarPerfilFormulario('');
+      ocultarAvisoFormulario();
+      actualizarHintHabitacion();
+    }
+
+    function renderizarTabla(datos) {
+      tablaCuerpo.innerHTML = '';
+
+      if (datos.length === 0) {
+        sinRegistros.style.display = 'block';
+        sinRegistros.textContent = vistaTabla === 'historial'
+          ? 'Todavía no hay voluntarios con check-out en el historial.'
+          : 'No hay registros disponibles.';
+        return;
+      }
+      sinRegistros.style.display = 'none';
+
+      datos.forEach(v => {
+        const tr = document.createElement('tr');
+        const badgeClass = (v.habitacion || '').includes('Roble') ? 'badge-roble' : 'badge-bamboo';
+        const salidaDisplay = v.fechaSalida ? escaparHTML(v.fechaSalida) : '<span style="color:var(--dark-orange-light); font-weight:600;">Indeterminado</span>';
+
+        let badgeEstadoHab = `<span class="badge ${badgeClass}">${escaparHTML(v.habitacion)}</span>`;
+        if (v.esPreRegistro) {
+          badgeEstadoHab = `<span class="badge badge-preregistro">📋 Pre-registro</span> ` + badgeEstadoHab;
+        }
+        if (v.esCheckout) {
+          badgeEstadoHab = `<span class="badge badge-checkout">🧳 Check-out</span> ` + badgeEstadoHab;
+        }
+
+        let botonCheckin = '';
+        if (v.esCheckout) {
+          botonCheckin = `<button class="btn-icon btn-revertir" title="Devolver a voluntarios activos" onclick="revertirCheckOut(${v.id})">↩️ Revertir</button>`;
+        } else if (v.esPreRegistro) {
+          botonCheckin = `<button class="btn-icon btn-checkin" title="Completar Check-in oficial" onclick="hacerCheckInDirecto(${v.id})">🛎️ Check-in</button>`;
+        } else {
+          botonCheckin = `<button class="btn-icon btn-checkout" title="Registrar salida y mover al historial" onclick="hacerCheckOut(${v.id})">🧳 Check-out</button>`;
+        }
+
+        tr.innerHTML = `
+          <td>${badgeEstadoHab}</td>
+          <td>
+            <strong>${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)} ${escaparHTML(v.segundoApellido || '')}</strong>${badgePerfil(v.perfil)}
+            <div style="font-size:12px; color:var(--text-muted);">${escaparHTML(v.genero)} • ${escaparHTML(v.correo)}</div>
+          </td>
+          <td>
+            <div>In: ${escaparHTML(v.fechaLlegada)}</div>
+            <div style="color:var(--text-muted); font-size:12px;">Out: ${salidaDisplay}</div>
+            ${v.esCheckout ? `<div style="color:#9fb3c8; font-size:11.5px;">✔ Check-out: ${escaparHTML(v.fechaCheckout)}</div>` : ''}
+          </td>
+          <td>
+            <div>${escaparHTML(v.documento)}</div>
+            <div style="font-size:11px; color:var(--text-muted);">${escaparHTML(v.tipoDocumento)}</div>
+          </td>
+          <td>${escaparHTML(v.pais)}</td>
+          <td>
+            <div class="actions-cell">
+              ${botonCheckin}
+              <button class="btn-icon btn-view" title="Ver ficha y notas" onclick="verFicha(${v.id})">🔍 Ver</button>
+              <button class="btn-icon btn-edit" title="Editar" onclick="cargarEdicion(${v.id})">✏️ Editar</button>
+              <button class="btn-icon btn-delete" title="Eliminar definitivamente" onclick="eliminarVoluntario(${v.id})">🗑️</button>
+            </div>
+          </td>
+        `;
+        tablaCuerpo.appendChild(tr);
+      });
+    }
+
+    function actualizarNotificaciones() {
+      renderizarInicio();
+    }
+
+    // ===== INICIO: RESUMEN DEL DÍA =====
+    function nuevoRegistro() {
+      if (!document.getElementById('editingId').value) limpiarFormularioNuevo();
+      navegar('registro');
+    }
+
+    function diasHasta(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+      return Math.round((new Date(y, m - 1, d) - hoy) / 86400000);
+    }
+
+    function pillDias(dias, prefijo) {
+      let bg = '#2f521b', color = '#d9f5c4';
+      if (dias <= 1) { bg = '#7a1010'; color = '#ffb3b3'; }
+      else if (dias <= 3) { bg = '#94290a'; color = '#ffd0b8'; }
+      else if (dias <= 7) { bg = '#a83e00'; color = '#ffffff'; }
+      const texto = dias === 0 ? `${prefijo} hoy` : (dias === 1 ? `${prefijo} mañana` : `${prefijo} en ${dias} días`);
+      return `<span class="pill-dias" style="background:${bg}; color:${color};">${texto}</span>`;
+    }
+
+    function nombreCorto(v) {
+      return `${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}`;
+    }
+
+    function iconoDorm(v) {
+      return (v.habitacion || '').includes('Roble') ? '🌳' : ((v.habitacion || '').includes('Bamboo') ? '🎋' : '🛏️');
+    }
+
+    function renderizarInicio() {
+      const kpiGrid = document.getElementById('kpiGrid');
+      if (!kpiGrid) return;
+
+      const hoy = isoHoy();
+      const en7 = sumarDiasISO(hoy, 7);
+      const fechaTexto = new Date().toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('inicioFecha').textContent = 'Hoy, ' + fechaTexto;
+
+      const vigentes = voluntarios.filter(v => !v.esCheckout && v.fechaLlegada);
+      const llegadaISO = v => fechaVisualAISO(v.fechaLlegada);
+      const salidaISO = v => (v.fechaSalida ? fechaVisualAISO(v.fechaSalida) : null);
+
+      const enCasa = vigentes.filter(estaEnCasaHoy);
+      const lleganHoy = vigentes.filter(v => llegadaISO(v) === hoy);
+      const lleganSemana = vigentes.filter(v => llegadaISO(v) > hoy && llegadaISO(v) <= en7)
+        .sort((a, b) => llegadaISO(a).localeCompare(llegadaISO(b)));
+      const salenHoy = vigentes.filter(v => !v.esPreRegistro && salidaISO(v) === hoy);
+      const sinCheckout = vigentes.filter(v => !v.esPreRegistro && salidaISO(v) && salidaISO(v) < hoy);
+      const preSinDatos = vigentes.filter(v => v.esPreRegistro && llegadaISO(v) > hoy && llegadaISO(v) <= sumarDiasISO(hoy, 3));
+      const segCandidatos = candidatos.filter(c => esEtapaAbierta(c.etapa) && c.fechaSeguimiento && c.fechaSeguimiento <= hoy)
+        .sort(ordenarPorSeguimiento);
+
+      const camas = HABITACIONES_VOLUNTARIOS.map(h => {
+        const cap = leerCapacidad(h.id);
+        const oc = calcularOcupacion(h.id, hoy, hoy);
+        return { h, cap, libres: cap - oc.peor.total };
+      });
+      const libresTotal = camas.reduce((t, c) => t + Math.max(0, c.libres), 0);
+      const candidatosAbiertos = candidatos.filter(c => esEtapaAbierta(c.etapa)).length;
+      const porDorm = id => enCasa.filter(v => habitacionDeVoluntario(v) === id).length;
+
+      // ---- Indicadores
+      const kpis = [
+        { label: '🏠 En casa ahora', num: enCasa.length, sub: `🌳 ${porDorm('roble')} · 🎋 ${porDorm('bamboo')}`, accion: "navegar('voluntarios')" },
+        { label: '🛬 Llegan hoy', num: lleganHoy.length, sub: `+${lleganSemana.length} en los próximos 7 días`, accion: "navegar('calendario')" },
+        { label: '🧳 Salen hoy', num: salenHoy.length, sub: sinCheckout.length ? `${sinCheckout.length} con salida vencida` : 'Sin salidas vencidas', alerta: sinCheckout.length > 0, accion: "navegar('voluntarios')" },
+        { label: '🛏️ Camas libres hoy', num: libresTotal, sub: camas.map(c => `${c.h.icono} ${Math.max(0, c.libres)}/${c.cap}`).join(' · '), alerta: camas.some(c => c.libres < 0), accion: "rangoRapido('hoy'); navegar('disponibilidad')" },
+        { label: '🤝 Candidatos en proceso', num: candidatosAbiertos, sub: segCandidatos.length ? `⏰ ${segCandidatos.length} seguimiento(s) para hoy` : 'Sin seguimientos para hoy', alerta: segCandidatos.length > 0, accion: "navegar('candidatos')" }
+      ];
+      kpiGrid.innerHTML = kpis.map(k => `
+        <button type="button" class="kpi ${k.alerta ? 'alerta' : ''}" onclick="${k.accion}">
+          <div class="kpi-label">${k.label}</div>
+          <div class="kpi-num">${k.num}</div>
+          <div class="kpi-sub">${k.sub}</div>
+        </button>`).join('');
+
+      // ---- Tareas pendientes
+      const tareas = [];
+      const btn = (clase, texto, accion) => `<button type="button" class="btn-icon ${clase}" onclick="${accion}">${texto}</button>`;
+
+      camas.filter(c => c.libres < 0).forEach(c => tareas.push({
+        nivel: 'urgente', icono: '⚠️',
+        titulo: `Sobrecupo en ${c.h.corto}`,
+        detalle: `Hoy hay ${c.cap - c.libres} personas para ${c.cap} camas.`,
+        botones: btn('btn-view', '🛏️ Ver camas', "rangoRapido('hoy'); navegar('disponibilidad')")
+      }));
+      sinCheckout.forEach(v => tareas.push({
+        nivel: 'urgente', icono: '🧳',
+        titulo: nombreCorto(v),
+        detalle: `Su salida era el ${v.fechaSalida}. ¿Ya se fue? Haz el check-out o cambia la fecha.`,
+        botones: btn('btn-checkout', '🧳 Check-out', `hacerCheckOut(${v.id})`) + btn('btn-edit', '✏️ Cambiar fecha', `cargarEdicion(${v.id})`)
+      }));
+      salenHoy.forEach(v => tareas.push({
+        nivel: 'hoy', icono: '👋',
+        titulo: nombreCorto(v),
+        detalle: `Sale hoy · ${iconoDorm(v)} ${escaparHTML(v.habitacion)}`,
+        botones: btn('btn-checkout', '🧳 Check-out', `hacerCheckOut(${v.id})`)
+      }));
+      lleganHoy.forEach(v => tareas.push({
+        nivel: 'hoy', icono: '🛬',
+        titulo: nombreCorto(v),
+        detalle: v.esPreRegistro ? 'Llega hoy · es pre-registro, completa sus datos al recibirlo' : `Llega hoy · ${iconoDorm(v)} ${escaparHTML(v.habitacion)}`,
+        botones: v.esPreRegistro ? btn('btn-checkin', '🛎️ Hacer check-in', `hacerCheckInDirecto(${v.id})`) : btn('btn-view', '🔍 Ver ficha', `verFicha(${v.id})`)
+      }));
+      segCandidatos.forEach(c => {
+        const seg = estadoSeguimiento(c);
+        tareas.push({
+          nivel: seg && seg.clase === 'vencido' ? 'urgente' : 'hoy', icono: '🤝',
+          titulo: `${escaparHTML(c.nombre)} ${escaparHTML(c.apellido)} <span style="font-weight:400; color:var(--text-muted);">(candidato)</span>`,
+          detalle: `${escaparHTML(c.proximaAccion || 'Hacer seguimiento')} · ${seg ? seg.texto : ''}`,
+          botones: btn('btn-view', 'Abrir', `navegar('candidatos'); abrirCandidato(${c.id})`)
+        });
+      });
+      preSinDatos.forEach(v => tareas.push({
+        nivel: 'info', icono: '📋',
+        titulo: nombreCorto(v),
+        detalle: `Pre-registro que llega el ${v.fechaLlegada}. Conviene pedirle sus datos antes.`,
+        botones: btn('btn-edit', '✏️ Completar', `cargarEdicion(${v.id})`)
+      }));
+
+      document.getElementById('tareasCount').textContent = tareas.length;
+      const navTareas = document.getElementById('navCountTareas');
+      if (navTareas) {
+        navTareas.textContent = tareas.length;
+        navTareas.style.background = tareas.some(t => t.nivel === 'urgente') ? '#c02020' : '';
+      }
+      document.getElementById('tareasLista').innerHTML = tareas.length
+        ? tareas.map(t => `
+          <div class="tarea ${t.nivel}">
+            <div class="tarea-icono">${t.icono}</div>
+            <div class="tarea-texto"><strong>${t.titulo}</strong><span>${t.detalle}</span></div>
+            <div class="tarea-botones">${t.botones}</div>
+          </div>`).join('')
+        : '<div class="todo-ok">🎉 Todo al día. No hay tareas pendientes.</div>';
+
+      // ---- En casa ahora (por dormitorio)
+      const enCasaHtml = HABITACIONES_VOLUNTARIOS.map(h => {
+        const personas = enCasa.filter(v => habitacionDeVoluntario(v) === h.id)
+          .sort((a, b) => (salidaISO(a) || '9999').localeCompare(salidaISO(b) || '9999'));
+        const cap = leerCapacidad(h.id);
+        const filas = personas.length
+          ? personas.map(v => {
+            const salida = salidaISO(v);
+            const pill = salida ? pillDias(diasHasta(salida), 'Sale') : '<span class="pill-dias" style="background:#262626; color:var(--text-muted);">Sin fecha de salida</span>';
+            return `<div class="fila-persona" onclick="verFicha(${v.id})" title="Ver ficha">
+              <span class="quien">${nombreCorto(v)}${v.perfil ? ' ' + badgePerfil(v.perfil) : ''}</span>${pill}</div>`;
+          }).join('')
+          : '<div class="kanban-vacio">Nadie en este dormitorio</div>';
+        return `<div class="grupo-dorm">${h.icono} ${h.corto} · ${personas.length}/${cap}</div>${filas}`;
+      }).join('');
+      document.getElementById('enCasaLista').innerHTML = enCasaHtml;
+
+      // ---- Próximas llegadas
+      document.getElementById('proximasLista').innerHTML = lleganSemana.length
+        ? lleganSemana.map(v => `
+          <div class="fila-persona" onclick="verFicha(${v.id})" title="Ver ficha">
+            <span class="quien">${iconoDorm(v)} ${nombreCorto(v)}${v.esPreRegistro ? ' <span class="badge badge-preregistro" style="font-size:10.5px;">Pre</span>' : ''}</span>
+            ${pillDias(diasHasta(llegadaISO(v)), 'Llega')}
+          </div>`).join('')
+        : '<div class="kanban-vacio">No hay llegadas en los próximos 7 días</div>';
+    }
+
+    function verFicha(id) {
+      const v = voluntarios.find(item => item.id === id);
+      if (!v) return;
+
+      const badgeClass = (v.habitacion || '').includes('Roble') ? 'badge-roble' : 'badge-bamboo';
+      let htmlBadge = `<span class="badge ${badgeClass}">${escaparHTML(v.habitacion)}</span>`;
+      if (v.esPreRegistro) {
+        htmlBadge += ` <span class="badge badge-preregistro">📋 Pre-registro</span>`;
+      }
+      document.getElementById('mBadge').innerHTML = htmlBadge;
+      document.getElementById('mNombre').textContent = `${v.nombre} ${v.primerApellido} ${v.segundoApellido || ''}`;
+      
+      const estadiaTexto = v.fechaSalida 
+        ? `${v.fechaLlegada} al ${v.fechaSalida}`
+        : `${v.fechaLlegada} (Indeterminado / Indefinido)`;
+
+      document.getElementById('mEstadia').textContent = estadiaTexto;
+      document.getElementById('mGeneroEdad').textContent = `${v.genero} (Nacimiento: ${v.fechaNacimiento})`;
+      document.getElementById('mDoc').textContent = `${v.tipoDocumento}: ${v.documento}`;
+      document.getElementById('mPais').textContent = v.pais;
+      document.getElementById('mContacto').textContent = `${v.telefono} | ${v.correo}`;
+      document.getElementById('mDireccion').textContent = v.direccion;
+      document.getElementById('mNotas').textContent = v.notas || 'Sin notas registradas.';
+      document.getElementById('mPerfil').innerHTML = v.perfil ? badgePerfil(v.perfil).replace('margin-left:6px;', '') : 'Sin perfil asignado';
+      document.getElementById('mCheckoutBox').style.display = v.esCheckout ? 'flex' : 'none';
+      document.getElementById('mCheckout').textContent = v.fechaCheckout || '';
+      if (v.esCheckout) {
+        document.getElementById('mBadge').innerHTML += ` <span class="badge badge-checkout">🧳 Check-out</span>`;
+      }
+
+      infoModal.style.display = 'flex';
+    }
+
+    function cerrarModal() {
+      infoModal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === infoModal) {
+        cerrarModal();
+      }
+    };
+
+    function cargarEdicion(id) {
+      const v = voluntarios.find(item => item.id === id);
+      if (!v) return;
+
+      navegar('registro');
+      mostrarAvisoFormulario(`✏️ Estás editando a <strong>${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}</strong>. Guarda los cambios o pulsa "Cancelar edición".`);
+      document.getElementById('editingId').value = v.id;
+      document.getElementById('fechaLlegada').value = v.fechaLlegada;
+      document.getElementById('pickerLlegada').value = fechaVisualAISO(v.fechaLlegada);
+
+      checkPreRegistro.checked = v.esPreRegistro;
+      alternarModoPreRegistro();
+
+      if (!v.fechaSalida) {
+        checkIndefinido.checked = true;
+        alternarSalidaIndefinida();
+      } else {
+        checkIndefinido.checked = false;
+        alternarSalidaIndefinida();
+        document.getElementById('fechaSalida').value = v.fechaSalida;
+        document.getElementById('pickerSalida').value = fechaVisualAISO(v.fechaSalida);
+      }
+
+      document.getElementById('habitacion').value = (v.habitacion === 'Por Asignar' ? '' : v.habitacion);
+      document.getElementById('nombre').value = v.nombre;
+      document.getElementById('primerApellido').value = v.primerApellido;
+      document.getElementById('segundoApellido').value = v.segundoApellido || '';
+      document.getElementById('genero').value = (v.genero === 'No especificado' ? '' : v.genero);
+      document.getElementById('fechaNacimiento').value = (v.fechaNacimiento === 'No especificada' ? '' : v.fechaNacimiento);
+      document.getElementById('pickerNacimiento').value = (v.fechaNacimiento && v.fechaNacimiento !== 'No especificada') ? fechaVisualAISO(v.fechaNacimiento) : '';
+      document.getElementById('pais').value = (v.pais === 'No especificado' ? '' : v.pais);
+      document.getElementById('tipoDocumento').value = (v.tipoDocumento === 'No especificado' ? 'Cédula de Ciudadanía' : v.tipoDocumento);
+      document.getElementById('documento').value = sinRelleno(v.documento);
+      document.getElementById('telefono').value = sinRelleno(v.telefono);
+      document.getElementById('correo').value = sinRelleno(v.correo);
+      document.getElementById('direccion').value = sinRelleno(v.direccion);
+      // Fecha y país que el pre-registro guarda por defecto: se dejan vacíos para completarlos
+      if (v.esPreRegistro && v.fechaNacimiento === '01-01-2000') {
+        document.getElementById('fechaNacimiento').value = '';
+        document.getElementById('pickerNacimiento').value = '';
+      }
+      document.getElementById('notas').value = v.notas || '';
+      seleccionarPerfilFormulario(v.perfil || '');
+
+      document.getElementById('formTitleIcon').textContent = '✏️';
+      document.getElementById('formTitleText').textContent = 'Editar Voluntario';
+      document.getElementById('btnSubmitForm').innerHTML = '<span>✓</span> Actualizar Cambios';
+      document.getElementById('btnCancelEdit').style.display = 'inline-block';
+      actualizarHintHabitacion();
+
+      window.scrollTo({ top: form.offsetTop - 40, behavior: 'smooth' });
+    }
+
+    function hacerCheckInDirecto(id) {
+      cargarEdicion(id);
+      // Al hacer check-in, quitamos el estado de pre-registro para exigir llenar los datos oficiales
+      checkPreRegistro.checked = false;
+      alternarModoPreRegistro();
+      document.getElementById('formTitleText').textContent = 'Completar Check-in de Voluntario';
+      document.getElementById('btnSubmitForm').innerHTML = '<span>✓</span> Confirmar Ingreso / Check-in';
+      const v = voluntarios.find(item => item.id === id);
+      if (v) {
+        mostrarAvisoFormulario(`🛎️ Check-in de <strong>${escaparHTML(v.nombre)} ${escaparHTML(v.primerApellido)}</strong>: completa los datos que faltan (documento, contacto, etc.) y pulsa "Confirmar ingreso".`);
+      }
+    }
+
+    async function hacerCheckOut(id) {
+      const v = voluntarios.find(item => item.id === id);
+      if (!v) return;
+
+      const hoyVisual = obtenerFechaActual();
+      const hoyISO = isoHoy();
+      const llegadaISO = fechaVisualAISO(v.fechaLlegada);
+
+      if (llegadaISO > hoyISO) {
+        alert(`${v.nombre} todavía no ha llegado (llegada: ${v.fechaLlegada}). No se puede hacer check-out antes de la llegada.`);
+        return;
+      }
+
+      // Si no tenía salida o la salida era posterior a hoy, la salida pasa a ser hoy (libera la cama)
+      const salidaISO = v.fechaSalida ? fechaVisualAISO(v.fechaSalida) : null;
+      const nuevaSalidaISO = (!salidaISO || salidaISO > hoyISO) ? hoyISO : salidaISO;
+      const cambiaSalida = nuevaSalidaISO !== salidaISO;
+
+      const mensaje = `¿Registrar el check-out de ${v.nombre} ${v.primerApellido}?\n\n` +
+        (cambiaSalida ? `La fecha de salida quedará como hoy (${hoyVisual}) y su cama se libera.\n` : '') +
+        `El registro NO se elimina: pasará a la pestaña "Historial".`;
+      if (!confirm(mensaje)) return;
+
+      const { error } = await supabaseClient
+        .from(TABLA_VOLUNTARIOS)
+        .update({
+          fecha_salida: nuevaSalidaISO,
+          notas: construirNotas(v.notas, v.esPreRegistro, hoyVisual, v.perfil)
+        })
+        .eq('id', id);
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo registrar el check-out', error);
+        return;
+      }
+
+      await cargarVoluntarios();
+      mostrarEstado(`Check-out registrado: ${v.nombre} ${v.primerApellido} quedó en el historial.`, 'ok');
+    }
+
+    async function revertirCheckOut(id) {
+      const v = voluntarios.find(item => item.id === id);
+      if (!v) return;
+      if (!confirm(`¿Revertir el check-out de ${v.nombre} ${v.primerApellido}? Volverá a la lista de activos.\nRevisa luego su fecha de salida si es necesario.`)) return;
+
+      const { error } = await supabaseClient
+        .from(TABLA_VOLUNTARIOS)
+        .update({ notas: construirNotas(v.notas, v.esPreRegistro, null, v.perfil) })
+        .eq('id', id);
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo revertir el check-out', error);
+        return;
+      }
+
+      await cargarVoluntarios();
+      cambiarVistaTabla('activos');
+      mostrarEstado(`${v.nombre} ${v.primerApellido} volvió a la lista de activos.`, 'ok');
+    }
+
+    // Valores de relleno que se guardan en un pre-registro mientras faltan los datos reales
+    function sinRelleno(valor) {
+      const v = String(valor ?? '').trim();
+      return ['pendiente', 'pendiente@kiwi.com', 'no especificado', 'no especificada'].includes(v.toLowerCase()) ? '' : v;
+    }
+
+    function mostrarAvisoFormulario(html) {
+      const aviso = document.getElementById('formAviso');
+      aviso.innerHTML = html;
+      aviso.style.display = 'block';
+    }
+
+    function ocultarAvisoFormulario() {
+      const aviso = document.getElementById('formAviso');
+      aviso.style.display = 'none';
+      aviso.innerHTML = '';
+    }
+
+    function cancelarEdicion() {
+      limpiarFormularioNuevo();
+    }
+
+    async function eliminarVoluntario(id) {
+      if (!confirm('¿Eliminar este registro de forma PERMANENTE?\n\nSi el voluntario solo se fue, usa "🧳 Check-out" para conservarlo en el historial.')) return;
+
+      const { error } = await supabaseClient
+        .from(TABLA_VOLUNTARIOS)
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        mostrarErrorSupabase('No se pudo eliminar el voluntario', error);
+        return;
+      }
+
+      await cargarVoluntarios();
+      mostrarEstado('Voluntario eliminado correctamente.', 'ok');
+    }
+
+    function filtrarVoluntarios() {
+      renderizarSegunFiltro();
+    }
+
+    document.getElementById('nuevoPerfilNombre').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        crearPerfilDesdeVista();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('candModal').style.display === 'flex') cerrarCandidato();
+      else if (infoModal.style.display === 'flex') cerrarModal();
+    });
+
+    renderizarChipsPerfilFormulario();
+    mostrarVista(location.hash.slice(1) || VISTA_INICIAL);
+
+    cargarVoluntarios().then(cargarCandidatos);
+    setInterval(async () => {
+      await cargarVoluntarios();
+      await cargarCandidatos();
+    }, 30000);
+  </script>
+
+</body>
+</html>
